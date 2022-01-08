@@ -2,28 +2,10 @@
 
 abstract class Personne
 {
-    private $nom;
-    private $reference;
+    public $nom;
+    public $reference;
 
-    public function getNom()
-    {
-        return $this->nom;
-    }
-
-    public function getReference()
-    {
-        return $this->reference;
-    }
-
-    public function setNom(string $nom)
-    {
-        $this->nom = $nom;
-    }
-    public function setReference(string $reference)
-    {
-        $this->reference = $reference;
-    }
-    abstract public function authentifier();
+    abstract public static function authentifier($identifiant);
 }
 
 abstract class Suppression
@@ -49,27 +31,10 @@ abstract class Modification
 
 class Administrateur extends Personne
 {
-    private $id;
-    private $code;
+    public $id;
+    public $code;
     public Suppression $supp;
     public Modification $modif;
-
-    public function getId()
-    {
-        return $this->id;
-    }
-    public function getCode()
-    {
-        return $this->code;
-    }
-    public function setId(int $id)
-    {
-        $this->id = $id;
-    }
-    public function setCode(int $code)
-    {
-        $this->code = $code;
-    }
 
     public function creerProf()
     {
@@ -79,7 +44,7 @@ class Administrateur extends Personne
     {
     }
 
-    public function authentifier()
+    public static function authentifier($identifiant)
     {
         try {
             $bdd = new PDO('mysql:host=localhost;dbname=datamanager', 'root', '');
@@ -102,6 +67,16 @@ class Etudiant extends Utilisateur
 {
     public $matricule;
     public $filiere;
+
+    public function __construct($matricule, $nom, $filiere, $reference = "Etudiant")
+    {
+        $this->matricule = $matricule;
+        $this->nom = $nom;
+        $this->filiere = $filiere;
+        $this->reference = $reference;
+    }
+
+
     public function envoyerRequete()
     {
     }
@@ -110,8 +85,26 @@ class Etudiant extends Utilisateur
     {
     }
 
-    public function authentifier()
+    public static function authentifier($identifiant): array
     {
+        $connect = false;
+        $etudiant=null;
+        $bdd = new PDO('mysql:dbname=datamanager;host=127.0.0.1', 'root', '', [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
+        // try {
+        // } catch (Exception $e) {
+        //     die('Erreur : ' . $e->getMessage());
+        // }
+        $reponse = $bdd->query('SELECT * FROM etudiant');
+        while ($donnes = $reponse->fetch()) {
+            if ($donnes['matricule'] == $identifiant) {
+                $connect = true;
+                $etudiant = new Etudiant($donnes['matricule'], $donnes["nom"], $donnes['filiere']);
+                $reponse->closeCursor();
+                return [$connect, $etudiant];
+            }
+        }
+        $reponse->closeCursor();
+        return [$connect, $etudiant];
     }
 }
 
@@ -136,7 +129,7 @@ class Professeur extends Utilisateur
     {
     }
 
-    public function authentifier()
+    public static function authentifier($identifiant)
     {
     }
 }
