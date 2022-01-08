@@ -28,6 +28,4 @@ if (!empty($_POST['matricule'])) {
     </div>
 </div>
 
-
-
 <?php require "footer.php" ?>
