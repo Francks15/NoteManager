@@ -9,12 +9,8 @@ if (isset($_GET['user'])) {
 
 if (!empty($_POST['matricule'])) {
     [$connect, $etudiant] = Etudiant::authentifier($_POST['matricule']);
-    if (empty($_COOKIE["etudiant"]) && $connect) {
+    if ($connect) {
         setcookie("etudiant", serialize($etudiant));
-    }
-    if (!empty($_COOKIE["etudiant"] && $etudiant)) {
-        setcookie("etudiant", serialize($etudiant));
-        $user = $_COOKIE["etudiant"];
     }
 }
 ?>
