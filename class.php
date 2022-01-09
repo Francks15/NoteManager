@@ -91,7 +91,7 @@ class Etudiant extends Utilisateur
     {
         $connect = false;
         $etudiant=null;
-        $bdd = new PDO('mysql:dbname=datamanager;host=127.0.0.1:3307', 'root', '', [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
+        $bdd = new PDO('mysql:dbname=datamanager;host=127.0.0.1:3307', 'junior', 'frank10', [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
         // try {
         // } catch (Exception $e) {
         //     die('Erreur : ' . $e->getMessage());
