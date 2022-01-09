@@ -4,6 +4,7 @@ abstract class Personne
 {
     public $nom;
     public $reference;
+    public $sexe;
 
     abstract public static function authentifier($identifiant);
 }
@@ -68,12 +69,13 @@ class Etudiant extends Utilisateur
     public $matricule;
     public $filiere;
 
-    public function __construct($matricule, $nom, $filiere, $reference = "Etudiant")
+    public function __construct($matricule, $nom, $sexe, $filiere, $reference = "Etudiant")
     {
         $this->matricule = $matricule;
         $this->nom = $nom;
         $this->filiere = $filiere;
         $this->reference = $reference;
+        $this->sexe= $sexe;
     }
 
 
@@ -89,7 +91,7 @@ class Etudiant extends Utilisateur
     {
         $connect = false;
         $etudiant=null;
-        $bdd = new PDO('mysql:dbname=datamanager;host=127.0.0.1', 'root', '', [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
+        $bdd = new PDO('mysql:dbname=datamanager;host=127.0.0.1:3307', 'root', '', [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
         // try {
         // } catch (Exception $e) {
         //     die('Erreur : ' . $e->getMessage());
@@ -98,7 +100,7 @@ class Etudiant extends Utilisateur
         while ($donnes = $reponse->fetch()) {
             if ($donnes['matricule'] == $identifiant) {
                 $connect = true;
-                $etudiant = new Etudiant($donnes['matricule'], $donnes["nom"], $donnes['filiere']);
+                $etudiant = new Etudiant($donnes['matricule'], $donnes["nom"], $donnes["sexe"], $donnes['filiere']);
                 $reponse->closeCursor();
                 return [$connect, $etudiant];
             }
