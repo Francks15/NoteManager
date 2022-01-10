@@ -11,14 +11,20 @@ if (isset($_GET['user'])) {
 if (!empty($_POST['matricule'])) {
     [$connect, $etudiant] = Etudiant::authentifier($_POST['matricule']);
     if ($connect) {
-        setcookie("etudiant", serialize($etudiant));
+        session_start();
+        $_SESSION['etudiant'] = $etudiant;
+        $_SESSION['connect'] = $connect;
+        // setcookie("etudiant", serialize($etudiant));
     }
 }
 
 if (!empty($_POST['identifiant']) and !empty($_POST['code'])) {
     [$connect, $prof] = Professeur::authentifier($_POST);
     if ($connect) {
-        setcookie("prof", serialize($prof));
+        session_start();
+        $_SESSION['prof'] = $prof;
+        $_SESSION['connect'] = $connect;
+        // setcookie("prof", serialize($prof));
     }
 }
 ?>
@@ -77,9 +83,14 @@ if (!empty($_POST['identifiant']) and !empty($_POST['code'])) {
         </div>
     </div>
 <?php elseif ($connect && $etudiant) : ?>
-    <?php require "zone_etudiant.php" ?>
+    <?php
+    header('Location: zone_etudiant.php');
+    exit;
+     ?>
 <?php elseif ($connect && $prof) : ?>
-    <?php require "zone_prof.php" ?>
+    <?php header('Location: zone_prof.php');
+    exit; 
+    ?>
 <?php endif ?>
 
 <?php require "footer.php" ?>
