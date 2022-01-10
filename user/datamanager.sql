@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `datamanager` /*!40100 DEFAULT CHARACTER SET utf8 */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `datamanager`;
 -- MySQL dump 10.13  Distrib 8.0.27, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: datamanager
@@ -41,33 +39,6 @@ LOCK TABLES `administrateur` WRITE;
 /*!40000 ALTER TABLE `administrateur` DISABLE KEYS */;
 INSERT INTO `administrateur` VALUES (1,'ATAGANG GLORE STEVIN','M','administrateur');
 /*!40000 ALTER TABLE `administrateur` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `enseigne`
---
-
-DROP TABLE IF EXISTS `enseigne`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `enseigne` (
-  `professeur_id` int NOT NULL,
-  `etudiant_matricule` varchar(7) NOT NULL,
-  PRIMARY KEY (`professeur_id`,`etudiant_matricule`),
-  KEY `fk_professeur_has_etudiant_etudiant1_idx` (`etudiant_matricule`),
-  KEY `fk_professeur_has_etudiant_professeur1_idx` (`professeur_id`),
-  CONSTRAINT `fk_professeur_has_etudiant_etudiant1` FOREIGN KEY (`etudiant_matricule`) REFERENCES `etudiant` (`matricule`),
-  CONSTRAINT `fk_professeur_has_etudiant_professeur1` FOREIGN KEY (`professeur_id`) REFERENCES `professeur` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `enseigne`
---
-
-LOCK TABLES `enseigne` WRITE;
-/*!40000 ALTER TABLE `enseigne` DISABLE KEYS */;
-/*!40000 ALTER TABLE `enseigne` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -169,6 +140,7 @@ CREATE TABLE `professeur` (
   `sexe` char(1) NOT NULL,
   `reference` varchar(45) NOT NULL DEFAULT 'professeur',
   `administrateur_id` int NOT NULL,
+  `code` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_professeur_administrateur1_idx` (`administrateur_id`),
   CONSTRAINT `fk_professeur_administrateur1` FOREIGN KEY (`administrateur_id`) REFERENCES `administrateur` (`id`)
@@ -181,7 +153,7 @@ CREATE TABLE `professeur` (
 
 LOCK TABLES `professeur` WRITE;
 /*!40000 ALTER TABLE `professeur` DISABLE KEYS */;
-INSERT INTO `professeur` VALUES (1,'Dr Macro Germain','M','professeur',1),(2,'Prof EndMa Carlos','M','professeur',1),(3,'Dr Mardon Evie','F','professeur',1);
+INSERT INTO `professeur` VALUES (1,'Dr Macro Germain','M','professeur',1,'bonjour'),(2,'Prof EndMa Carlos','M','professeur',1,'bonjour'),(3,'Dr Mardon Evie','F','professeur',1,'bonjour');
 /*!40000 ALTER TABLE `professeur` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -194,4 +166,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-09 20:58:39
+-- Dump completed on 2022-01-10  8:02:26
