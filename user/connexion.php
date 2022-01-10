@@ -2,7 +2,7 @@
 require "class.php";
 $connect = false;
 $etudiant = null;
-$prof=null;
+$prof = null;
 $user = null;
 if (isset($_GET['user'])) {
     $user = $_GET['user'];
@@ -15,7 +15,7 @@ if (!empty($_POST['matricule'])) {
     }
 }
 
-if(!empty($_POST['identifiant']) AND !empty($_POST['code'])){
+if (!empty($_POST['identifiant']) and !empty($_POST['code'])) {
     [$connect, $prof] = Professeur::authentifier($_POST);
     if ($connect) {
         setcookie("prof", serialize($prof));
@@ -76,9 +76,9 @@ if(!empty($_POST['identifiant']) AND !empty($_POST['code'])){
             </div>
         </div>
     </div>
-<?php elseif($connect && $etudiant) : ?>
+<?php elseif ($connect && $etudiant) : ?>
     <?php require "zone_etudiant.php" ?>
-<?php elseif($connect && $prof) :?>
+<?php elseif ($connect && $prof) : ?>
     <?php require "zone_prof.php" ?>
 <?php endif ?>
 
