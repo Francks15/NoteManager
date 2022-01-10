@@ -1,70 +1,43 @@
-<?php
-require "class.php";
-$connect = false;
-$etudiant = null;
-$user = null;
-if (isset($_GET['user'])) {
-    $user = $_GET['user'];
-}
+<?php require 'header.php' ?>
 
-if (!empty($_POST['matricule'])) {
-    [$connect, $etudiant] = Etudiant::authentifier($_POST['matricule']);
-    if ($connect) {
-        setcookie("etudiant", serialize($etudiant));
-    }
-}
-?>
-<?php require "header.php" ?>
-
-<?php if (!$connect) : ?>
-    <div class="container">
-        <div class="d-flex justify-content-center p-5">
-            <div class="d-flex flex-column text-center border rounded border-primary px-5">
-                <?php if (isset($_GET['user'])) : ?>
-                    <h1 class="py-2"><?php echo strtoupper($user) ?></h1>
-                    <h2>FORMULAIRE DE CONNEXION</h2>
-                    <?php if ($_GET['user'] == "etudiant") : ?>
-                        <form action="index.php?user=etudiant" method="post">
-                            <div>
-                                <table class="mx-auto my-5">
-                                    <tr>
-                                        <td>MATRICULE : </td>
-                                        <td><input type="text" name="matricule" id="matricule" size="7"></td>
-                                    </tr>
-                                </table>
-                            </div>
-                            <button class="btn btn-primary mb-4">soumettre</button>
-                            <?php if (isset($_POST["matricule"]) && !$connect) : ?>
-                                <div class="alert alert-danger" role="alert">
-                                    Echec Connexion
-                                </div>
-                            <?php endif ?>
-                        </form>
-                    <?php elseif ($_GET['user'] == "professeur") : ?>
-                        <form action="index.php?user=professeur" method="post">
-                            <div>
-                                <table class="mx-auto my-5">
-                                    <tr class="text-start">
-                                        <td>IDENTIFIANT</td>
-                                        <td><input type="text" name="identifiant" id="identifiant" size="7"></td>
-                                    </tr>
-                                    <tr class="text-start">
-                                        <td>CODE </td>
-                                        <td><input type="text" name="code"></td>
-                                    </tr>
-                                </table>
-                                <button class="btn btn-primary mb-4">soumettre</button>
-                            </div>
-                        </form>
-                    <?php endif ?>
-                <?php else : ?>
-                    <p>Vous vous êtes mal pris</p>
-                <?php endif ?>
+<div class="container">
+    <div class="text-center">
+        <h1>BIENVENUE DANS LE SITE DE GESTION DE NOTE DE L'UNIVERSITE DE YAOUNDE I</h1>
+        <h2 class="fst-italic">Vous êtes</h2>
+        <div class="mygrid">
+            <div class="p-2">
+                <div class=" border rounded-3 border-primary p-2 ">
+                    <h3>Etudiant</h3>
+                    <p>Vous êtes evalué(e) par vos professeurs dans différents UE et vous decider de consulter vos notes</p>
+                    <form action="connexion.php" method="get">
+                        <input type="text" name="user" value="etudiant" class="d-none">
+                        <button class="btn btn-primary">Se connecter</button>
+                    </form>
+                </div>
+            </div>
+            <div class="p-2">
+                <div class=" border rounded-3 border-primary p-2">
+                    <h3>Professeur</h3>
+                    <p>Vous êtes charger de gerer la notes des etudiants suivant les matières que vous enseigner</p>
+                    <form action="connexion.php" method="get">
+                        <input type="text" name="user" value="professeur" class="d-none">
+                        <button class="btn btn-primary">Se connecter</button>
+                    </form>
+                </div>
+            </div>
+            <div class="p-2">
+                <div class=" border rounded-3 border-primary p-2 h-100">
+                    <h3>Adminitrateur</h3>
+                    <p>Vous êtes charger de controler les etudiants et professeurs</p>
+                    <form action="connexion.php" method="get">
+                        <input type="text" name="user" value="professeur" class="d-none">
+                        <button class="btn btn-primary">Se connecter</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-<?php else : ?>
-    <?php require "zone_etudiant.php" ?>
-<?php endif ?>
+</div>
 
-<?php require "footer.php" ?>
+
+<?php require 'footer.php' ?>
