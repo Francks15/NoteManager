@@ -4,8 +4,13 @@ if (!isset($_SESSION)) {
     session_start();
 }
 
+if(empty($_SESSION["prof"])){
+    header('Location: connexion.php?user=professeur');
+}
+
 $prof = $_SESSION['prof'];
 $a = $prof->nom;
+
 ?>
 
 <?php require 'header.php' ?>

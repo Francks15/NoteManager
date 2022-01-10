@@ -11,7 +11,7 @@
                     <p>Vous êtes evalué(e) par vos professeurs dans différents UE et vous decider de consulter vos notes</p>
                     <form action="connexion.php" method="get">
                         <input type="text" name="user" value="etudiant" class="d-none">
-                        <button class="btn btn-primary">Se connecter</button>
+                        <button class="btn btn-primary">Poursuivre...</button>
                     </form>
                 </div>
             </div>
@@ -21,7 +21,7 @@
                     <p>Vous êtes charger de gerer la notes des etudiants suivant les matières que vous enseigner</p>
                     <form action="connexion.php" method="get">
                         <input type="text" name="user" value="professeur" class="d-none">
-                        <button class="btn btn-primary">Se connecter</button>
+                        <button class="btn btn-primary">Poursuivre...</button>
                     </form>
                 </div>
             </div>
@@ -31,7 +31,7 @@
                     <p>Vous êtes charger de controler les etudiants et professeurs</p>
                     <form action="connexion.php" method="get">
                         <input type="text" name="user" value="professeur" class="d-none">
-                        <button class="btn btn-primary">Se connecter</button>
+                        <button class="btn btn-primary">Poursuivre...</button>
                     </form>
                 </div>
             </div>

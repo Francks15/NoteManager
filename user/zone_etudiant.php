@@ -12,9 +12,15 @@ if(!isset($_SESSION)){
 //     $_SESSION["etudiant"] = serialize($etudiant);
 // };
 
+if(empty($_SESSION["etudiant"])){
+    header('Location: connexion.php?user=etudiant');
+}
+
 $etudiant = $_SESSION['etudiant'];
 $a = $etudiant->nom;
 $b = $etudiant->matricule;
+
+
 ?>
 
 <?php require 'header.php' ?>

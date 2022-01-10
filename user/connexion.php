@@ -1,4 +1,5 @@
 <?php
+session_start();
 require "class.php";
 $connect = false;
 $etudiant = null;
@@ -11,73 +12,82 @@ if (isset($_GET['user'])) {
 if (!empty($_POST['matricule'])) {
     [$connect, $etudiant] = Etudiant::authentifier($_POST['matricule']);
     if ($connect) {
-        session_start();
         $_SESSION['etudiant'] = $etudiant;
         $_SESSION['connect'] = $connect;
-        // setcookie("etudiant", serialize($etudiant));
     }
 }
 
 if (!empty($_POST['identifiant']) and !empty($_POST['code'])) {
     [$connect, $prof] = Professeur::authentifier($_POST);
     if ($connect) {
-        session_start();
         $_SESSION['prof'] = $prof;
         $_SESSION['connect'] = $connect;
-        // setcookie("prof", serialize($prof));
     }
+}
+
+if (!empty($_SESSION["etudiant"]) && $user == "etudiant") {
+    header('Location: zone_etudiant.php');
+}
+if (!empty($_SESSION["prof"]) && $user == "professeur") {
+    header('Location: zone_prof.php');
 }
 ?>
 <?php require "header.php" ?>
 
 <?php if (!$connect) : ?>
     <div class="container">
-        <div class="d-flex justify-content-center p-5">
-            <div class="d-flex flex-column text-center border rounded border-primary px-5">
-                <?php if (isset($_GET['user'])) : ?>
-                    <h1 class="py-2"><?php echo strtoupper($user) ?></h1>
-                    <h2>FORMULAIRE DE CONNEXION</h2>
-                    <?php if ($_GET['user'] == "etudiant") : ?>
-                        <form action="connexion.php?user=etudiant" method="post">
-                            <div>
-                                <table class=" table mx-auto my-5">
-                                    <tr>
-                                        <td>MATRICULE : </td>
-                                        <td><input class=" form-control" type="text" name="matricule" id="matricule" size="7"></td>
-                                    </tr>
-                                </table>
-                            </div>
-                            <button class="btn btn-primary mb-4">soumettre</button>
-                            <?php if (isset($_POST["matricule"]) && !$connect) : ?>
-                                <div class="alert alert-danger" role="alert">
-                                    Echec Connexion
+        <div class=" d-flex justify-content-center p-sm-5 p-3">
+            <div>
+                <div class="mb-3 text-center border rounded border-primary px-sm-5 p-3">
+                    <?php if (isset($_GET['user'])) : ?>
+                        <h1 class="py-2"><?php echo strtoupper($user) ?></h1>
+                        <h2>FORMULAIRE DE CONNEXION</h2>
+                        <?php if ($_GET['user'] == "etudiant") : ?>
+                            <form action="connexion.php?user=etudiant" method="post">
+                                <div>
+                                    <table class=" table mx-auto my-5">
+                                        <tr class=" align-baseline">
+                                            <td>MATRICULE : </td>
+                                            <td><input class=" form-control" type="text" name="matricule" id="matricule" size="7"></td>
+                                        </tr>
+                                    </table>
                                 </div>
-                            <?php endif ?>
-                        </form>
-                    <?php elseif ($_GET['user'] == "professeur") : ?>
-                        <form action="connexion.php?user=professeur" method="post">
-                            <div>
-                                <table class=" table mx-auto my-5">
-                                    <tr class="text-start">
-                                        <td>IDENTIFIANT</td>
-                                        <td><input class=" form-control" type="text" name="identifiant" id="identifiant" size="7"></td>
-                                    </tr>
-                                    <tr class="text-start">
-                                        <td>CODE </td>
-                                        <td><input class=" form-control" type="password" name="code"></td>
-                                    </tr>
-                                </table>
-                                <button class="btn btn-primary mb-4">soumettre</button>
-                            </div>
-                            <?php if (isset($_POST["identifiant"]) && !$connect) : ?>
-                                <div class="alert alert-danger" role="alert">
-                                    Echec Connexion
+                                <button class="btn btn-primary mb-4">Se Connecter</button>
+                            </form>
+                        <?php elseif ($_GET['user'] == "professeur") : ?>
+                            <form action="connexion.php?user=professeur" method="post">
+                                <div>
+                                    <table class=" table mx-auto my-5">
+                                        <tr class="text-start align-baseline">
+                                            <td>IDENTIFIANT</td>
+                                            <td><input class=" form-control" type="text" name="identifiant" id="identifiant" size="7"></td>
+                                        </tr>
+                                        <tr class="text-start align-baseline">
+                                            <td>CODE </td>
+                                            <td><input class=" form-control" type="password" name="code"></td>
+                                        </tr>
+                                    </table>
+                                    <button class="btn btn-primary mb-4">Se Connecter</button>
                                 </div>
-                            <?php endif ?>
-                        </form>
+                            </form>
+                        <?php endif ?>
+                    <?php else : ?>
+                        <p>Vous vous êtes mal pris</p>
                     <?php endif ?>
-                <?php else : ?>
-                    <p>Vous vous êtes mal pris</p>
+                </div>
+
+                <?php if ($user == "etudiant") : ?>
+                    <?php if (isset($_POST["matricule"]) && !$connect) : ?>
+                        <div class="alert alert-danger text-center" role="alert">
+                            Echec Connexion
+                        </div>
+                    <?php endif ?>
+                <?php elseif ($user == "professeur") : ?>
+                    <?php if (isset($_POST["identifiant"]) && !$connect) : ?>
+                        <div class="alert alert-danger text-center" role="alert">
+                            Echec Connexion
+                        </div>
+                    <?php endif ?>
                 <?php endif ?>
             </div>
         </div>
@@ -86,10 +96,10 @@ if (!empty($_POST['identifiant']) and !empty($_POST['code'])) {
     <?php
     header('Location: zone_etudiant.php');
     exit;
-     ?>
+    ?>
 <?php elseif ($connect && $prof) : ?>
     <?php header('Location: zone_prof.php');
-    exit; 
+    exit;
     ?>
 <?php endif ?>
 
