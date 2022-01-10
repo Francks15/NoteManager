@@ -32,7 +32,7 @@ $b = $etudiant->matricule;
             <h2 class=" fst-italic fw-normal"><?php echo strtoupper($a) ?></h2>
             <h2 class=" fst-italic fw-normal">MATRICULE: <?php echo $b ?></h2>
         </div>
-        <div>
+        <div class="border border-primary rounded" >
             <table class=" table text-center">
                 <thead>
                     <tr>
@@ -54,7 +54,7 @@ $b = $etudiant->matricule;
                     $i = 1;
                     while ($donnes = $reponse->fetch()) :
                     ?>
-                        <tr>
+                        <tr class=" align-baseline" >
                             <th><?php echo $i ?></th>
                             <?php foreach ($donnes as $k => $val) : ?>
                                 <?php if (is_int($k)) : ?>
@@ -62,7 +62,7 @@ $b = $etudiant->matricule;
                             <?php endif;
                             endforeach;
                             $i++; ?>
-                            <td><a href="mailto:tabuguiafrank@gmail.com">Envoyer requette</a></td>
+                            <td><a href="mailto:tabuguiafrank@gmail.com"><button class="btn btn-warning" >Envoyer requette</button></a></td>
                         </tr>
                     <?php endwhile;
                     $reponse->closeCursor();
