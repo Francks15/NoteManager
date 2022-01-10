@@ -12,5 +12,7 @@ $a = $prof->nom;
 ?>
 
 <div class="container">
-    <h1>Vous êtes connecté(e) en tant que <?php echo $a ?></h1>
+    <div class=" text-center">
+        <h1>Vous êtes connecté(e) en tant que <?php echo $a ?></h1>
+    </div>
 </div>
