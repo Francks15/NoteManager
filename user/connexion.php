@@ -2,6 +2,7 @@
 require "class.php";
 $connect = false;
 $etudiant = null;
+$prof=null;
 $user = null;
 if (isset($_GET['user'])) {
     $user = $_GET['user'];
@@ -11,6 +12,13 @@ if (!empty($_POST['matricule'])) {
     [$connect, $etudiant] = Etudiant::authentifier($_POST['matricule']);
     if ($connect) {
         setcookie("etudiant", serialize($etudiant));
+    }
+}
+
+if(!empty($_POST['identifiant']) AND !empty($_POST['code'])){
+    [$connect, $prof] = Professeur::authentifier($_POST);
+    if ($connect) {
+        setcookie("prof", serialize($prof));
     }
 }
 ?>
@@ -26,7 +34,7 @@ if (!empty($_POST['matricule'])) {
                     <?php if ($_GET['user'] == "etudiant") : ?>
                         <form action="connexion.php?user=etudiant" method="post">
                             <div>
-                                <table class="mx-auto my-5">
+                                <table class=" table mx-auto my-5">
                                     <tr>
                                         <td>MATRICULE : </td>
                                         <td><input type="text" name="matricule" id="matricule" size="7"></td>
@@ -43,18 +51,23 @@ if (!empty($_POST['matricule'])) {
                     <?php elseif ($_GET['user'] == "professeur") : ?>
                         <form action="connexion.php?user=professeur" method="post">
                             <div>
-                                <table class="mx-auto my-5">
+                                <table class=" table mx-auto my-5">
                                     <tr class="text-start">
                                         <td>IDENTIFIANT</td>
                                         <td><input type="text" name="identifiant" id="identifiant" size="7"></td>
                                     </tr>
                                     <tr class="text-start">
                                         <td>CODE </td>
-                                        <td><input type="text" name="code"></td>
+                                        <td><input type="password" name="code"></td>
                                     </tr>
                                 </table>
                                 <button class="btn btn-primary mb-4">soumettre</button>
                             </div>
+                            <?php if (isset($_POST["identifiant"]) && !$connect) : ?>
+                                <div class="alert alert-danger" role="alert">
+                                    Echec Connexion
+                                </div>
+                            <?php endif ?>
                         </form>
                     <?php endif ?>
                 <?php else : ?>
@@ -63,8 +76,10 @@ if (!empty($_POST['matricule'])) {
             </div>
         </div>
     </div>
-<?php else : ?>
+<?php elseif($connect && $etudiant) : ?>
     <?php require "zone_etudiant.php" ?>
+<?php elseif($connect && $prof) :?>
+    <?php require "zone_prof.php" ?>
 <?php endif ?>
 
 <?php require "footer.php" ?>

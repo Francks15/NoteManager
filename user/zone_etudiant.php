@@ -13,7 +13,7 @@ $b = $etudiant->matricule;
 
 <div class="container">
     <div class="text-center">
-        <h1 class="fst-italic">SALUT</h1>
+        <h1 class="fst-italic">Vous êtes connecté(e) comme étudiant(e)</h1>
         <h2 class=" fst-italic fw-normal"><?php echo strtoupper($a) ?></h2>
         <h2 class=" fst-italic fw-normal">MATRICULE: <?php echo $b ?></h2>
     </div>
@@ -25,6 +25,7 @@ $b = $etudiant->matricule;
                     <th class="col">Professeur</th>
                     <th class="col">Module</th>
                     <th class="col">Note</th>
+                    <th class="col">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -42,10 +43,11 @@ $b = $etudiant->matricule;
                         <th><?php echo $i ?></th>
                         <?php foreach ($donnes as $k => $val) : ?>
                             <?php if (is_int($k)) : ?>
-                                <td><?php echo $val ?></td>
+                                <td><?php echo $val ? $val : " /" ?></td>
                         <?php endif;
                         endforeach;
                         $i++; ?>
+                        <td><a href="mailto:tabuguiafrank@gmail.com">Envoyer requette</a></td>
                     </tr>
                 <?php endwhile;
                 $reponse->closeCursor();

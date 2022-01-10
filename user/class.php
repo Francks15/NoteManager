@@ -60,7 +60,6 @@ class Administrateur extends Personne
 
 abstract class Utilisateur extends Personne
 {
-    public Administrateur $admin;
     abstract public function lireNote();
 }
 
@@ -75,7 +74,7 @@ class Etudiant extends Utilisateur
         $this->nom = $nom;
         $this->filiere = $filiere;
         $this->reference = $reference;
-        $this->sexe= $sexe;
+        $this->sexe = $sexe;
     }
 
 
@@ -90,7 +89,7 @@ class Etudiant extends Utilisateur
     public static function authentifier($identifiant): array
     {
         $connect = false;
-        $etudiant=null;
+        $etudiant = null;
         $bdd = new PDO('mysql:dbname=datamanager;host=127.0.0.1:3307', 'junior', 'frank10', [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
         // try {
         // } catch (Exception $e) {
@@ -114,7 +113,14 @@ class Professeur extends Utilisateur
 {
     public $id;
     public $code;
-
+    public function __construct($id, $nom, $sexe, $code, $reference = "professeur")
+    {
+        $this->id = $id;
+        $this->sexe = $sexe;
+        $this->nom = $nom;
+        $this->code = sha1($code);
+        $this->reference = $reference;
+    }
     public function modifierNote()
     {
     }
@@ -133,6 +139,24 @@ class Professeur extends Utilisateur
 
     public static function authentifier($identifiant)
     {
+        $connect = false;
+        $prof = null;
+        $bdd = new PDO('mysql:dbname=datamanager;host=127.0.0.1:3307', 'junior', 'frank10', [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
+        // try {
+        // } catch (Exception $e) {
+        //     die('Erreur : ' . $e->getMessage());
+        // }
+        $reponse = $bdd->query('SELECT * FROM professeur');
+        while ($donnes = $reponse->fetch()) {
+            if ($donnes['id'] == $identifiant['identifiant'] AND $donnes['code'] == $identifiant["code"]) {
+                $connect = true;
+                $prof = new Professeur($donnes['id'], $donnes["nom"], $donnes["sexe"], $donnes['code']);
+                $reponse->closeCursor();
+                return [$connect, $prof];
+            }
+        }
+        $reponse->closeCursor();
+        return [$connect, $prof];
     }
 }
 
@@ -149,5 +173,3 @@ class Evaluer
     public Etudiant $etudiant;
     public Module $module;
 }
-
-?>
