@@ -66,13 +66,11 @@ abstract class Utilisateur extends Personne
 class Etudiant extends Utilisateur
 {
     public $matricule;
-    public $filiere;
 
-    public function __construct($matricule, $nom, $sexe, $filiere, $reference = "Etudiant")
+    public function __construct($matricule, $nom, $sexe, $reference = "Etudiant")
     {
         $this->matricule = $matricule;
         $this->nom = $nom;
-        $this->filiere = $filiere;
         $this->reference = $reference;
         $this->sexe = $sexe;
     }
@@ -99,7 +97,7 @@ class Etudiant extends Utilisateur
         while ($donnes = $reponse->fetch()) {
             if ($donnes['matricule'] == $identifiant) {
                 $connect = true;
-                $etudiant = new Etudiant($donnes['matricule'], $donnes["nom"], $donnes["sexe"], $donnes['filiere']);
+                $etudiant = new Etudiant($donnes['matricule'], $donnes["nom"], $donnes["sexe"]);
                 $reponse->closeCursor();
                 return [$connect, $etudiant];
             }
@@ -113,6 +111,7 @@ class Professeur extends Utilisateur
 {
     public $id;
     public $code;
+    public $module;
     public function __construct($id, $nom, $sexe, $code, $reference = "professeur")
     {
         $this->id = $id;
@@ -137,10 +136,11 @@ class Professeur extends Utilisateur
     {
     }
 
-    public static function authentifier($identifiant)
+    public static function authentifier($identifiant): array
     {
         $connect = false;
         $prof = null;
+        $module_prof = [];
         $bdd = new PDO('mysql:dbname=datamanager;host=127.0.0.1:3307', 'junior', 'frank10', [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
         // try {
         // } catch (Exception $e) {
@@ -148,14 +148,22 @@ class Professeur extends Utilisateur
         // }
         $reponse = $bdd->query('SELECT * FROM professeur');
         while ($donnes = $reponse->fetch()) {
-            if ($donnes['id'] == $identifiant['identifiant'] AND $donnes['code'] == $identifiant["code"]) {
+            if ($donnes['id'] == $identifiant['identifiant'] and $donnes['code'] == $identifiant["code"]) {
                 $connect = true;
                 $prof = new Professeur($donnes['id'], $donnes["nom"], $donnes["sexe"], $donnes['code']);
                 $reponse->closeCursor();
-                return [$connect, $prof];
+                break;
             }
         }
         $reponse->closeCursor();
+        if ($connect and isset($prof)) {
+            $reponse = $bdd->query('SELECT * FROM module WHERE professeur_id=' . $prof->id);
+            while ($donnes = $reponse->fetch()) {
+                $module_prof[] = new Module($donnes['code'], $donnes['nom'], $donnes["filiere"], $donnes['niveau'], $prof);
+                $prof->module = $module_prof;
+            }
+            $reponse->closeCursor();
+        }
         return [$connect, $prof];
     }
 }
@@ -164,7 +172,17 @@ class Module
 {
     public $code;
     public $nom;
+    public $filiere;
+    public $niveau;
     public Professeur $prof;
+    public function __construct($code, $nom, $filiere, $niveau, $prof)
+    {
+        $this->code = $code;
+        $this->nom = $nom;
+        $this->filiere = $filiere;
+        $this->niveau = $niveau;
+        $this->prof = $prof;
+    }
 }
 
 class Evaluer

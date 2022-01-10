@@ -37,7 +37,7 @@ if (!empty($_POST['identifiant']) and !empty($_POST['code'])) {
                                 <table class=" table mx-auto my-5">
                                     <tr>
                                         <td>MATRICULE : </td>
-                                        <td><input type="text" name="matricule" id="matricule" size="7"></td>
+                                        <td><input class=" form-control" type="text" name="matricule" id="matricule" size="7"></td>
                                     </tr>
                                 </table>
                             </div>
@@ -54,11 +54,11 @@ if (!empty($_POST['identifiant']) and !empty($_POST['code'])) {
                                 <table class=" table mx-auto my-5">
                                     <tr class="text-start">
                                         <td>IDENTIFIANT</td>
-                                        <td><input type="text" name="identifiant" id="identifiant" size="7"></td>
+                                        <td><input class=" form-control" type="text" name="identifiant" id="identifiant" size="7"></td>
                                     </tr>
                                     <tr class="text-start">
                                         <td>CODE </td>
-                                        <td><input type="password" name="code"></td>
+                                        <td><input class=" form-control" type="password" name="code"></td>
                                     </tr>
                                 </table>
                                 <button class="btn btn-primary mb-4">soumettre</button>
