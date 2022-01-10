@@ -4,7 +4,11 @@ if (!isset($_SESSION)) {
     session_start();
 }
 
-if(empty($_SESSION["prof"])){
+if (isset($_POST['deconnecter'])) {
+    unset($_SESSION['prof']);
+}
+
+if (empty($_SESSION["prof"])) {
     header('Location: connexion.php?user=professeur');
 }
 
@@ -76,7 +80,7 @@ $a = $prof->nom;
                             $i = 1;
                             foreach ($modules as $module) :
                             ?>
-                            <?php $code_mod = $module->code ?>
+                                <?php $code_mod = $module->code ?>
                                 <tr class=" align-baseline">
                                     <th><?php echo $i ?></th>
                                     <td><?php echo $code_mod ?></td>
@@ -103,4 +107,15 @@ $a = $prof->nom;
         <p>Affichage pour modification de note</p>
     </div>
 <?php endif ?>
+
+<div class="container">
+    <div class="mt-3">
+        <form action="zone_prof.php" method="post">
+            <div class=" d-flex justify-content-around">
+                <a href="index.php" class=" btn btn-primary">Accueil</a>
+                <button type="submit" name="deconnecter" class="btn btn-primary">Deconnexion</button>
+            </div>
+        </form>
+    </div>
+</div>
 <?php require 'footer.php' ?>

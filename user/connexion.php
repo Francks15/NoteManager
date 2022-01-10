@@ -52,7 +52,10 @@ if (!empty($_SESSION["prof"]) && $user == "professeur") {
                                         </tr>
                                     </table>
                                 </div>
-                                <button class="btn btn-primary mb-4">Se Connecter</button>
+                                <div class=" d-flex justify-content-between align-items-start">
+                                    <a href="index.php" class=" btn btn-primary">Accueil</a>
+                                    <button class="btn btn-primary mb-4">Se Connecter</button>
+                                </div>
                             </form>
                         <?php elseif ($_GET['user'] == "professeur") : ?>
                             <form action="connexion.php?user=professeur" method="post">
@@ -67,7 +70,10 @@ if (!empty($_SESSION["prof"]) && $user == "professeur") {
                                             <td><input class=" form-control" type="password" name="code"></td>
                                         </tr>
                                     </table>
-                                    <button class="btn btn-primary mb-4">Se Connecter</button>
+                                    <div class=" d-flex justify-content-between align-items-start">
+                                        <a href="index.php" class=" btn btn-primary">Accueil</a>
+                                        <button class="btn btn-primary mb-4">Se Connecter</button>
+                                    </div>
                                 </div>
                             </form>
                         <?php endif ?>
