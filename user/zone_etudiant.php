@@ -29,7 +29,7 @@ $b = $etudiant->matricule;
 <?php require 'header.php' ?>
 
 <?php if (!empty($_SESSION['etudiant'])) : ?>
-    <div class="container">
+    <div class="container mb-4">
         <div class="m-3">
             <form action="zone_etudiant.php" method="post">
                 <div class=" d-flex justify-content-around">
@@ -41,7 +41,7 @@ $b = $etudiant->matricule;
         <div class="text-center">
             <h1 class="fst-italic">Vous êtes connecté(e) comme étudiant(e)</h1>
             <h2 class=" fst-italic fw-normal"><?php echo strtoupper($a) ?></h2>
-            <h2 class=" fst-italic fw-normal">MATRICULE: <?php echo $b ?></h2>
+            <h2 class=" fst-italic fw-normal fw-bold text-decoration-underline ">MATRICULE: <?php echo $b ?></h2>
         </div>
         <div class="border border-primary rounded">
             <table class=" table text-center">

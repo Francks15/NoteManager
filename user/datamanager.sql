@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `datamanager` /*!40100 DEFAULT CHARACTER SET utf8 */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `datamanager`;
 -- MySQL dump 10.13  Distrib 8.0.27, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: datamanager
@@ -52,7 +54,6 @@ CREATE TABLE `etudiant` (
   `matricule` varchar(7) NOT NULL,
   `nom` varchar(45) NOT NULL,
   `sexe` char(1) NOT NULL,
-  `filiere` varchar(20) NOT NULL,
   `reference` varchar(45) NOT NULL DEFAULT 'etudiant',
   `administrateur_id` int NOT NULL,
   PRIMARY KEY (`matricule`),
@@ -67,7 +68,7 @@ CREATE TABLE `etudiant` (
 
 LOCK TABLES `etudiant` WRITE;
 /*!40000 ALTER TABLE `etudiant` DISABLE KEYS */;
-INSERT INTO `etudiant` VALUES ('20H2345','angi yenda willie','F','MATHEMATIQUE','etudiant',1),('21Y3467','kamar dongo lagui','M','INFORMATIQUE','etudiant',1);
+INSERT INTO `etudiant` VALUES ('16Y2343','engiina vane core','F','etudiant',1),('17T8739','MBANGA STEVE AUDREY','M','etudiant',1),('18U2456','Toussi vane deode','M','etudiant',1),('19Y5611','1doena melda m','F','etudiant',1),('20H2345','angi yenda willie','F','etudiant',1),('21Y3467','kamar dongo lagui','M','etudiant',1);
 /*!40000 ALTER TABLE `etudiant` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -82,11 +83,12 @@ CREATE TABLE `evaluer` (
   `etudiant_matricule` varchar(7) NOT NULL,
   `module_code` varchar(7) NOT NULL,
   `note` float DEFAULT NULL,
-  PRIMARY KEY (`etudiant_matricule`,`module_code`),
-  KEY `fk_etudiant_has_module_module1_idx` (`module_code`),
+  `module_filiere` varchar(20) NOT NULL,
+  PRIMARY KEY (`etudiant_matricule`,`module_code`,`module_filiere`),
   KEY `fk_etudiant_has_module_etudiant1_idx` (`etudiant_matricule`),
-  CONSTRAINT `fk_etudiant_has_module_etudiant1` FOREIGN KEY (`etudiant_matricule`) REFERENCES `etudiant` (`matricule`),
-  CONSTRAINT `fk_etudiant_has_module_module1` FOREIGN KEY (`module_code`) REFERENCES `module` (`code`)
+  KEY `fk_etudiant_has_module_module1_idx` (`module_code`,`module_filiere`),
+  CONSTRAINT `fk_etudiant_has_module` FOREIGN KEY (`module_code`, `module_filiere`) REFERENCES `module` (`code`, `filiere`),
+  CONSTRAINT `fk_etudiant_has_module_etudiant1` FOREIGN KEY (`etudiant_matricule`) REFERENCES `etudiant` (`matricule`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -96,7 +98,7 @@ CREATE TABLE `evaluer` (
 
 LOCK TABLES `evaluer` WRITE;
 /*!40000 ALTER TABLE `evaluer` DISABLE KEYS */;
-INSERT INTO `evaluer` VALUES ('20H2345','MAT1031',NULL),('20H2345','PHY1021',NULL),('21Y3467','INF2013',NULL),('21Y3467','MAT2023',NULL);
+INSERT INTO `evaluer` VALUES ('16Y2343','INF2013',67,'INFORMATIQUE'),('16Y2343','MAT2023',78.45,'INFORMATIQUE'),('17T8739','MAT1031',NULL,'MATHEMATIQUE'),('17T8739','PHY1021',NULL,'MATHEMATIQUE'),('19Y5611','MAT1031',NULL,'MATHEMATIQUE'),('19Y5611','PHY1021',10.55,'MATHEMATIQUE'),('20H2345','MAT1031',17,'MATHEMATIQUE'),('20H2345','PHY1021',56,'MATHEMATIQUE'),('21Y3467','INF2013',67,'INFORMATIQUE'),('21Y3467','MAT2023',6,'INFORMATIQUE');
 /*!40000 ALTER TABLE `evaluer` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -109,9 +111,11 @@ DROP TABLE IF EXISTS `module`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `module` (
   `code` varchar(7) NOT NULL,
+  `filiere` varchar(20) NOT NULL,
   `nom` varchar(45) DEFAULT NULL,
   `professeur_id` int NOT NULL,
-  PRIMARY KEY (`code`),
+  `niveau` varchar(2) NOT NULL,
+  PRIMARY KEY (`code`,`filiere`),
   KEY `fk_module_professeur1_idx` (`professeur_id`),
   CONSTRAINT `fk_module_professeur1` FOREIGN KEY (`professeur_id`) REFERENCES `professeur` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -123,7 +127,7 @@ CREATE TABLE `module` (
 
 LOCK TABLES `module` WRITE;
 /*!40000 ALTER TABLE `module` DISABLE KEYS */;
-INSERT INTO `module` VALUES ('INF2013','base de données',1),('MAT1031','fonction',2),('MAT2023','nombre reel',2),('PHY1021','les forces',3);
+INSERT INTO `module` VALUES ('INF2013','INFORMATIQUE','base de données',1,'L2'),('MAT1031','MATHEMATIQUE','fonction',2,'L1'),('MAT2023','INFORMATIQUE','nombre reel',2,'L2'),('PHY1021','MATHEMATIQUE','les forces',3,'L1');
 /*!40000 ALTER TABLE `module` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -153,7 +157,7 @@ CREATE TABLE `professeur` (
 
 LOCK TABLES `professeur` WRITE;
 /*!40000 ALTER TABLE `professeur` DISABLE KEYS */;
-INSERT INTO `professeur` VALUES (1,'Dr Macro Germain','M','professeur',1,'bonjour'),(2,'Prof EndMa Carlos','M','professeur',1,'bonjour'),(3,'Dr Mardon Evie','F','professeur',1,'bonjour');
+INSERT INTO `professeur` VALUES (1,'Dr Macro Germain','M','professeur',1,'bonjour'),(2,'Prof Endma Carlos','M','professeur',1,'bonjour'),(3,'Dr Mardon Evie','F','professeur',1,'bonjour');
 /*!40000 ALTER TABLE `professeur` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -166,4 +170,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-10  8:02:26
+-- Dump completed on 2022-01-11 17:22:58

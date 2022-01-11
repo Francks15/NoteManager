@@ -19,7 +19,7 @@ $a = $prof->nom;
 
 <?php require 'header.php' ?>
 
-<div class="container">
+<div class="container mb-4 ">
     <div class="m-3">
         <form action="zone_prof.php" method="post">
             <div class=" d-flex justify-content-around">
@@ -31,9 +31,10 @@ $a = $prof->nom;
 </div>
 
 <?php if (!empty($_SESSION['prof']) && empty($_GET['filiere'])) : ?>
-    <div class="container">
+    <div class="container mb-4 ">
         <div class=" text-center">
-            <h1>Vous êtes connecté(e) en tant que <?php echo $a ?></h1>
+            <h1 class=" fst-italic">Vous êtes connecté(e) comme enseignant(e)</h1>
+            <h2 class=" fw-normal" ><?php echo $a ?></h2>
             <div class=" d-flex justify-content-center">
                 <div class=" border border-primary rounded p-3">
                     <h2 class=" fst-italic">Filière(s) d'enseignement</h2>
@@ -70,9 +71,11 @@ $a = $prof->nom;
     }
     if ($trouve) :
     ?>
-        <div class="container">
+        <div class="container mb-4 ">
             <div class=" text-center">
-                <h1>Vous êtes connecté(e) en tant que <?php echo $a ?></h1>
+                <h1 class=" fst-italic">Vous êtes connecté(e) comme enseignant(e)</h1>
+                <h2 class=" fw-normal" ><?php echo $a ?></h2>
+                <a href="zone_prof.php" class="btn btn-danger text-light mb-3 " >&larr;Retour</a>
                 <div class=" border rounded border-primary">
                     <h2 class=" fst-italic">Filiere: <?php echo $filiere ?></h2>
                     <h2 class=" text-decoration-underline ">Unité d'enseignement</h2>
@@ -128,9 +131,11 @@ $a = $prof->nom;
     }
     if ($trouve) :
     ?>
-        <div class="container">
+        <div class="container mb-4 ">
             <div class=" text-center">
-                <h1>Vous êtes connecté(e) en tant que <?php echo $a ?></h1>
+                <h1 class=" fst-italic">Vous êtes connecté(e) comme enseignant(e)</h1>
+                <h2 class=" fw-normal" ><?php echo $a ?></h2>
+                <a href=<?php echo "zone_prof.php?filiere=".$filiere ?> class="btn btn-danger text-light mb-3 " >&larr;Retour</a>
                 <div class=" border rounded border-primary">
                     <h2 class=" fst-italic">Filiere: <?php echo $filiere ?></h2>
                     <h2 class=" text-decoration-underline">Module : <?php echo $code_mod ?></h2>
