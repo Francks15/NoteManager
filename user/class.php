@@ -149,7 +149,7 @@ class Professeur extends Utilisateur
         $reponse = $bdd->query('SELECT etudiant.*, note FROM evaluer
         INNER JOIN etudiant ON etudiant.matricule=etudiant_matricule
         INNER JOIN module ON module_code=module.code
-        WHERE module.code="' . $code . '" AND filiere="' . $filiere . '"');
+        WHERE module.code="' . $code . '" AND filiere="' . $filiere . '" ORDER BY etudiant.nom');
         $i = 0;
         while ($donnes = $reponse->fetch()) {
             $etudiant[] = new Etudiant($donnes['matricule'], $donnes['nom'], $donnes['sexe'], $donnes['reference']);
@@ -181,7 +181,7 @@ class Professeur extends Utilisateur
         }
         $reponse->closeCursor();
         if ($connect and isset($prof)) {
-            $reponse = $bdd->query('SELECT * FROM module WHERE professeur_id=' . $prof->id);
+            $reponse = $bdd->query('SELECT * FROM module WHERE professeur_id=' . $prof->id.' ORDER BY module.filiere');
             while ($donnes = $reponse->fetch()) {
                 $module_prof[] = new Module($donnes['code'], $donnes['nom'], $donnes["filiere"], $donnes['niveau'], $prof);
                 $prof->module = $module_prof;
