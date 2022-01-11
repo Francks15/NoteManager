@@ -191,7 +191,7 @@ $a = $prof->nom;
                                     ?>
                                         <tr class=" align-baseline">
                                             <th><?php echo $i ?></th>
-                                            <td><?php echo $matiere->etudiant->matricule ?></td>
+                                            <th ><?php echo $matiere->etudiant->matricule ?></th>
                                             <td><?php echo strtoupper($matiere->etudiant->nom) ?></td>
                                             <td class=<?php echo "mod$i" ?>><?php
                                                                             if (!isset($matiere->note)) {
@@ -212,8 +212,9 @@ $a = $prof->nom;
                                     <?php endforeach ?>
                                 </tbody>
                             </table>
-                            <div class="pb-2">
+                            <div class="pb-2 d-flex justify-content-around">
                                 <button type="submit" class="soumettre btn btn-success">Enregistrer</button>
+                                <a href=<?php echo "zone_prof.php?filiere=$filiere&module=$code_mod" ?> class="btn btn-danger" >Reset</a>
                             </div>
                         </form>
                     </div>

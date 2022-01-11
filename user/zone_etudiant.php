@@ -69,7 +69,16 @@ $b = $etudiant->matricule;
                             <th><?php echo $i ?></th>
                             <?php foreach ($donnes as $k => $val) : ?>
                                 <?php if (is_int($k)) : ?>
-                                    <td><?php echo $val ? $val : " /" ?></td>
+                                    <td>
+                                        <?php
+                                        if($val==-1){
+                                            echo "EL";
+                                        }
+                                        else{
+                                            echo $val ? $val : "/" ;
+                                        }
+                                        ?>
+                                    </td>
                             <?php endif;
                             endforeach;
                             $i++; ?>
