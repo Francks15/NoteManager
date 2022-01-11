@@ -161,7 +161,22 @@ $a = $prof->nom;
                                             $matri = $matiere->etudiant->matricule;
                                             $notation = $matiere->note;
                                             foreach ($_POST as $key => $val) {
-                                                if ($val >= 0) {
+                                                if($val=="el" || $val=="EL" || $val=="elim" || $val=="ELIM"){
+                                                    $val=-1;
+                                                }
+                                                elseif($val=="/" or $val=="-"){
+                                                    $val=null;
+                                                }
+                                                elseif($val=="vierge"){
+                                                    $val=="vierge";
+                                                }
+                                                else{
+                                                    $val= floatval($val);
+                                                    if($val<0){
+                                                        $val=0;
+                                                    }
+                                                }
+                                                if (($val >= 0 && $val<=100) || $val==-1 || $val==null) {
                                                     if ($matri == $key && $val != $notation) {
                                                         $prof->enregistrerNote($matri, $code_mod, $filiere, $val);
                                                         break;
@@ -182,13 +197,13 @@ $a = $prof->nom;
                                                                             if (!isset($matiere->note)) {
                                                                                 echo "/";
                                                                             } elseif ($matiere->note < 0) {
-                                                                                echo "EL...";
+                                                                                echo "EL";
                                                                             } else {
                                                                                 echo $matiere->note;
                                                                             }
                                                                             ?></td>
                                             <td <?php echo "class='d-none mod$i'" ?>>
-                                                <input type="text" class="form-control text-center" size="2" maxlength="5" name=<?php echo $matiere->etudiant->matricule ?>>
+                                                <input type="text" class="form-control text-center" value="vierge" size="2" maxlength="5" name=<?php echo $matiere->etudiant->matricule ?>>
                                             </td>
                                             <td>
                                                 <span class="prof-modifier btn btn-warning" id=<?php echo "mod$i" ?>>Modifier</span>
