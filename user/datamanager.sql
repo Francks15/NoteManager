@@ -68,7 +68,7 @@ CREATE TABLE `etudiant` (
 
 LOCK TABLES `etudiant` WRITE;
 /*!40000 ALTER TABLE `etudiant` DISABLE KEYS */;
-INSERT INTO `etudiant` VALUES ('16Y2343','engiina vane core','F','etudiant',1),('17T8739','MBANGA STEVE AUDREY','M','etudiant',1),('18U2456','Toussi vane deode','M','etudiant',1),('19Y5611','1doena melda m','F','etudiant',1),('20H2345','angi yenda willie','F','etudiant',1),('21Y3467','kamar dongo lagui','M','etudiant',1);
+INSERT INTO `etudiant` VALUES ('16Y2343','engiina vane core','F','etudiant',1),('17T8739','MBANGA STEVE AUDREY','M','etudiant',1),('18U2456','Toussi vane deode','M','etudiant',1),('19Y5611','doena melda m','F','etudiant',1),('20H2345','angi yenda willie','F','etudiant',1),('21Y3467','kamar dongo lagui','M','etudiant',1);
 /*!40000 ALTER TABLE `etudiant` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -98,7 +98,7 @@ CREATE TABLE `evaluer` (
 
 LOCK TABLES `evaluer` WRITE;
 /*!40000 ALTER TABLE `evaluer` DISABLE KEYS */;
-INSERT INTO `evaluer` VALUES ('16Y2343','INF2013',67,'INFORMATIQUE'),('16Y2343','MAT2023',78.45,'INFORMATIQUE'),('17T8739','MAT1031',NULL,'MATHEMATIQUE'),('17T8739','PHY1021',NULL,'MATHEMATIQUE'),('19Y5611','MAT1031',NULL,'MATHEMATIQUE'),('19Y5611','PHY1021',10.55,'MATHEMATIQUE'),('20H2345','MAT1031',17,'MATHEMATIQUE'),('20H2345','PHY1021',56,'MATHEMATIQUE'),('21Y3467','INF2013',67,'INFORMATIQUE'),('21Y3467','MAT2023',6,'INFORMATIQUE');
+INSERT INTO `evaluer` VALUES ('16Y2343','INF2013',67,'INFORMATIQUE'),('16Y2343','MAT2023',6,'INFORMATIQUE'),('17T8739','MAT1031',67,'MATHEMATIQUE'),('17T8739','PHY1021',NULL,'MATHEMATIQUE'),('19Y5611','MAT1031',89,'MATHEMATIQUE'),('19Y5611','PHY1021',-1,'MATHEMATIQUE'),('20H2345','MAT1031',-1,'MATHEMATIQUE'),('20H2345','PHY1021',56,'MATHEMATIQUE'),('21Y3467','INF2013',45.1,'INFORMATIQUE'),('21Y3467','MAT2023',0,'INFORMATIQUE');
 /*!40000 ALTER TABLE `evaluer` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -145,6 +145,7 @@ CREATE TABLE `professeur` (
   `reference` varchar(45) NOT NULL DEFAULT 'professeur',
   `administrateur_id` int NOT NULL,
   `code` varchar(255) NOT NULL,
+  `email` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_professeur_administrateur1_idx` (`administrateur_id`),
   CONSTRAINT `fk_professeur_administrateur1` FOREIGN KEY (`administrateur_id`) REFERENCES `administrateur` (`id`)
@@ -157,7 +158,7 @@ CREATE TABLE `professeur` (
 
 LOCK TABLES `professeur` WRITE;
 /*!40000 ALTER TABLE `professeur` DISABLE KEYS */;
-INSERT INTO `professeur` VALUES (1,'Dr Macro Germain','M','professeur',1,'bonjour'),(2,'Prof Endma Carlos','M','professeur',1,'bonjour'),(3,'Dr Mardon Evie','F','professeur',1,'bonjour');
+INSERT INTO `professeur` VALUES (1,'Dr Macro Germain','M','professeur',1,'bonjour','tabuguiafrank@gmail.com'),(2,'Prof Endma Carlos','M','professeur',1,'bonjour',NULL),(3,'Dr Mardon Evie','F','professeur',1,'bonjour','tabuguiafrank@gmail.com');
 /*!40000 ALTER TABLE `professeur` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -170,4 +171,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-11 17:22:58
+-- Dump completed on 2022-01-11 22:20:02
