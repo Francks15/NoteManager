@@ -123,14 +123,24 @@ class Professeur extends Utilisateur
     }
     public function modifierNote()
     {
+
     }
 
     public function publierNote()
     {
+
     }
 
-    public function enregistrerNote()
+    public function enregistrerNote($matricule, $code, $filiere, $note)
     {
+        $bdd = new PDO('mysql:dbname=datamanager;host=127.0.0.1:3307', 'junior', 'frank10', [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
+        $reponse = $bdd->prepare('UPDATE datamanager.evaluer SET note = :note WHERE (etudiant_matricule = :matricule) and (module_code = :code) and (module_filiere = :filiere)');
+        $reponse->execute([
+            'note' => $note,
+            'matricule' => $matricule,
+            'code' => $code,
+            'filiere' => $filiere
+        ]);
     }
 
     public function consulterNote($code, $filiere): array

@@ -30,6 +30,14 @@ $b = $etudiant->matricule;
 
 <?php if (!empty($_SESSION['etudiant'])) : ?>
     <div class="container">
+        <div class="m-3">
+            <form action="zone_etudiant.php" method="post">
+                <div class=" d-flex justify-content-around">
+                    <a href="index.php" class=" btn btn-primary">Accueil</a>
+                    <button type="submit" name="deconnecter" class="btn btn-primary">Deconnexion</button>
+                </div>
+            </form>
+        </div>
         <div class="text-center">
             <h1 class="fst-italic">Vous êtes connecté(e) comme étudiant(e)</h1>
             <h2 class=" fst-italic fw-normal"><?php echo strtoupper($a) ?></h2>
@@ -73,14 +81,6 @@ $b = $etudiant->matricule;
                 </tbody>
             </table>
         </div>
-        <div class="mt-3">
-        <form action="zone_etudiant.php" method="post">
-            <div class=" d-flex justify-content-around">
-                <a href="index.php" class=" btn btn-primary">Accueil</a>
-                <button type="submit" name="deconnecter" class="btn btn-primary">Deconnexion</button>
-            </div>
-        </form>
-    </div>
     </div>
 <?php endif ?>
 <?php require 'footer.php' ?>

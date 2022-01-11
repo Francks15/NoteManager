@@ -19,6 +19,17 @@ $a = $prof->nom;
 
 <?php require 'header.php' ?>
 
+<div class="container">
+    <div class="m-3">
+        <form action="zone_prof.php" method="post">
+            <div class=" d-flex justify-content-around">
+                <a href="index.php" class=" btn btn-primary">Accueil</a>
+                <button type="submit" name="deconnecter" class="btn btn-primary">Deconnexion</button>
+            </div>
+        </form>
+    </div>
+</div>
+
 <?php if (!empty($_SESSION['prof']) && empty($_GET['filiere'])) : ?>
     <div class="container">
         <div class=" text-center">
@@ -85,7 +96,7 @@ $a = $prof->nom;
                                     <tr class=" align-baseline">
                                         <th><?php echo $i ?></th>
                                         <td><?php echo $code_mod ?></td>
-                                        <td><?php echo strtoupper($module->nom)?></td>
+                                        <td><?php echo strtoupper($module->nom) ?></td>
                                         <td>
                                             <a href=<?php echo "zone_prof.php?filiere=$filiere&module=$code_mod" ?>>
                                                 <button type="submit" class=" btn btn-warning">Consulter</button>
@@ -124,7 +135,7 @@ $a = $prof->nom;
                     <h2 class=" fst-italic">Filiere: <?php echo $filiere ?></h2>
                     <h2 class=" text-decoration-underline">Module : <?php echo $code_mod ?></h2>
                     <div>
-                        <form action="zone_prof.php" method="post">
+                        <form action=<?php echo "zone_prof.php?filiere=$filiere&module=$code_mod" ?> method="post">
                             <table class=" table">
                                 <thead>
                                     <tr>
@@ -138,6 +149,22 @@ $a = $prof->nom;
                                 <tbody>
                                     <?php
                                     $i = 0;
+                                    if (isset($_POST)) {
+                                        [$etudiant, $evaluer] = $prof->consulterNote($code_mod, $filiere);
+                                        foreach ($evaluer as $matiere) {
+
+                                            $matri = $matiere->etudiant->matricule;
+                                            $notation = $matiere->note;
+                                            foreach ($_POST as $key => $val) {
+                                                if ($val >= 0) {
+                                                    if ($matri == $key && $val != $notation) {
+                                                        $prof->enregistrerNote($matri, $code_mod, $filiere, $val);
+                                                        break;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
                                     [$etudiant, $evaluer] = $prof->consulterNote($code_mod, $filiere);
                                     foreach ($evaluer as $matiere) :
                                         $i++;
@@ -166,7 +193,7 @@ $a = $prof->nom;
                                 </tbody>
                             </table>
                             <div class="pb-2">
-                                <button type="submit" class="soumettre btn btn-success">Appliquer</button>
+                                <button type="submit" class="soumettre btn btn-success">Enregistrer</button>
                             </div>
                         </form>
                     </div>
@@ -176,14 +203,4 @@ $a = $prof->nom;
     <?php endif ?>
 <?php endif ?>
 
-<div class="container">
-    <div class="mt-3">
-        <form action="zone_prof.php" method="post">
-            <div class=" d-flex justify-content-around">
-                <a href="index.php" class=" btn btn-primary">Accueil</a>
-                <button type="submit" name="deconnecter" class="btn btn-primary">Deconnexion</button>
-            </div>
-        </form>
-    </div>
-</div>
 <?php require 'footer.php' ?>
