@@ -60,13 +60,12 @@ class Administrateur extends Personne
 
 abstract class Utilisateur extends Personne
 {
-    abstract public function consulterNote($code, $filiere);
+    abstract public function consulterNote($code = null, $filiere = null);
 }
 
 class Etudiant extends Utilisateur
 {
     public $matricule;
-
     public function __construct($matricule, $nom, $sexe, $reference = "Etudiant")
     {
         $this->matricule = $matricule;
@@ -75,13 +74,24 @@ class Etudiant extends Utilisateur
         $this->sexe = $sexe;
     }
 
-
-    public function envoyerRequete()
+    public function envoyerRequette($email)
     {
+        if (!empty($email)) {
+            $balise = '<a href="mailto:' . $email . '"><button class="btn btn-warning">Envoyer requette</button></a>';
+        } else {
+            $balise = "/";
+        }
+        return $balise;
     }
 
-    public function consulterNote($code, $filiere)
+    public function consulterNote($code = null, $filiere = null)
     {
+        $bdd = new PDO('mysql:dbname=datamanager;host=127.0.0.1:3307', 'junior', 'frank10', [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
+        $reponse = $bdd->query('SELECT  professeur.nom, professeur.email, module_code, note FROM evaluer
+        INNER JOIN module ON module.code=module_code
+        INNER JOIN professeur ON professeur.id= professeur_id
+        WHERE etudiant_matricule="' . $this->matricule . '";');
+        return $reponse;
     }
 
     public static function authentifier($identifiant): array
@@ -123,12 +133,8 @@ class Professeur extends Utilisateur
     }
     public function modifierNote()
     {
-
-    }
-
-    public function publierNote()
-    {
-
+        $script = '<script src="index.js"></script>';
+        return $script;
     }
 
     public function enregistrerNote($matricule, $code, $filiere, $note)
@@ -143,7 +149,7 @@ class Professeur extends Utilisateur
         ]);
     }
 
-    public function consulterNote($code, $filiere): array
+    public function consulterNote($code = null, $filiere = null): array
     {
         foreach ($this->module as $module) {
             $module_code = $module->code;
@@ -191,7 +197,7 @@ class Professeur extends Utilisateur
         }
         $reponse->closeCursor();
         if ($connect and isset($prof)) {
-            $reponse = $bdd->query('SELECT * FROM module WHERE professeur_id=' . $prof->id.' ORDER BY module.filiere');
+            $reponse = $bdd->query('SELECT * FROM module WHERE professeur_id=' . $prof->id . ' ORDER BY module.filiere');
             while ($donnes = $reponse->fetch()) {
                 $module_prof[] = new Module($donnes['code'], $donnes['nom'], $donnes["filiere"], $donnes['niveau'], $prof);
                 $prof->module = $module_prof;

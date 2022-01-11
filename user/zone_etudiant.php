@@ -56,33 +56,19 @@ $b = $etudiant->matricule;
                 </thead>
                 <tbody>
                     <?php
-                    $bdd = new PDO('mysql:dbname=datamanager;host=127.0.0.1:3307', 'junior', 'frank10', [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
-                    $reponse = $bdd->query('SELECT  professeur.nom, module_code, note FROM evaluer
-                    INNER JOIN module ON module.code=module_code
-                    INNER JOIN professeur ON professeur.id= professeur_id
-                    WHERE etudiant_matricule="' . $b . '"
-                    ;');
+                    $reponse = $etudiant->consulterNote();
                     $i = 1;
                     while ($donnes = $reponse->fetch()) :
                     ?>
                         <tr class=" align-baseline">
                             <th><?php echo $i ?></th>
-                            <?php foreach ($donnes as $k => $val) : ?>
-                                <?php if (is_int($k)) : ?>
-                                    <td>
-                                        <?php
-                                        if($val==-1){
-                                            echo "EL";
-                                        }
-                                        else{
-                                            echo $val ? $val : "/" ;
-                                        }
-                                        ?>
-                                    </td>
-                            <?php endif;
-                            endforeach;
-                            $i++; ?>
-                            <td><a href="mailto:tabuguiafrank@gmail.com"><button class="btn btn-warning">Envoyer requette</button></a></td>
+                            <td><?php echo $donnes['nom'] ?></td>
+                            <td><?php echo $donnes['module_code'] ?></td>
+                            <td><?php echo $donnes['note'] ?></td>
+                            <?php $i++; ?>
+                            <td>
+                                <?php echo $etudiant->envoyerRequette($donnes['email']) ?>
+                            </td>
                         </tr>
                     <?php endwhile;
                     $reponse->closeCursor();

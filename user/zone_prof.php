@@ -210,6 +210,7 @@ $a = $prof->nom;
                                             </td>
                                         </tr>
                                     <?php endforeach ?>
+                                    <?php echo $prof->modifierNote() ?>
                                 </tbody>
                             </table>
                             <div class="pb-2 d-flex justify-content-around">
