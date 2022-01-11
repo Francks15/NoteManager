@@ -60,7 +60,7 @@ class Administrateur extends Personne
 
 abstract class Utilisateur extends Personne
 {
-    abstract public function lireNote();
+    abstract public function consulterNote($code, $filiere);
 }
 
 class Etudiant extends Utilisateur
@@ -80,7 +80,7 @@ class Etudiant extends Utilisateur
     {
     }
 
-    public function lireNote()
+    public function consulterNote($code, $filiere)
     {
     }
 
@@ -112,6 +112,7 @@ class Professeur extends Utilisateur
     public $id;
     public $code;
     public $module;
+    public $etudiant;
     public function __construct($id, $nom, $sexe, $code, $reference = "professeur")
     {
         $this->id = $id;
@@ -132,8 +133,31 @@ class Professeur extends Utilisateur
     {
     }
 
-    public function lireNote()
+    public function consulterNote($code, $filiere): array
     {
+        foreach ($this->module as $module) {
+            $module_code = $module->code;
+            $module_filiere = $module->filiere;
+            if ($code == $module_code && $filiere == $module_filiere) {
+                $j = $module;
+                break;
+            }
+        }
+        $bdd = new PDO('mysql:dbname=datamanager;host=127.0.0.1:3307', 'junior', 'frank10', [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
+        $etudiant = [];
+        $evaluer = [];
+        $reponse = $bdd->query('SELECT etudiant.*, note FROM evaluer
+        INNER JOIN etudiant ON etudiant.matricule=etudiant_matricule
+        INNER JOIN module ON module_code=module.code
+        WHERE module.code="' . $code . '" AND filiere="' . $filiere . '"');
+        $i = 0;
+        while ($donnes = $reponse->fetch()) {
+            $etudiant[] = new Etudiant($donnes['matricule'], $donnes['nom'], $donnes['sexe'], $donnes['reference']);
+            $evaluer[] = new Evaluer($donnes['note'], $etudiant[$i], $j);
+            $i++;
+        }
+        $reponse->closeCursor();
+        return [$etudiant, $evaluer];
     }
 
     public static function authentifier($identifiant): array
@@ -190,4 +214,11 @@ class Evaluer
     public $note;
     public Etudiant $etudiant;
     public Module $module;
+
+    public function __construct($note, $etudiant, $module)
+    {
+        $this->note = $note;
+        $this->etudiant = $etudiant;
+        $this->module = $module;
+    }
 }

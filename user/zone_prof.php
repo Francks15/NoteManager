@@ -103,9 +103,77 @@ $a = $prof->nom;
 <?php endif ?>
 
 <?php if (!empty($_GET['filiere']) && !empty($_SESSION['prof']) && !empty($_GET['module'])) : ?>
-    <div class="container">
-        <p>Affichage pour modification de note</p>
-    </div>
+    <?php
+    $trouve = false;
+    $filiere = $_GET['filiere'];
+    $code_mod = $_GET['module'];
+    foreach ($prof->module as $module) {
+        if ($module->filiere == $filiere && $module->code == $code_mod) {
+            $trouve = true;
+            break;
+        }
+    }
+    if ($trouve) :
+    ?>
+        <div class="container">
+            <div class=" text-center">
+                <h1>Vous êtes connecté(e) en tant que <?php echo $a ?></h1>
+                <div class=" border rounded border-primary">
+                    <h2 class=" fst-italic">Filiere: <?php echo $filiere ?></h2>
+                    <h2 class=" text-decoration-underline" >Module : <?php echo $code_mod ?></h2>
+                    <div>
+                        <form action="zone_prof.php" method="post">
+                            <table class=" table">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Matricule</th>
+                                        <th>Nom Complet</th>
+                                        <th>Note</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    $i = 0;
+                                    [$etudiant, $evaluer] = $prof->consulterNote($code_mod, $filiere);
+                                    foreach ($evaluer as $matiere) :
+                                        $i++;
+                                    ?>
+                                        <tr class=" align-baseline">
+                                            <th><?php echo $i ?></th>
+                                            <td><?php echo $matiere->etudiant->matricule ?></td>
+                                            <td><?php echo $matiere->etudiant->nom ?></td>
+                                            <td>
+                                                <?php
+                                                if (!isset($matiere->note)) {
+                                                    echo "/";
+                                                } elseif ($matiere->note < 0) {
+                                                    echo "eliminé(e)";
+                                                } else {
+                                                    echo $matiere->note;
+                                                }
+                                                ?>
+                                            </td>
+                                            <td class=<?php echo "d-none mod$i" ?>>
+                                                <input type="text" name=<?php echo $matiere->$etudiant->matricule ?>>
+                                            </td>
+                                            <td>
+                                                <span class="btn btn-warning">Modifier</span>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach ?>
+                                </tbody>
+                            </table>
+                            <div class="pb-2" >
+                                <button type="submit" class="soumettre btn btn-success">Appliquer</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <?php endif ?>
 <?php endif ?>
 
 <div class="container">
