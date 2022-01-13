@@ -86,10 +86,10 @@ class Etudiant extends Utilisateur
 
     public function consulterNote($code = null, $filiere = null)
     {
-        $bdd = new PDO('mysql:dbname=datamanager;host=127.0.0.1:3307', 'junior', 'frank10', [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
-        $reponse = $bdd->query('SELECT  professeur.nom, professeur.email, module_code, note FROM evaluer
-        INNER JOIN module ON module.code=module_code
-        INNER JOIN professeur ON professeur.id= professeur_id
+        $bdd = new PDO('mysql:dbname=notemanager;host=127.0.0.1', 'root', '', [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
+        $reponse = $bdd->query('SELECT  professeurs.title, professeurs.email, module_code, note FROM evaluer
+        INNER JOIN module ON module.codeu=module_code
+        INNER JOIN professeurs ON professeurs.id= professeur_id
         WHERE etudiant_matricule="' . $this->matricule . '";');
         return $reponse;
     }
@@ -98,7 +98,7 @@ class Etudiant extends Utilisateur
     {
         $connect = false;
         $etudiant = null;
-        $bdd = new PDO('mysql:dbname=datamanager;host=127.0.0.1:3307', 'junior', 'frank10', [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
+        $bdd = new PDO('mysql:dbname=notemanager;host=127.0.0.1', 'root', '', [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
         // try {
         // } catch (Exception $e) {
         //     die('Erreur : ' . $e->getMessage());
@@ -139,8 +139,8 @@ class Professeur extends Utilisateur
 
     public function enregistrerNote($matricule, $code, $filiere, $note)
     {
-        $bdd = new PDO('mysql:dbname=datamanager;host=127.0.0.1:3307', 'junior', 'frank10', [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
-        $reponse = $bdd->prepare('UPDATE datamanager.evaluer SET note = :note WHERE (etudiant_matricule = :matricule) and (module_code = :code) and (module_filiere = :filiere)');
+        $bdd = new PDO('mysql:dbname=notemanager;host=127.0.0.1', 'root', '', [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
+        $reponse = $bdd->prepare('UPDATE notemanager.evaluer SET note = :note WHERE (etudiant_matricule = :matricule) and (module_code = :code) and (module_filiere = :filiere)');
         $reponse->execute([
             'note' => $note,
             'matricule' => $matricule,
@@ -159,13 +159,13 @@ class Professeur extends Utilisateur
                 break;
             }
         }
-        $bdd = new PDO('mysql:dbname=datamanager;host=127.0.0.1:3307', 'junior', 'frank10', [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
+        $bdd = new PDO('mysql:dbname=notemanager;host=127.0.0.1', 'root', '', [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
         $etudiant = [];
         $evaluer = [];
         $reponse = $bdd->query('SELECT etudiant.*, note FROM evaluer
         INNER JOIN etudiant ON etudiant.matricule=etudiant_matricule
-        INNER JOIN module ON module_code=module.code
-        WHERE module.code="' . $code . '" AND filiere="' . $filiere . '" ORDER BY etudiant.nom');
+        INNER JOIN module ON module_code=module.codeu
+        WHERE module.codeu="' . $code . '" AND filiere="' . $filiere . '" ORDER BY etudiant.nom');
         $i = 0;
         while ($donnes = $reponse->fetch()) {
             $etudiant[] = new Etudiant($donnes['matricule'], $donnes['nom'], $donnes['sexe'], $donnes['reference']);
@@ -181,16 +181,16 @@ class Professeur extends Utilisateur
         $connect = false;
         $prof = null;
         $module_prof = [];
-        $bdd = new PDO('mysql:dbname=datamanager;host=127.0.0.1:3307', 'junior', 'frank10', [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
+        $bdd = new PDO('mysql:dbname=notemanager;host=127.0.0.1:3306', 'root', '', [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
         // try {
         // } catch (Exception $e) {
         //     die('Erreur : ' . $e->getMessage());
         // }
-        $reponse = $bdd->query('SELECT * FROM professeur');
+        $reponse = $bdd->query('SELECT * FROM professeurs');
         while ($donnes = $reponse->fetch()) {
-            if ($donnes['id'] == $identifiant['identifiant'] and $donnes['code'] == $identifiant["code"]) {
+            if ($donnes['email'] == $identifiant['identifiant'] and $donnes['codep'] == $identifiant["code"]) {
                 $connect = true;
-                $prof = new Professeur($donnes['id'], $donnes["nom"], $donnes["sexe"], $donnes['code']);
+                $prof = new Professeur($donnes['id'], $donnes["title"], $donnes["sexe"], $donnes['codep']);
                 $reponse->closeCursor();
                 break;
             }
@@ -199,7 +199,7 @@ class Professeur extends Utilisateur
         if ($connect and isset($prof)) {
             $reponse = $bdd->query('SELECT * FROM module WHERE professeur_id=' . $prof->id . ' ORDER BY module.filiere');
             while ($donnes = $reponse->fetch()) {
-                $module_prof[] = new Module($donnes['code'], $donnes['nom'], $donnes["filiere"], $donnes['niveau'], $prof);
+                $module_prof[] = new Module($donnes['codeu'], $donnes['name'], $donnes["filiere"], $donnes['level'], $prof);
                 $prof->module = $module_prof;
             }
             $reponse->closeCursor();

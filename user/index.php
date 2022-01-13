@@ -29,7 +29,7 @@
                 <div class=" border rounded-3 border-primary p-2 h-100">
                     <h3>Adminitrateur</h3>
                     <p>Vous êtes charger de controler les etudiants et professeurs</p>
-                    <form action="connexion.php" method="get">
+                    <form action="admin/login.php" method="post">
                         <input type="text" name="user" value="professeur" class="d-none">
                         <button class="btn btn-primary">Poursuivre...</button>
                     </form>

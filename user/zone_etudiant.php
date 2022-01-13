@@ -62,11 +62,11 @@ $b = $etudiant->matricule;
                     ?>
                         <tr class=" align-baseline">
                             <th><?php echo $i ?></th>
-                            <td><?php echo $donnes['nom'] ?></td>
-                            <td><?php echo $donnes['module_code'] ?></td>
-                            <td><?php echo $donnes['note'] ?></td>
+                            <td><?php echo $donnes['title'] ?></td>
+                            <td ><?php echo $donnes['module_code'] ?></td>
+                            <td ><?php echo $donnes['note'] ?></td>
                             <?php $i++; ?>
-                            <td>
+                            <td >
                                 <?php echo $etudiant->envoyerRequette($donnes['email']) ?>
                             </td>
                         </tr>

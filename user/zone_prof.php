@@ -191,9 +191,9 @@ $a = $prof->nom;
                                     ?>
                                         <tr class=" align-baseline">
                                             <th><?php echo $i ?></th>
-                                            <th ><?php echo $matiere->etudiant->matricule ?></th>
+                                            <th><?php echo $matiere->etudiant->matricule ?></th>
                                             <td><?php echo strtoupper($matiere->etudiant->nom) ?></td>
-                                            <td class=<?php echo "mod$i" ?>><?php
+                                            <td <?php echo "class='mod$i '" ?>><?php
                                                                             if (!isset($matiere->note)) {
                                                                                 echo "/";
                                                                             } elseif ($matiere->note < 0) {
@@ -203,10 +203,10 @@ $a = $prof->nom;
                                                                             }
                                                                             ?></td>
                                             <td <?php echo "class='d-none mod$i'" ?>>
-                                                <input type="text" class="form-control text-center" value="vierge" size="2" maxlength="5" name=<?php echo $matiere->etudiant->matricule ?>>
+                                                <input type="text" class="form-control larg text-center" value="vierge" size="2" maxlength="5" name=<?php echo $matiere->etudiant->matricule ?>>
                                             </td>
-                                            <td>
-                                                <span class="prof-modifier btn btn-warning" id=<?php echo "mod$i" ?>>Modifier</span>
+                                            <td >
+                                                <span class="prof-modifier text-center btn btn-warning" id=<?php echo "mod$i" ?>>Modifier</span>
                                             </td>
                                         </tr>
                                     <?php endforeach ?>

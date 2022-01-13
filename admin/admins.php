@@ -5,13 +5,14 @@ if(!isset($_SESSION['admin'])){
 }
 $query = "SELECT * FROM admins";
 ?>
+  <?php include('addAdmin.php');?>
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
-        <h3 class="text-info">Ajouter un Administrateur</h3>
+        <h3 class="text-info">Ajouter un administrateur</h3>
         <hr>
             <div id="result"></div>
-            <form  method="post" id="addAdmin">
+            <form  method="post" id="addAdmin" Action="admins.php">
                 <div class="form-group">
                     <label for="name">Name:</label>
                     <input type="text" class="form-control" name="name" id="name" placeholder="Name">
@@ -27,7 +28,9 @@ $query = "SELECT * FROM admins";
                 <div class="form-group">
                     <button type="submit" class="btn btn-success" name="submit">Submit</button>
                 </div>
+
             </form>
+           
         </div>
     </div>
     <div class="row" style="margin-top: 30px;">
@@ -56,7 +59,7 @@ $query = "SELECT * FROM admins";
               </thead>
               <tbody>
               <?php
-                if(mysqli_query($con,$query)):
+               if(mysqli_query($con,$query)):
                     $result = mysqli_query($con,$query);
                     while($row = $result->fetch_assoc()):
               ?>
