@@ -34,10 +34,11 @@ $a = $prof->nom;
     <div class="container mb-4 ">
         <div class=" text-center">
             <h1 class=" fst-italic">Vous êtes connecté(e) comme enseignant(e)</h1>
-            <h2 class=" fw-normal" ><?php echo $a ?></h2>
+            <h2 class=" fw-normal"><?php echo $a ?></h2>
             <div class=" d-flex justify-content-center">
                 <div class=" border border-primary rounded p-3">
                     <h2 class=" fst-italic">Filière(s) d'enseignement</h2>
+                    <hr>
                     <?php
                     $modules = $prof->module;
                     foreach ($modules as $module) :
@@ -74,11 +75,12 @@ $a = $prof->nom;
         <div class="container mb-4 ">
             <div class=" text-center">
                 <h1 class=" fst-italic">Vous êtes connecté(e) comme enseignant(e)</h1>
-                <h2 class=" fw-normal" ><?php echo $a ?></h2>
-                <a href="zone_prof.php" class="btn btn-danger text-light mb-3 " >&larr;Retour</a>
+                <h2 class=" fw-normal"><?php echo $a ?></h2>
+                <a href="zone_prof.php" class="btn btn-danger text-light mb-3 ">&larr;Retour</a>
                 <div class=" border rounded border-primary">
                     <h2 class=" fst-italic">Filiere: <?php echo $filiere ?></h2>
                     <h2 class=" text-decoration-underline ">Unité d'enseignement</h2>
+                    <hr>
                     <table class="table table-hover">
                         <thead>
                             <tr>
@@ -134,12 +136,24 @@ $a = $prof->nom;
         <div class="container mb-4 ">
             <div class=" text-center">
                 <h1 class=" fst-italic">Vous êtes connecté(e) comme enseignant(e)</h1>
-                <h2 class=" fw-normal" ><?php echo $a ?></h2>
-                <a href=<?php echo "zone_prof.php?filiere=".$filiere ?> class="btn btn-danger text-light mb-3 " >&larr;Retour</a>
+                <h2 class=" fw-normal"><?php echo $a ?></h2>
+                <a href=<?php echo "zone_prof.php?filiere=" . $filiere ?> class="btn btn-danger text-light mb-3 ">&larr;Retour</a>
                 <div class=" border rounded border-primary">
                     <h2 class=" fst-italic">Filiere: <?php echo $filiere ?></h2>
                     <h2 class=" text-decoration-underline">Module : <?php echo $code_mod ?></h2>
+                    <hr>
                     <div>
+                        <div class="d-flex justify-content-center">
+                            <form>
+                                <table>
+                                    <tr>
+                                        <td><input type="text" name="my-search" id="my-search" placeholder="Recherche..." maxlength="7" size="10" class="form-control"></td>
+                                        <td><button class="btn btn-secondary rechercher">Rechercher</button></td>
+                                    </tr>
+                                </table>
+                            </form>
+                        </div>
+                        <hr>
                         <form action=<?php echo "zone_prof.php?filiere=$filiere&module=$code_mod" ?> method="post">
                             <table class=" table table-hover">
                                 <thead>
@@ -151,7 +165,7 @@ $a = $prof->nom;
                                         <th>Action</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody class="body-rech">
                                     <?php
                                     $i = 0;
                                     if (isset($_POST)) {
@@ -161,22 +175,19 @@ $a = $prof->nom;
                                             $matri = $matiere->etudiant->matricule;
                                             $notation = $matiere->note;
                                             foreach ($_POST as $key => $val) {
-                                                if($val=="el" || $val=="EL" || $val=="elim" || $val=="ELIM"){
-                                                    $val=-1;
-                                                }
-                                                elseif($val=="/" or $val=="-"){
-                                                    $val=null;
-                                                }
-                                                elseif($val=="vierge"){
-                                                    $val=="vierge";
-                                                }
-                                                else{
-                                                    $val= floatval($val);
-                                                    if($val<0){
-                                                        $val=0;
+                                                if ($val == "el" || $val == "EL" || $val == "elim" || $val == "ELIM") {
+                                                    $val = -1;
+                                                } elseif ($val == "/" or $val == "-") {
+                                                    $val = null;
+                                                } elseif ($val == "vierge") {
+                                                    $val == "vierge";
+                                                } else {
+                                                    $val = floatval($val);
+                                                    if ($val < 0) {
+                                                        $val = 0;
                                                     }
                                                 }
-                                                if (($val >= 0 && $val<=100) || $val==-1 || $val==null) {
+                                                if (($val >= 0 && $val <= 100) || $val == -1 || $val == null) {
                                                     if ($matri == $key && $val != $notation) {
                                                         $prof->enregistrerNote($matri, $code_mod, $filiere, $val);
                                                         break;
@@ -189,23 +200,23 @@ $a = $prof->nom;
                                     foreach ($evaluer as $matiere) :
                                         $i++;
                                     ?>
-                                        <tr class=" align-baseline">
+                                        <tr class=" align-baseline ligne">
                                             <th><?php echo $i ?></th>
-                                            <th><?php echo $matiere->etudiant->matricule ?></th>
+                                            <th class="ligne-matri"><?php echo $matiere->etudiant->matricule ?></th>
                                             <td><?php echo strtoupper($matiere->etudiant->nom) ?></td>
                                             <td <?php echo "class='mod$i '" ?>><?php
-                                                                            if (!isset($matiere->note)) {
-                                                                                echo "/";
-                                                                            } elseif ($matiere->note < 0) {
-                                                                                echo "EL";
-                                                                            } else {
-                                                                                echo $matiere->note;
-                                                                            }
-                                                                            ?></td>
+                                                                                if (!isset($matiere->note)) {
+                                                                                    echo "/";
+                                                                                } elseif ($matiere->note < 0) {
+                                                                                    echo "EL";
+                                                                                } else {
+                                                                                    echo $matiere->note;
+                                                                                }
+                                                                                ?></td>
                                             <td <?php echo "class='d-none mod$i'" ?>>
                                                 <input type="text" class="form-control larg text-center" value="vierge" size="2" maxlength="5" name=<?php echo $matiere->etudiant->matricule ?>>
                                             </td>
-                                            <td >
+                                            <td>
                                                 <span class="prof-modifier text-center btn btn-warning" id=<?php echo "mod$i" ?>>Modifier</span>
                                             </td>
                                         </tr>
@@ -215,7 +226,7 @@ $a = $prof->nom;
                             </table>
                             <div class="pb-2 d-flex justify-content-around">
                                 <button type="submit" class="soumettre btn btn-success">Enregistrer</button>
-                                <a href=<?php echo "zone_prof.php?filiere=$filiere&module=$code_mod" ?> class="btn btn-danger" >Reset</a>
+                                <a href=<?php echo "zone_prof.php?filiere=$filiere&module=$code_mod" ?> class="btn btn-danger">Reset</a>
                             </div>
                         </form>
                     </div>
