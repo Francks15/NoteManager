@@ -45,7 +45,7 @@ $a = $prof->nom;
                         <form action=<?php $val = $module->filiere;
                                         echo 'zone_prof.php?filiere=' . $val; ?> method="get">
                             <input type="text" name="filiere" class=" d-none" value="<?php echo $val ?>">
-                            <table class=" table align-baseline">
+                            <table class=" table align-baseline table-hover">
                                 <tr>
                                     <td><?php echo $val ?></td>
                                     <td><button type="submit" class=" btn btn-warning">Selectionner</button></td>
@@ -79,7 +79,7 @@ $a = $prof->nom;
                 <div class=" border rounded border-primary">
                     <h2 class=" fst-italic">Filiere: <?php echo $filiere ?></h2>
                     <h2 class=" text-decoration-underline ">Unité d'enseignement</h2>
-                    <table class="table">
+                    <table class="table table-hover">
                         <thead>
                             <tr>
                                 <th>#</th>
@@ -141,7 +141,7 @@ $a = $prof->nom;
                     <h2 class=" text-decoration-underline">Module : <?php echo $code_mod ?></h2>
                     <div>
                         <form action=<?php echo "zone_prof.php?filiere=$filiere&module=$code_mod" ?> method="post">
-                            <table class=" table">
+                            <table class=" table table-hover">
                                 <thead>
                                     <tr>
                                         <th>#</th>

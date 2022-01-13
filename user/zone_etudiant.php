@@ -44,7 +44,7 @@ $b = $etudiant->matricule;
             <h2 class=" fst-italic fw-normal fw-bold text-decoration-underline ">MATRICULE: <?php echo $b ?></h2>
         </div>
         <div class="border border-primary rounded">
-            <table class=" table text-center">
+            <table class=" table text-center table-hover">
                 <thead>
                     <tr>
                         <th>#</th>
