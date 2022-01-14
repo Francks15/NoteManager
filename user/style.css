@@ -1,3 +1,14 @@
+body{
+    background-color: rgb(70 147 165);
+    border: 2px solid black;
+}
+
+.my_container{
+    background-color: white;
+    border-radius: 20px;
+    margin-top: .5em;
+}
+
 .mygrid {
     display: grid;
     grid-template-columns: repeat(auto-fit, 20rem);
@@ -7,11 +18,14 @@
 
 .user{
     transition: all .5s ease;
+    box-shadow: 2px 2px 7px black;
+    border: 1px black solid;
 }
 
 .user:hover{
     border: 1px blue solid;
     transform:scale(1.1);
+    box-shadow: 2px 2px 20px blue;
 }
 
 .logo{
@@ -41,5 +55,5 @@
 }
 
 .footer{
-    height: 10rem;
+    min-height: 10rem;
 }

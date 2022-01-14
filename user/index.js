@@ -38,9 +38,8 @@ btn_search.addEventListener('click', function (e) {
         btn_search.firstChild.nodeValue = "Annuler";
         let trouve = false;
         for (let i = 0; i < matri.length; i++) {
-            let val = Object.toString(input_search.value);
-            val = val.toUpperCase().trim();
-            if (matri[i].innerHTML.indexOf(val) == -1) {
+            if (matri[i].innerHTML.indexOf(input_search.value) == -1) {
+                debugger;
                 ligne[i].classList.toggle('d-none');
             } else {
                 trouve = true;

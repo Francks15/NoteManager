@@ -43,9 +43,9 @@ $a = $prof->nom;
 </nav>
 
 <?php if (!empty($_SESSION['prof']) && empty($_GET['filiere'])) : ?>
-    <div class="container mb-4 ">
+    <div class="container pb-4 my_container ">
         <div class=" text-center">
-            <h1 class=" fst-italic">Vous êtes connecté(e) comme enseignant(e)</h1>
+            <h1 class=" fst-italic">Vous êtes connecté(e) comme enseignant(e)</h1><hr>
             <h2 class=" fw-normal"><?php echo $a ?></h2>
             <div class=" d-flex justify-content-center">
                 <div class=" border border-primary rounded p-3">
@@ -84,17 +84,18 @@ $a = $prof->nom;
     }
     if ($trouve) :
     ?>
-        <div class="container mb-4 ">
+        <div class="container pb-4 my_container ">
             <div class=" text-center">
-                <h1 class=" fst-italic">Vous êtes connecté(e) comme enseignant(e)</h1>
+                <h1 class=" fst-italic">Vous êtes connecté(e) comme enseignant(e)</h1><hr>
                 <h2 class=" fw-normal"><?php echo $a ?></h2>
                 <a href="zone_prof.php" class="btn btn-danger text-light mb-3 " title="Voir vos filières d'enseignement">&larr;Retour</a>
                 <div class=" border rounded border-primary">
                     <h2 class=" fst-italic">Filiere: <?php echo $filiere ?></h2>
                     <h2 class=" text-decoration-underline ">Unité d'enseignement</h2>
                     <hr>
-                    <table class="table table-hover">
-                        <thead>
+                    <div class=" table-responsive" >
+                    <table class="table table-hover table-bordered">
+                        <thead class=" table-dark">
                             <tr>
                                 <th>#</th>
                                 <th>Code</th>
@@ -126,6 +127,7 @@ $a = $prof->nom;
                             endforeach ?>
                         </tbody>
                     </table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -145,11 +147,11 @@ $a = $prof->nom;
     }
     if ($trouve) :
     ?>
-        <div class="container mb-4 ">
+        <div class="container pb-4 my_container ">
             <div class=" text-center">
-                <h1 class=" fst-italic">Vous êtes connecté(e) comme enseignant(e)</h1>
+                <h1 class=" fst-italic">Vous êtes connecté(e) comme enseignant(e)</h1><hr>
                 <h2 class=" fw-normal"><?php echo $a ?></h2>
-                <a href=<?php echo "zone_prof.php?filiere=" . $filiere ?> class="btn btn-danger text-light mb-3 " <?php echo "title= Voir vos modules cours, Filiere:$filiere" ?>>&larr;Retour</a>
+                <a href=<?php echo "zone_prof.php?filiere=" . $filiere ?> class="btn btn-danger text-light mb-3 " <?php echo "title= 'Voir vos modules cours, Filiere:$filiere'" ?>>&larr;Retour</a>
                 <div class=" border rounded border-primary">
                     <h2 class=" fst-italic">Filiere: <?php echo $filiere ?></h2>
                     <h2 class=" text-decoration-underline">Module : <?php echo $code_mod ?></h2>
@@ -170,8 +172,9 @@ $a = $prof->nom;
                         </div>
                         <hr>
                         <form action=<?php echo "zone_prof.php?filiere=$filiere&module=$code_mod" ?> method="post">
-                            <table class=" table table-hover">
-                                <thead>
+                            <div class=" table-responsive" >
+                            <table class=" table table-hover table-bordered">
+                                <thead class=" table-dark" >
                                     <tr>
                                         <th>#</th>
                                         <th>Matricule</th>
@@ -239,6 +242,7 @@ $a = $prof->nom;
                                     <?php echo $prof->modifierNote() ?>
                                 </tbody>
                             </table>
+                            </div>
                             <div class="pb-2 d-flex justify-content-around">
                                 <button type="submit" class="soumettre btn btn-success">Enregistrer</button>
                                 <a href=<?php echo "zone_prof.php?filiere=$filiere&module=$code_mod" ?> class="btn btn-danger">Reset</a>
