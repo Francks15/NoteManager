@@ -39,7 +39,6 @@ btn_search.addEventListener('click', function (e) {
         let trouve = false;
         for (let i = 0; i < matri.length; i++) {
             if (matri[i].innerHTML.indexOf(input_search.value) == -1) {
-                debugger;
                 ligne[i].classList.toggle('d-none');
             } else {
                 trouve = true;
