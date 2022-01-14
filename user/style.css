@@ -1,5 +1,5 @@
 body{
-    background-color: rgb(70 147 165);
+    background-color: rgb(167 255 243);
     border: 2px solid black;
 }
 
@@ -7,6 +7,7 @@ body{
     background-color: white;
     border-radius: 20px;
     margin-top: .5em;
+    border: 2px solid black;
 }
 
 .mygrid {
