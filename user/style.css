@@ -1,5 +1,45 @@
 .mygrid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, 15rem);
+    grid-template-columns: repeat(auto-fit, 20rem);
+    grid-auto-rows: 16.3rem;
     justify-content: center;
+}
+
+.user{
+    transition: all .5s ease;
+}
+
+.user:hover{
+    border: 1px blue solid;
+    transform:scale(1.1);
+}
+
+.logo{
+    font-size: 1.3rem;
+}
+
+.nav_link{
+    color: white;
+    font-weight: bold;
+    display: inline-block;
+    padding: 4px 3px;
+    text-decoration: none;
+}
+
+.nav_link:hover{
+    border-bottom: 3px white solid;
+    padding-bottom: 1px;
+    color: white;
+}
+
+.nav_link:active{
+    color: rgb(194, 194, 194);
+}
+
+.navbar_dark{
+    background-color: rgb(104, 104, 104);
+}
+
+.footer{
+    height: 10rem;
 }

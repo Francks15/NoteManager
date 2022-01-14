@@ -34,24 +34,37 @@ if (!empty($_SESSION["prof"]) && $user == "professeur") {
 ?>
 <?php require "header.php" ?>
 
+<nav class=" navbar bg-secondary sticky-top-md">
+    <div class="container px-sm-5 px-3 d-flex">
+        <a href="index.php" class=" text-light fw-bold text-decoration-none logo" ><img src="logo2.png" alt="logo" width="30" height="35"> UNIVERSITE UY1</a>
+        <div>
+            <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav_link" aria-current="page" href="index.php">ACCUEIL</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
 <?php if (!$connect) : ?>
     <div class="container">
         <div class=" d-flex justify-content-center p-sm-5 p-3">
             <div>
                 <div class="mb-3 text-center border rounded border-primary px-sm-3 p-1">
-                <?php if ($user == "etudiant") : ?>
-                    <?php if (isset($_POST["matricule"]) && !$connect) : ?>
-                        <div class="alert alert-danger text-center p-2 m-2" role="alert">
-                            Echec Connexion
-                        </div>
+                    <?php if ($user == "etudiant") : ?>
+                        <?php if (isset($_POST["matricule"]) && !$connect) : ?>
+                            <div class="alert alert-danger text-center p-2 m-2" role="alert">
+                                Echec Connexion
+                            </div>
+                        <?php endif ?>
+                    <?php elseif ($user == "professeur") : ?>
+                        <?php if (isset($_POST["identifiant"]) && !$connect) : ?>
+                            <div class="alert alert-danger text-center p-2 m-2" role="alert">
+                                Echec Connexion
+                            </div>
+                        <?php endif ?>
                     <?php endif ?>
-                <?php elseif ($user == "professeur") : ?>
-                    <?php if (isset($_POST["identifiant"]) && !$connect) : ?>
-                        <div class="alert alert-danger text-center p-2 m-2" role="alert">
-                            Echec Connexion
-                        </div>
-                    <?php endif ?>
-                <?php endif ?>
                     <?php if (isset($_GET['user'])) : ?>
                         <h1 class="py-2 fst-italic "><?php echo strtoupper($user) ?></h1>
                         <h2>FORMULAIRE DE CONNEXION</h2>
@@ -77,15 +90,14 @@ if (!empty($_SESSION["prof"]) && $user == "professeur") {
                                     <table class=" table mx-auto my-5 table-hover">
                                         <tr class="text-start align-baseline">
                                             <td><label for="identifiant">Email</label></td>
-                                            <td><input class=" form-control" type="email" placeholder="Votre email"  name="identifiant" id="identifiant" size="7" required></td>
+                                            <td><input class=" form-control" type="email" placeholder="Votre email" name="identifiant" id="identifiant" size="7" required></td>
                                         </tr>
                                         <tr class="text-start align-baseline">
                                             <td><label for="password">Code</label></td>
-                                            <td><input class=" form-control" id="password"  placeholder="Votre code(Mot de passe)" type="password" name="code" required></td>
+                                            <td><input class=" form-control" id="password" placeholder="Votre code(Mot de passe)" type="password" name="code" required></td>
                                         </tr>
                                     </table>
-                                    <div class=" d-flex flex-wrap justify-content-between align-items-start">
-                                        <a href="index.php" class=" btn btn-primary">Accueil</a>
+                                    <div class=" d-flex justify-content-center">
                                         <button class="btn btn-primary mb-4">Se Connecter</button>
                                     </div>
                                 </div>

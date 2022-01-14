@@ -19,16 +19,28 @@ $a = $prof->nom;
 
 <?php require 'header.php' ?>
 
-<div class="container mb-4 ">
-    <div class="m-3">
-        <form action="zone_prof.php" method="post">
-            <div class=" d-flex justify-content-around">
-                <a href="index.php" class=" btn btn-primary">Accueil</a>
-                <button type="submit" name="deconnecter" class="btn btn-primary">Deconnexion</button>
-            </div>
-        </form>
+<nav class=" navbar navbar-dark bg-secondary navbar-expand-md sticky-md-top">
+    <div class="container px-md-5 px-1 d-flex">
+        <a href="index.php" class=" text-light fw-bold text-decoration-none logo"><img src="logo2.png" alt="logo" width="30" height="35"> UNIVERSITE UY1</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse ml-auto" id="navbarToggleExternalContent">
+            <ul class="navbar-nav mb-2 mb-lg-0 align-items-center ms-auto">
+                <li class="nav-item me-2">
+                    <a class="nav_link" aria-current="page" href="index.php">ACCUEIL</a>
+                </li>
+                <li class=" nav-item">
+                    <form action="zone_prof.php" method="post">
+                        <div>
+                            <button type="submit" name="deconnecter" class="btn btn-primary">Deconnexion</button>
+                        </div>
+                    </form>
+                </li>
+            </ul>
+        </div>
     </div>
-</div>
+</nav>
 
 <?php if (!empty($_SESSION['prof']) && empty($_GET['filiere'])) : ?>
     <div class="container mb-4 ">
@@ -76,7 +88,7 @@ $a = $prof->nom;
             <div class=" text-center">
                 <h1 class=" fst-italic">Vous êtes connecté(e) comme enseignant(e)</h1>
                 <h2 class=" fw-normal"><?php echo $a ?></h2>
-                <a href="zone_prof.php" class="btn btn-danger text-light mb-3 ">&larr;Retour</a>
+                <a href="zone_prof.php" class="btn btn-danger text-light mb-3 " title="Voir vos filières d'enseignement">&larr;Retour</a>
                 <div class=" border rounded border-primary">
                     <h2 class=" fst-italic">Filiere: <?php echo $filiere ?></h2>
                     <h2 class=" text-decoration-underline ">Unité d'enseignement</h2>
@@ -137,7 +149,7 @@ $a = $prof->nom;
             <div class=" text-center">
                 <h1 class=" fst-italic">Vous êtes connecté(e) comme enseignant(e)</h1>
                 <h2 class=" fw-normal"><?php echo $a ?></h2>
-                <a href=<?php echo "zone_prof.php?filiere=" . $filiere ?> class="btn btn-danger text-light mb-3 ">&larr;Retour</a>
+                <a href=<?php echo "zone_prof.php?filiere=" . $filiere ?> class="btn btn-danger text-light mb-3 " <?php echo "title= Voir vos modules cours, Filiere:$filiere" ?>>&larr;Retour</a>
                 <div class=" border rounded border-primary">
                     <h2 class=" fst-italic">Filiere: <?php echo $filiere ?></h2>
                     <h2 class=" text-decoration-underline">Module : <?php echo $code_mod ?></h2>
@@ -146,9 +158,12 @@ $a = $prof->nom;
                         <div class="d-flex justify-content-center">
                             <form>
                                 <table>
-                                    <tr>
-                                        <td><input type="text" name="my-search" id="my-search" placeholder="Recherche..." maxlength="7" size="10" class="form-control"></td>
-                                        <td><button class="btn btn-secondary rechercher">Rechercher</button></td>
+                                    <tr class=" align-top " >
+                                        <td class="text-start">
+                                            <input type="text" name="my-search" id="my-search" placeholder="Matricule" maxlength="7" size="10" class="form-control">
+                                            <small class="form-text text-muted">Chercher Matricule</small>
+                                        </td>
+                                        <td><button class="btn btn-outline-info rounded-3 rechercher fw-bolder ms-2">Rechercher<span class="glyphicon glyphicon-search"></span></button></td>
                                     </tr>
                                 </table>
                             </form>

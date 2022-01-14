@@ -28,16 +28,33 @@ $b = $etudiant->matricule;
 
 <?php require 'header.php' ?>
 
+
+
 <?php if (!empty($_SESSION['etudiant'])) : ?>
-    <div class="container mb-4">
-        <div class="m-3">
-            <form action="zone_etudiant.php" method="post">
-                <div class=" d-flex justify-content-around">
-                    <a href="index.php" class=" btn btn-primary">Accueil</a>
-                    <button type="submit" name="deconnecter" class="btn btn-primary">Deconnexion</button>
-                </div>
-            </form>
+    <nav class=" navbar navbar-dark bg-secondary navbar-expand-md sticky-md-top">
+        <div class="container px-md-5 px-1 d-flex">
+            <a href="index.php" class=" text-light fw-bold text-decoration-none logo"><img src="logo2.png" alt="logo" width="30" height="35"> UNIVERSITE UY1</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse ml-auto" id="navbarToggleExternalContent">
+                <ul class="navbar-nav mb-2 mb-lg-0 align-items-center ms-auto">
+                    <li class="nav-item me-2">
+                        <a class="nav_link" aria-current="page" href="index.php">ACCUEIL</a>
+                    </li>
+                    <li class=" nav-item">
+                        <form action="zone_etudiant.php" method="post">
+                            <div>
+                                <button type="submit" name="deconnecter" class="btn btn-primary">Deconnexion</button>
+                            </div>
+                        </form>
+                    </li>
+                </ul>
+            </div>
         </div>
+    </nav>
+    <div class="container mb-4">
+
         <div class="text-center">
             <h1 class="fst-italic">Vous êtes connecté(e) comme étudiant(e)</h1>
             <h2 class=" fst-italic fw-normal"><?php echo strtoupper($a) ?></h2>
@@ -63,10 +80,10 @@ $b = $etudiant->matricule;
                         <tr class=" align-baseline">
                             <th><?php echo $i ?></th>
                             <td><?php echo $donnes['title'] ?></td>
-                            <td ><?php echo $donnes['module_code'] ?></td>
-                            <td ><?php echo $donnes['note'] ?></td>
+                            <td><?php echo $donnes['module_code'] ?></td>
+                            <td><?php echo $donnes['note'] ?></td>
                             <?php $i++; ?>
-                            <td >
+                            <td>
                                 <?php echo $etudiant->envoyerRequette($donnes['email']) ?>
                             </td>
                         </tr>
