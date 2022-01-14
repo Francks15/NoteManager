@@ -11,13 +11,14 @@
         </div>
     </div>
 </nav>
-<div class="container">
+<div class="container my_container">
     <div class="text-center">
         <h1 class=" pt-md-5 pt-2" >BIENVENUE DANS LE SITE DE GESTION DE NOTE DE L'UNIVERSITE DE YAOUNDE I</h1>
+        <hr>
         <h2 class="fst-italic">Vous êtes</h2>
         <div class="mygrid">
             <div class="p-2 p-sm-4">
-                <div class=" border-2 border-primary p-2 shadow user position-relative h-100">
+                <div class=" border-2 border p-2 user position-relative h-100">
                     <h3>Etudiant</h3>
                     <hr>
                     <p>Vous êtes evalué(e) par vos professeurs dans différents UE et vous decider de consulter vos notes</p>
@@ -28,7 +29,7 @@
                 </div>
             </div>
             <div class="p-2 p-sm-4">
-                <div class=" border-2 border-primary p-2 shadow user position-relative h-100">
+                <div class=" border-2 border p-2 user position-relative h-100">
                     <h3>Professeur</h3>
                     <hr>
                     <p>Vous êtes charger de gerer la notes des etudiants suivant les matières que vous enseigner</p>
@@ -39,7 +40,7 @@
                 </div>
             </div>
             <div class="p-2 p-sm-4">
-                <div class=" border-2 border-primary p-2 shadow user position-relative h-100">
+                <div class=" border-2 border p-2 user position-relative h-100">
                     <h3>Adminitrateur</h3>
                     <hr>
                     <p>Vous êtes charger de controler les etudiants et professeurs</p>

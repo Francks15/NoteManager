@@ -48,8 +48,8 @@ if (!empty($_SESSION["prof"]) && $user == "professeur") {
 </nav>
 
 <?php if (!$connect) : ?>
-    <div class="container">
-        <div class=" d-flex justify-content-center p-sm-5 p-3">
+    <div class="container my_container">
+        <div class=" d-flex justify-content-center p-sm-5 p-3 mt-2">
             <div>
                 <div class="mb-3 text-center border rounded border-primary px-sm-3 p-1">
                     <?php if ($user == "etudiant") : ?>
@@ -79,8 +79,7 @@ if (!empty($_SESSION["prof"]) && $user == "professeur") {
                                         </tr>
                                     </table>
                                 </div>
-                                <div class=" d-flex justify-content-between align-items-start">
-                                    <a href="index.php" class=" btn btn-primary">Accueil</a>
+                                <div class=" d-flex justify-content-center">
                                     <button class="btn btn-primary mb-4">Se Connecter</button>
                                 </div>
                             </form>

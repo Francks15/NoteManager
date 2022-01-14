@@ -53,10 +53,10 @@ $b = $etudiant->matricule;
             </div>
         </div>
     </nav>
-    <div class="container mb-4">
+    <div class="container my_container pb-4">
 
         <div class="text-center">
-            <h1 class="fst-italic">Vous êtes connecté(e) comme étudiant(e)</h1>
+            <h1 class="fst-italic pt-2">Vous êtes connecté(e) comme étudiant(e)</h1><hr>
             <h2 class=" fst-italic fw-normal"><?php echo strtoupper($a) ?></h2>
             <h2 class=" fst-italic fw-normal fw-bold text-decoration-underline ">MATRICULE: <?php echo $b ?></h2>
         </div>
