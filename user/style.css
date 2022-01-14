@@ -1,13 +1,6 @@
-body{
-    background-color: rgb(167 255 243);
-    border: 2px solid black;
-}
-
-.my_container{
-    background-color: white;
-    border-radius: 20px;
+.my_container {
     margin-top: .5em;
-    border: 2px solid black;
+    border: 1px solid black;
 }
 
 .mygrid {
@@ -17,23 +10,23 @@ body{
     justify-content: center;
 }
 
-.user{
+.user {
     transition: all .5s ease;
     box-shadow: 2px 2px 7px black;
     border: 1px black solid;
 }
 
-.user:hover{
+.user:hover {
     border: 1px blue solid;
-    transform:scale(1.1);
+    transform: scale(1.1);
     box-shadow: 2px 2px 20px blue;
 }
 
-.logo{
+.logo {
     font-size: 1.3rem;
 }
 
-.nav_link{
+.nav_link {
     color: white;
     font-weight: bold;
     display: inline-block;
@@ -41,20 +34,39 @@ body{
     text-decoration: none;
 }
 
-.nav_link:hover{
+.nav_link:hover {
     border-bottom: 3px white solid;
     padding-bottom: 1px;
     color: white;
 }
 
-.nav_link:active{
+.nav_link:active {
     color: rgb(194, 194, 194);
 }
 
-.navbar_dark{
+.navbar_dark {
     background-color: rgb(104, 104, 104);
 }
 
-.footer{
+
+.larg {
+    width: 100%;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+}
+
+.larg:hover {
+    border: none;
+    box-shadow: 0px 0px black;
+    background-color: #caffc5;
+}
+
+.larg:focus {
+    border: none;
+    box-shadow: 0px 0px black;
+}
+
+.footer {
     min-height: 10rem;
 }
