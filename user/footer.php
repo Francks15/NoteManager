@@ -1,7 +1,7 @@
 <hr>
 <div class="footer"></div>
-<footer class="container-fluid text-center text-light bg-dark pt-2 footer position-absolute bottom-0 pb-2">
-    <h3>GESTION DES NOTES DE L'UNIVERSITE DE YAOUNDE I</h3>
+<footer class="container-fluid text-center text-light bg-light pt-2 footer position-absolute bottom-0 pb-2">
+    <h4>GESTION DES NOTES DE L'UNIVERSITE DE YAOUNDE I</h4>
     <p class="lead text-center text-danger m-0 pt-5">NoteManager&copy; 2022 All rights reserved | CUTI UY1 |</p>
 </footer>
 <script src="bootstrap.min.js"></script>

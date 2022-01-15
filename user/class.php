@@ -77,7 +77,7 @@ class Etudiant extends Utilisateur
     public function envoyerRequette($email)
     {
         if (!empty($email)) {
-            $balise = '<a href="mailto:' . $email . '"><button class="btn btn-warning">Envoyer requette</button></a>';
+            $balise = '<a href="mailto:' . $email . '"><button class="btn btn-warning"> Envoyer requette <i class="bi bi-envelope-fill"></i></button></a>';
         } else {
             $balise = "/";
         }

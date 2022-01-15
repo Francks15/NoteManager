@@ -30,7 +30,7 @@ $a = $prof->nom;
         <div class="collapse navbar-collapse ml-auto" id="navbarToggleExternalContent">
             <ul class="navbar-nav mb-2 mb-lg-0 align-items-center ms-auto">
                 <li class="nav-item me-2">
-                    <a class="nav_link" aria-current="page" href="index.php">ACCUEIL</a>
+                    <a class="nav_link" aria-current="page" href="index.php"> <i class="bi bi-house-fill" ></i>ACCUEIL</a>
                 </li>
                 <li class=" nav-item">
                     <form action="zone_prof.php" method="post">
@@ -92,7 +92,7 @@ $a = $prof->nom;
                 <h1 class=" fst-italic">Vous êtes connecté(e) comme enseignant(e)</h1>
                 <hr>
                 <h2 class=" fw-normal"><?php echo $a ?></h2>
-                <a href="zone_prof.php" class="btn btn-danger text-light mb-3 " title="Voir vos filières d'enseignement">&larr;Retour</a>
+                <a href="zone_prof.php" class="btn btn-danger text-light mb-3 " title="Voir vos filières d'enseignement"> <i class="bi bi-arrow-bar-left" ></i> Retour</a>
                 <div class=" border rounded border-primary">
                     <h2 class=" fst-italic">Filiere: <?php echo $filiere ?></h2>
                     <h2 class=" text-decoration-underline ">Unité d'enseignement</h2>
@@ -156,7 +156,7 @@ $a = $prof->nom;
                 <h1 class=" fst-italic">Vous êtes connecté(e) comme enseignant(e)</h1>
                 <hr>
                 <h2 class=" fw-normal"><?php echo $a ?></h2>
-                <a href=<?php echo "zone_prof.php?filiere=" . $filiere ?> class="btn btn-danger text-light mb-3 " <?php echo "title= 'Voir vos modules cours, Filiere:$filiere'" ?>>&larr;Retour</a>
+                <a href=<?php echo "zone_prof.php?filiere=" . $filiere ?> class="btn btn-danger text-light mb-3 " <?php echo "title= 'Voir vos modules cours, Filiere:$filiere'" ?>> <i class="bi bi-arrow-bar-left" ></i> Retour</a>
                 <div class=" border rounded border-primary">
                     <h2 class=" fst-italic">Filiere: <?php echo $filiere ?></h2>
                     <h2 class=" text-decoration-underline">Module : <?php echo $code_mod ?></h2>
@@ -170,7 +170,7 @@ $a = $prof->nom;
                                             <input type="text" name="my-search" id="my-search" placeholder="Matricule" maxlength="7" size="10" class="form-control">
                                             <small class="form-text text-muted">Chercher Matricule</small>
                                         </td>
-                                        <td><button class="btn btn-outline-info rounded-3 rechercher fw-bolder ms-2">Rechercher<span class="glyphicon glyphicon-search"></span></button></td>
+                                        <td><button class="btn btn-outline-info rounded-3 rechercher fw-bolder ms-2">Rechercher <i class=" bi bi-search" ></i></button></td>
                                     </tr>
                                 </table>
                             </form>
@@ -274,7 +274,7 @@ $a = $prof->nom;
                                 </table>
                             </div>
                             <div class="pb-2 d-flex justify-content-around">
-                                <button type="submit" class="soumettre btn btn-success">Enregistrer</button>
+                                <button type="submit" class="soumettre btn btn-success">Enregistrer <i class="bi bi-save"></i> </button>
                                 <a href=<?php echo "zone_prof.php?filiere=$filiere&module=$code_mod" ?> class="btn btn-danger">Reset</a>
                             </div>
                         </form>

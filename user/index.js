@@ -40,8 +40,8 @@ let input_search = document.getElementById("my-search");
 
 btn_search.addEventListener('click', function (e) {
     e.preventDefault();
-    if (btn_search.firstChild.nodeValue == "Rechercher") {
-        btn_search.firstChild.nodeValue = "Annuler";
+    if (btn_search.firstChild.nodeValue == "Rechercher ") {
+        btn_search.innerHTML = "Annuler";
         let trouve = false;
         for (let i = 0; i < matri.length; i++) {
             if (matri[i].innerHTML.indexOf(input_search.value) == -1) {
@@ -57,7 +57,7 @@ btn_search.addEventListener('click', function (e) {
             next_tr.innerHTML = '<td class="fst-italic" colspan=5 >Matricule introuvable</td>';
         }
     } else {
-        btn_search.firstChild.nodeValue = "Rechercher";
+        btn_search.innerHTML = 'Rechercher <i class=" bi bi-search" ></i>';
         let next_tr = document.getElementById('non_trouver');
         if (next_tr) {
             next_tr.parentNode.removeChild(next_tr);

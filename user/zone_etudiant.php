@@ -40,7 +40,7 @@ $b = $etudiant->matricule;
             <div class="collapse navbar-collapse ml-auto" id="navbarToggleExternalContent">
                 <ul class="navbar-nav mb-2 mb-lg-0 align-items-center ms-auto">
                     <li class="nav-item me-2">
-                        <a class="nav_link" aria-current="page" href="index.php">ACCUEIL</a>
+                        <a class="nav_link" aria-current="page" href="index.php"><i class="bi bi-house-fill" ></i>ACCUEIL</a>
                     </li>
                     <li class=" nav-item">
                         <form action="zone_etudiant.php" method="post">

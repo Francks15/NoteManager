@@ -40,7 +40,7 @@ if (!empty($_SESSION["prof"]) && $user == "professeur") {
         <div>
             <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav_link" aria-current="page" href="index.php">ACCUEIL</a>
+                    <a class="nav_link" aria-current="page" href="index.php"><i class="bi bi-house-fill" ></i>ACCUEIL</a>
                 </li>
             </ul>
         </div>

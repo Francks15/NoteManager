@@ -12,14 +12,13 @@
 
 .user {
     transition: all .5s ease;
-    box-shadow: 2px 2px 7px black;
     border: 1px black solid;
 }
 
 .user:hover {
-    border: 1px blue solid;
+    border: 1px #0d6efd solid;
     transform: scale(1.1);
-    box-shadow: 2px 2px 20px blue;
+    box-shadow: 2px 2px 20px #0d6efd;
 }
 
 .logo {
