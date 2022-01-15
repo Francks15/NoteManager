@@ -246,6 +246,9 @@ $a = $prof->nom;
                                         [$etudiant, $evaluer] = $prof->consulterNote($code_mod, $filiere);
                                         foreach ($evaluer as $matiere) :
                                             $i++;
+                                            // echo '<pre>';
+                                            // print_r($matiere);
+                                            // echo '</pre>';
                                         ?>
                                             <tr class=" align-middle ligne">
                                                 <th><?php echo $i ?></th>
@@ -264,9 +267,7 @@ $a = $prof->nom;
                                                 <td <?php echo "class='modee$i parent_larg p-0'" ?>>
                                                     <input type="text" class="form-control larg text-center" id=<?php echo "modee$i" ?> value=<?php echo Cellule::afficheNote($matiere->note_ee); ?> size="2" maxlength="5" name=<?php echo "{$matiere->etudiant->matricule}[]" ?>>
                                                 </td>
-                                                <!-- <td>
-                                                <span class="prof-modifier text-center btn btn-warning" id=<?php echo "mod$i" ?>>Modifier</span>
-                                            </td> -->
+                                                
                                             </tr>
                                         <?php endforeach ?>
                                         <?php echo $prof->modifierNote() ?>
