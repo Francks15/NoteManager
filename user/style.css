@@ -1,6 +1,11 @@
 [class*=classic]:before {
     content: "Loading...";
 }
+
+nav{
+    background-color: #3498db !important;
+}
+
 .v-none{
     visibility: hidden;
 }

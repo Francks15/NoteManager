@@ -1,5 +1,5 @@
 <?php require 'header.php' ?>
-<nav class=" navbar bg-info sticky-top-md">
+<nav class=" navbar sticky-top-md">
     <div class="container px-sm-5 px-3 d-flex">
         <a href="index.php" class=" text-light fw-bold text-decoration-none logo"><img src="logo2.png" alt="logo" width="30" height="35"> UNIVERSITE UY1</a>
         <div>
