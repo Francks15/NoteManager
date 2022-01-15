@@ -21,7 +21,7 @@ $a = $prof->nom;
 
 <?php require 'header.php' ?>
 
-<nav class=" navbar navbar-dark bg-secondary navbar-expand-md sticky-md-top">
+<nav class=" navbar navbar-dark bg-info navbar-expand-md sticky-md-top">
     <div class="container px-md-5 px-1 d-flex">
         <a href="index.php" class=" text-light fw-bold text-decoration-none logo"><img src="logo2.png" alt="logo" width="30" height="35"> UNIVERSITE UY1</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
