@@ -202,9 +202,6 @@ $a = $prof->nom;
                                                 $notation_tp = $matiere->note_tp;
                                                 $notation_ee = $matiere->note_ee;
                                                 $istp = (int) $matiere->module->istp;
-                                                echo "<pre>";
-                                                print_r($istp);
-                                                echo "</pre>";
                                                 foreach ($_POST as $key => $vals) {
                                                     $enregistrer = false;
                                                     foreach ($vals as $key_val => $val) {
@@ -220,19 +217,23 @@ $a = $prof->nom;
                                                                 $val = 0;
                                                             }
                                                         }
-                                                        if (($val >= 0 && $val <= 100) || $val == -1 || $val == null) {
+                                                        if (($val >= 0 && $val <= 70) || $val == -1 || $val == null) {
                                                             if ($matri == $key && $val != $notation_cc && $key_val == 0) {
-                                                                $enregistrer = true;
-                                                                $prof->enregistrerNote($matri, $code_mod, $filiere, $val, $key_val);
-                                                            }
-                                                            elseif ($matri == $key && $val != $notation_tp && $key_val == 1 && $istp!=0) {
-                                                                $enregistrer = true;
-                                                                $prof->enregistrerNote($matri, $code_mod, $filiere, $val, $key_val);
-                                                            }
-                                                            elseif ($matri == $key && $val != $notation_ee &&  ($key_val == 2 || ($key_val==1 && $istp==0))) {
-                                                                $key_val=2;
-                                                                $enregistrer = true;
-                                                                $prof->enregistrerNote($matri, $code_mod, $filiere, $val, $key_val);
+                                                                if (($val <= 30 && $istp == 0) || ($val <= 20 && $istp != 0)) {
+                                                                    $enregistrer = true;
+                                                                    $prof->enregistrerNote($matri, $code_mod, $filiere, $val, $key_val);
+                                                                }
+                                                            } elseif ($matri == $key && $val != $notation_tp && $key_val == 1 && $istp != 0) {
+                                                                if ($val <= 30) {
+                                                                    $enregistrer = true;
+                                                                    $prof->enregistrerNote($matri, $code_mod, $filiere, $val, $key_val);
+                                                                }
+                                                            } elseif ($matri == $key && $val != $notation_ee &&  ($key_val == 2 || ($key_val == 1 && $istp == 0))) {
+                                                                if (($val <= 70 && $istp == 0) || ($val <= 50 && $istp != 0)) {
+                                                                    $key_val = 2;
+                                                                    $enregistrer = true;
+                                                                    $prof->enregistrerNote($matri, $code_mod, $filiere, $val, $key_val);
+                                                                }
                                                             }
                                                         }
                                                     }
