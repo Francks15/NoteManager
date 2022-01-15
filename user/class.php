@@ -87,7 +87,7 @@ class Etudiant extends Utilisateur
     public function consulterNote($code = null, $filiere = null)
     {
         $bdd = new PDO('mysql:dbname=notemanager;host=127.0.0.1', 'root', '', [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
-        $reponse = $bdd->query('SELECT professeurs.email, module_code, note_cc, note_tp, note_ee FROM evaluer
+        $reponse = $bdd->query('SELECT professeurs.email, module_code, note_cc, note_tp, note_ee, module.tp FROM evaluer
         INNER JOIN module ON module.codeu=module_code
         INNER JOIN professeurs ON professeurs.id= professeur_id
         WHERE etudiant_matricule="' . $this->matricule . '";');
@@ -270,4 +270,18 @@ class Evaluer
         $this->etudiant = $etudiant;
         $this->module = $module;
     }
+}
+
+class Cellule {
+
+    public static function afficheNote($valeur)
+{
+    if (!isset($valeur)) {
+        return "/";
+    } elseif ($valeur < 0) {
+        return "EL";
+    } else {
+        return $valeur;
+    }
+}
 }

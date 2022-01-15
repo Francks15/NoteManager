@@ -15,16 +15,7 @@ if (empty($_SESSION["prof"])) {
 $prof = $_SESSION['prof'];
 $a = $prof->nom;
 
-function afficheNote($valeur)
-{
-    if (!isset($valeur)) {
-        return "/";
-    } elseif ($valeur < 0) {
-        return "EL";
-    } else {
-        return $valeur;
-    }
-}
+
 
 ?>
 
@@ -210,10 +201,14 @@ function afficheNote($valeur)
                                                 $notation_cc = $matiere->note_cc;
                                                 $notation_tp = $matiere->note_tp;
                                                 $notation_ee = $matiere->note_ee;
+                                                $istp = (int) $matiere->module->istp;
+                                                echo "<pre>";
+                                                print_r($istp);
+                                                echo "</pre>";
                                                 foreach ($_POST as $key => $vals) {
                                                     $enregistrer = false;
                                                     foreach ($vals as $key_val => $val) {
-                                                        if ($val == "el" || $val == "EL" || $val == "elim" || $val == "ELIM") {
+                                                        if ($val == "el" || $val == "EL" || $val == "elimi" || $val == "ELIMI") {
                                                             $val = -1;
                                                         } elseif ($val == "/" or $val == "-") {
                                                             $val = null;
@@ -230,11 +225,12 @@ function afficheNote($valeur)
                                                                 $enregistrer = true;
                                                                 $prof->enregistrerNote($matri, $code_mod, $filiere, $val, $key_val);
                                                             }
-                                                            if ($matri == $key && $val != $notation_tp &&  $key_val == 1) {
+                                                            elseif ($matri == $key && $val != $notation_tp && $key_val == 1 && $istp!=0) {
                                                                 $enregistrer = true;
                                                                 $prof->enregistrerNote($matri, $code_mod, $filiere, $val, $key_val);
                                                             }
-                                                            if ($matri == $key && $val != $notation_ee &&  $key_val == 2) {
+                                                            elseif ($matri == $key && $val != $notation_ee &&  ($key_val == 2 || ($key_val==1 && $istp==0))) {
+                                                                $key_val=2;
                                                                 $enregistrer = true;
                                                                 $prof->enregistrerNote($matri, $code_mod, $filiere, $val, $key_val);
                                                             }
@@ -255,13 +251,17 @@ function afficheNote($valeur)
                                                 <th class="ligne-matri"><?php echo $matiere->etudiant->matricule ?></th>
                                                 <td><?php echo strtoupper($matiere->etudiant->nom) ?></td>
                                                 <td <?php echo "class='modcc$i parent_larg p-0'" ?>>
-                                                    <input type="text" class="form-control larg text-center" id=<?php echo "modcc$i" ?> value= <?php echo afficheNote($matiere->note_cc); ?> size="2" maxlength="5" name=<?php echo "{$matiere->etudiant->matricule}[]" ?>>
+                                                    <input type="text" class="form-control larg text-center" id=<?php echo "modcc$i" ?> value=<?php echo Cellule::afficheNote($matiere->note_cc); ?> size="2" maxlength="5" name=<?php echo "{$matiere->etudiant->matricule}[]" ?>>
                                                 </td>
                                                 <td <?php echo "class='modtp$i parent_larg p-0'" ?>>
-                                                    <input type="text" class="form-control larg text-center" id=<?php echo "modtp$i" ?> value= <?php echo afficheNote($matiere->note_tp); ?> size="2" maxlength="5" name=<?php echo "{$matiere->etudiant->matricule}[]" ?>>
+                                                    <?php if ($matiere->module->istp != 0) : ?>
+                                                        <input type="text" class="form-control larg text-center" id=<?php echo "modtp$i" ?> value=<?php echo Cellule::afficheNote($matiere->note_tp); ?> size="2" maxlength="5" name=<?php echo "{$matiere->etudiant->matricule}[]" ?>>
+                                                    <?php else : ?>
+                                                        <span class=" fst-italic">not-Tp</span>
+                                                    <?php endif ?>
                                                 </td>
                                                 <td <?php echo "class='modee$i parent_larg p-0'" ?>>
-                                                    <input type="text" class="form-control larg text-center" id=<?php echo "modee$i" ?> value= <?php echo afficheNote($matiere->note_ee); ?> size="2" maxlength="5" name=<?php echo "{$matiere->etudiant->matricule}[]" ?>>
+                                                    <input type="text" class="form-control larg text-center" id=<?php echo "modee$i" ?> value=<?php echo Cellule::afficheNote($matiere->note_ee); ?> size="2" maxlength="5" name=<?php echo "{$matiere->etudiant->matricule}[]" ?>>
                                                 </td>
                                                 <!-- <td>
                                                 <span class="prof-modifier text-center btn btn-warning" id=<?php echo "mod$i" ?>>Modifier</span>

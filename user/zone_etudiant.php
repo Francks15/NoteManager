@@ -56,46 +56,55 @@ $b = $etudiant->matricule;
     <div class="container my_container pb-4">
 
         <div class="text-center">
-            <h1 class="fst-italic pt-2">Vous êtes connecté(e) comme étudiant(e)</h1><hr>
+            <h1 class="fst-italic pt-2">Vous êtes connecté(e) comme étudiant(e)</h1>
+            <hr>
             <h2 class=" fst-italic fw-normal"><?php echo strtoupper($a) ?></h2>
             <h2 class=" fst-italic fw-normal fw-bold text-decoration-underline ">MATRICULE: <?php echo $b ?></h2>
         </div>
         <div class="border border-primary rounded">
-           <div class=" table-responsive" >
-           <table class=" table text-center table-hover table-bordered">
-                <thead class=" table-dark" >
-                    <tr>
-                        <th>#</th>
-                        <th>Module</th>
-                        <th>CC</th>
-                        <th>TP</th>
-                        <th>EE</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    $reponse = $etudiant->consulterNote();
-                    $i = 1;
-                    while ($donnes = $reponse->fetch()) :
-                    ?>
-                        <tr class=" align-baseline">
-                            <th><?php echo $i ?></th>
-                            <td><?php echo $donnes['module_code'] ?></td>
-                            <td><?php echo $donnes['note_cc'] ?></td>
-                            <td><?php echo $donnes['note_tp'] ?></td>
-                            <td><?php echo $donnes['note_ee'] ?></td>
-                            <?php $i++; ?>
-                            <td>
-                                <?php echo $etudiant->envoyerRequette($donnes['email']) ?>
-                            </td>
+            <div class=" table-responsive">
+                <table class=" table text-center table-hover table-bordered">
+                    <thead class=" table-dark">
+                        <tr>
+                            <th>#</th>
+                            <th>Module</th>
+                            <th>CC</th>
+                            <th>TP</th>
+                            <th>EE</th>
+                            <th>Action</th>
                         </tr>
-                    <?php endwhile;
-                    $reponse->closeCursor();
-                    ?>
-                </tbody>
-            </table>
-           </div>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $reponse = $etudiant->consulterNote();
+                        $i = 1;
+                        while ($donnes = $reponse->fetch()) :
+                        ?>
+                            <tr class=" align-middle">
+                                <th><?php echo $i ?></th>
+                                <td><?php echo $donnes['module_code'] ?></td>
+                                <td><?php echo Cellule::afficheNote($donnes['note_cc']) ?></td>
+                                <td>
+                                    <?php if ($donnes['tp'] != 0) : ?>
+                                        <?php echo Cellule::afficheNote($donnes['note_tp']) ?>
+                                    <?php else : ?>
+                                        <span class=" fst-italic">
+                                            not-Tp
+                                        </span>
+                                    <?php endif ?>
+                                </td>
+                                <td><?php echo Cellule::afficheNote($donnes['note_ee']) ?></td>
+                                <?php $i++; ?>
+                                <td>
+                                    <?php echo $etudiant->envoyerRequette($donnes['email']) ?>
+                                </td>
+                            </tr>
+                        <?php endwhile;
+                        $reponse->closeCursor();
+                        ?>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 <?php endif ?>
