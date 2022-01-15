@@ -3,14 +3,6 @@ require_once 'class.php';
 if (!isset($_SESSION)) {
     session_start();
 }
-// if (isset($connect)) {
-//     // session_start();
-//     $_SESSION['etudiant']= serialize($etudiant);
-//     // setcookie("etudiant", serialize($etudiant));
-// }
-// if (isset($_SESSION["etudiant"])) {
-//     $_SESSION["etudiant"] = serialize($etudiant);
-// };
 if (isset($_POST['deconnecter'])) {
     unset($_SESSION['etudiant']);
 }
@@ -45,7 +37,7 @@ $b = $etudiant->matricule;
                     <li class=" nav-item">
                         <form action="zone_etudiant.php" method="post">
                             <div>
-                                <button type="submit" name="deconnecter" class="btn btn-primary">Deconnexion</button>
+                                <button type="submit" name="deconnecter" class="btn btn-primary">Deconnexion <i class="bi bi-layer-backward"></i></button>
                             </div>
                         </form>
                     </li>

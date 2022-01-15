@@ -4,6 +4,7 @@
 
 nav{
     background-color: #3498db !important;
+    z-index: 6;
 }
 
 .v-none{
@@ -119,7 +120,7 @@ nav{
 .larg:focus {
     border: none;
     box-shadow: 0px 0px black;
-    background-color: #cef4ff;
+    background-color: #fffece;
 }
 
 .footer {
