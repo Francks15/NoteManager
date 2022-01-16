@@ -1,4 +1,3 @@
-
 function affiche() {
     var parent_larg = document.querySelectorAll('.parent_larg');
     var larg = document.querySelectorAll('.larg');
@@ -10,7 +9,7 @@ function affiche() {
 
 affiche();
 
-window.onresize= function(){
+window.onresize = function () {
     affiche();
 }
 
@@ -53,3 +52,93 @@ btn_search.addEventListener('click', function (e) {
 btn_search.addEventListener('submit', function (e) {
     e.preventDefault();
 });
+
+let cel = document.querySelectorAll('.cel');
+let soumettre = document.querySelector('.soumettre');
+
+function preventDef(e) {
+    e.preventDefault();
+    e.target.addEventListener('submit', function (event) {
+        event.preventDefault()
+    });
+    return true;
+}
+
+
+soumettre.addEventListener('click', function (e) {
+    let prevent = false;
+    for (let i = 0; i < cel.length; i += 3) {
+        let val_id = cel[i + 1].id;
+        for (let j = 0; j < 3; j++) {
+            cel[i + j].style.removeProperty('background-color');
+        }
+        if (val_id.indexOf('modtp') != -1) {
+
+            if ((cel[i].value >= 0 && cel[i].value <= 20) || cel[i].value == "el" || cel[i].value == "/" || cel[i].value == "EL") {} else {
+                if (!prevent) {
+                    prevent = preventDef(e);
+                };
+                cel[i].style.backgroundColor = "#ffabab";
+            }
+            if ((cel[i + 1].value >= 0 && cel[i + 1].value <= 30) || cel[i + 1].value == "el" || cel[i + 1].value == "/" || cel[i + 1].value == "EL") {} else {
+                if (!prevent) {
+                    prevent = preventDef(e);
+                };
+                cel[i + 1].style.backgroundColor = "#ffabab";
+            }
+            if ((cel[i + 2].value >= 0 && cel[i + 2].value <= 50) || cel[i + 2].value == "el" || cel[i + 2].value == "/" || cel[i + 2].value == "EL") {} else {
+                if (!prevent) {
+                    prevent = preventDef(e);
+                };
+                cel[i + 2].style.backgroundColor = "#ffabab";
+            }
+        } else {
+            if ((cel[i].value >= 0 && cel[i].value <= 30) || cel[i].value == "el" || cel[i].value == "/" || cel[i].value == "EL") {} else {
+                if (!prevent) {
+                    prevent = preventDef(e);
+                };
+                cel[i].style.backgroundColor = "#ffabab";
+            }
+            if ((cel[i + 2].value >= 0 && cel[i + 2].value <= 70) || cel[i + 2].value == "el" || cel[i + 2].value == "/" || cel[i + 2].value == "EL") {} else {
+                if (!prevent) {
+                    prevent = preventDef(e);
+                };
+                cel[i + 2].style.backgroundColor = "#ffabab";
+            }
+        }
+    }
+})
+
+
+for (let i = 0; i < cel.length; i++) {
+    let j = i / 3 >> 0;
+    cel[i].addEventListener('blur', function (e) {
+        cel[i].style.removeProperty('background-color');
+        let val_id = cel[3*j + 1].id;
+        if (val_id.indexOf('modtp') != -1) {
+            if (i % 3 == 0) {
+                if ((cel[i].value >= 0 && cel[i].value <= 20) || cel[i].value == "el" || cel[i].value == "/" || cel[i].value == "EL") {} else {
+                    cel[i].style.backgroundColor = "#ffabab";
+                }
+            } else if (i % 3 == 1) {
+                if ((cel[i].value >= 0 && cel[i].value <= 30) || cel[i].value == "el" || cel[i].value == "/" || cel[i].value == "EL") {} else {
+                    cel[i].style.backgroundColor = "#ffabab";
+                }
+            } else if (i % 3 == 2) {
+                if ((cel[i].value >= 0 && cel[i].value <= 50) || cel[i].value == "el" || cel[i].value == "/" || cel[i].value == "EL") {} else {
+                    cel[i].style.backgroundColor = "#ffabab";
+                }
+            }
+        } else {
+            if (i % 3 == 0)
+                if ((cel[i].value >= 0 && cel[i].value <= 30) || cel[i].value == "el" || cel[i].value == "/" || cel[i].value == "EL") {} else {
+                    cel[i].style.backgroundColor = "#ffabab";
+                }
+            else if (i % 3 == 2) {
+                if ((cel[i].value >= 0 && cel[i].value <= 70) || cel[i].value == "el" || cel[i].value == "/" || cel[i].value == "EL") {} else {
+                    cel[i].style.backgroundColor = "#ffabab";
+                }
+            }
+        }
+    })
+}

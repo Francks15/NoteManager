@@ -23,9 +23,6 @@
     window.onresize = function() {
         height();
     };
-
-
-
     let button = document.querySelectorAll('.btn');
     for(let i=0; i<button.length; i++){
         let cover = document.querySelector('.cover');

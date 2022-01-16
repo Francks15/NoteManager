@@ -209,12 +209,11 @@ $a = $prof->nom;
                                                             $val = -1;
                                                         } elseif ($val == "/" or $val == "-") {
                                                             $val = null;
-                                                        } elseif ($val == "vierge") {
-                                                            $val == "vierge";
-                                                        } else {
+                                                        } 
+                                                        else {
                                                             $val = floatval($val);
                                                             if ($val < 0) {
-                                                                $val = 0;
+                                                                $val = " ";
                                                             }
                                                         }
                                                         if (($val >= 0 && $val <= 70) || $val == -1 || $val == null) {
@@ -255,22 +254,21 @@ $a = $prof->nom;
                                                 <th class="ligne-matri"><?php echo $matiere->etudiant->matricule ?></th>
                                                 <td><?php echo strtoupper($matiere->etudiant->nom) ?></td>
                                                 <td <?php echo "class='modcc$i parent_larg p-0'" ?>>
-                                                    <input type="text" class="form-control larg text-center" id=<?php echo "modcc$i" ?> value=<?php echo Cellule::afficheNote($matiere->note_cc); ?> size="2" maxlength="5" name=<?php echo "{$matiere->etudiant->matricule}[]" ?>>
+                                                    <input type="text" class="form-control larg text-center cel" id=<?php echo "modcc$i" ?> value=<?php echo Cellule::afficheNote($matiere->note_cc); ?> size="2" maxlength="5" name=<?php echo "{$matiere->etudiant->matricule}[]" ?>>
                                                 </td>
                                                 <td <?php echo "class='modtp$i parent_larg p-0'" ?>>
                                                     <?php if ($matiere->module->istp != 0) : ?>
-                                                        <input type="text" class="form-control larg text-center" id=<?php echo "modtp$i" ?> value=<?php echo Cellule::afficheNote($matiere->note_tp); ?> size="2" maxlength="5" name=<?php echo "{$matiere->etudiant->matricule}[]" ?>>
+                                                        <input type="text" class="form-control larg text-center cel" id=<?php echo "modtp$i" ?> value=<?php echo Cellule::afficheNote($matiere->note_tp); ?> size="2" maxlength="5" name=<?php echo "{$matiere->etudiant->matricule}[]" ?>>
                                                     <?php else : ?>
-                                                        <span class=" fst-italic">not-Tp</span>
+                                                        <span class=" fst-italic cel larg">not-Tp</span>
                                                     <?php endif ?>
                                                 </td>
                                                 <td <?php echo "class='modee$i parent_larg p-0'" ?>>
-                                                    <input type="text" class="form-control larg text-center" id=<?php echo "modee$i" ?> value=<?php echo Cellule::afficheNote($matiere->note_ee); ?> size="2" maxlength="5" name=<?php echo "{$matiere->etudiant->matricule}[]" ?>>
+                                                    <input type="text" class="form-control larg text-center cel" id=<?php echo "modee$i" ?> value=<?php echo Cellule::afficheNote($matiere->note_ee); ?> size="2" maxlength="5" name=<?php echo "{$matiere->etudiant->matricule}[]" ?>>
                                                 </td>
                                                 
                                             </tr>
                                         <?php endforeach ?>
-                                        <?php echo $prof->modifierNote() ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -278,6 +276,7 @@ $a = $prof->nom;
                                 <button type="submit" class="soumettre btn btn-success fw-bold">Enregistrer <i class="bi bi-save"></i> </button>
                                 <a href=<?php echo "zone_prof.php?filiere=$filiere&module=$code_mod" ?> class="btn btn-danger">Reset <i class=" bi bi-arrow-clockwise" ></i></a>
                             </div>
+                            <?php echo $prof->modifierNote() ?>
                         </form>
                     </div>
                 </div>
