@@ -32,7 +32,7 @@ $b = $etudiant->matricule;
             <div class="collapse navbar-collapse ml-auto" id="navbarToggleExternalContent">
                 <ul class="navbar-nav mb-2 mb-lg-0 align-items-center ms-auto">
                     <li class="nav-item me-2">
-                        <a class="nav_link" aria-current="page" href="index.php"><i class="bi bi-house-fill" ></i>ACCUEIL</a>
+                        <a class="nav_link" aria-current="page" href="index.php"><i class="bi bi-house-fill"></i>ACCUEIL</a>
                     </li>
                     <li class=" nav-item">
                         <form action="zone_etudiant.php" method="post">
@@ -51,6 +51,7 @@ $b = $etudiant->matricule;
             <h1 class="fst-italic pt-2">Vous êtes connecté(e) comme étudiant(e)</h1>
             <hr>
             <h2 class=" fst-italic fw-normal"><?php echo strtoupper($a) ?></h2>
+            <h2 class=" fst-italic fw-normal">Filiere: <?php echo $etudiant->filiere ?></h2>
             <h2 class=" fst-italic fw-normal fw-bold text-decoration-underline ">MATRICULE: <?php echo $b ?></h2>
         </div>
         <div class="border border-primary rounded">
@@ -75,7 +76,7 @@ $b = $etudiant->matricule;
                         ?>
                             <tr class=" align-middle">
                                 <th><?php echo $i ?></th>
-                                <td class=" fw-bold" ><?php echo $donnes['module_code'] ?></td>
+                                <td class=" fw-bold"><?php echo $donnes['module_code'] ?></td>
                                 <td><?php echo Cellule::afficheNote($donnes['note_cc']) ?></td>
                                 <td>
                                     <?php if ($donnes['tp'] != 0) : ?>
@@ -88,20 +89,20 @@ $b = $etudiant->matricule;
                                 </td>
                                 <td><?php echo Cellule::afficheNote($donnes['note_ee']) ?></td>
                                 <?php $i++; ?>
-                                <td class=" fw-bold" >
+                                <td class=" fw-bold">
                                     <?php
-                                     $cc = (float) $donnes['note_cc'];
-                                     if ($donnes['tp'] != 0) {
-                                         $tp = (float) $donnes['note_tp'];
-                                     } else {
-                                         $tp = 0;
-                                     };
-                                     $ee = (float) $donnes['note_ee'];
-                                     if ($cc < 0 or $tp < 0 or $ee < 0) {
-                                         echo 'EL';
-                                     } else {
-                                         echo round($cc + $tp + $ee, 2);
-                                     }
+                                    $cc = (float) $donnes['note_cc'];
+                                    if ($donnes['tp'] != 0) {
+                                        $tp = (float) $donnes['note_tp'];
+                                    } else {
+                                        $tp = 0;
+                                    };
+                                    $ee = (float) $donnes['note_ee'];
+                                    if ($cc < 0 or $tp < 0 or $ee < 0) {
+                                        echo 'EL';
+                                    } else {
+                                        echo round($cc + $tp + $ee, 2);
+                                    }
                                     ?>
                                 </td>
                                 <td>

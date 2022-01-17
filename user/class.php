@@ -66,6 +66,7 @@ abstract class Utilisateur extends Personne
 class Etudiant extends Utilisateur
 {
     public $matricule;
+    public $filiere;
     public function __construct($matricule, $nom, $sexe, $reference = "Etudiant")
     {
         $this->matricule = $matricule;
@@ -77,7 +78,7 @@ class Etudiant extends Utilisateur
     public function envoyerRequette($email)
     {
         if (!empty($email)) {
-            $balise = '<a href="mailto:' . $email . '"><button class="btn btn-warning"> Envoyer requette <i class="bi bi-envelope-fill"></i></button></a>';
+            $balise = '<a href="mailto:' . $email . '"><button class="btn btn-warning"><span class=" d-none d-sm-inline" >Envoyer requette</span> <i class="bi bi-envelope-fill"></i></button></a>';
         } else {
             $balise = "/";
         }
@@ -99,15 +100,15 @@ class Etudiant extends Utilisateur
         $connect = false;
         $etudiant = null;
         $bdd = new PDO('mysql:dbname=notemanager;host=127.0.0.1', 'root', '', [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
-        // try {
-        // } catch (Exception $e) {
-        //     die('Erreur : ' . $e->getMessage());
-        // }
-        $reponse = $bdd->query('SELECT * FROM etudiant');
+        $reponse = $bdd->query('SELECT etudiant.*, module.filiere FROM evaluer
+        INNER JOIN module ON module.codeu=module_code
+        INNER JOIN etudiant ON etudiant_matricule=etudiant.matricule
+        WHERE etudiant.matricule="' . $identifiant . '"');
         while ($donnes = $reponse->fetch()) {
             if ($donnes['matricule'] == $identifiant) {
                 $connect = true;
                 $etudiant = new Etudiant($donnes['matricule'], $donnes["nom"], $donnes["sexe"]);
+                $etudiant->filiere = $donnes['filiere'];
                 $reponse->closeCursor();
                 return [$connect, $etudiant];
             }
@@ -272,16 +273,17 @@ class Evaluer
     }
 }
 
-class Cellule {
+class Cellule
+{
 
     public static function afficheNote($valeur)
-{
-    if (!isset($valeur)) {
-        return "/";
-    } elseif ($valeur < 0) {
-        return "EL";
-    } else {
-        return $valeur;
+    {
+        if (!isset($valeur)) {
+            return "/";
+        } elseif ($valeur < 0) {
+            return "EL";
+        } else {
+            return $valeur;
+        }
     }
-}
 }
