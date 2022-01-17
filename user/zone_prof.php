@@ -30,12 +30,12 @@ $a = $prof->nom;
         <div class="collapse navbar-collapse ml-auto" id="navbarToggleExternalContent">
             <ul class="navbar-nav mb-2 mb-lg-0 align-items-center ms-auto">
                 <li class="nav-item me-2">
-                    <a class="nav_link" aria-current="page" href="index.php"> <i class="bi bi-house-fill" ></i>ACCUEIL</a>
+                    <a class="nav_link" aria-current="page" href="index.php"> <i class="bi bi-house-fill"></i>ACCUEIL</a>
                 </li>
                 <li class=" nav-item">
                     <form action="zone_prof.php" method="post">
                         <div>
-                            <button type="submit" name="deconnecter" class="btn btn-primary">Deconnexion <i class="bi bi-layer-backward"></i></button>
+                            <button type="submit" name="deconnecter" class="btn btn-primary fw-bold"><i class="bi bi-box-arrow-left"></i> Deconnexion</button>
                         </div>
                     </form>
                 </li>
@@ -92,7 +92,7 @@ $a = $prof->nom;
                 <h1 class=" fst-italic">Vous êtes connecté(e) comme enseignant(e)</h1>
                 <hr>
                 <h2 class=" fw-normal"><?php echo $a ?></h2>
-                <a href="zone_prof.php" class="btn btn-danger text-light mb-3 fw-bold" title="Voir vos filières d'enseignement"> <i class="bi bi-arrow-bar-left" ></i> Retour</a>
+                <a href="zone_prof.php" class="btn btn-danger text-light mb-3 fw-bold" title="Voir vos filières d'enseignement"> <i class="bi bi-arrow-bar-left"></i> Retour</a>
                 <div class=" border rounded border-primary">
                     <h2 class=" fst-italic">Filiere: <?php echo $filiere ?></h2>
                     <h2 class=" text-decoration-underline ">Unité d'enseignement</h2>
@@ -156,7 +156,7 @@ $a = $prof->nom;
                 <h1 class=" fst-italic">Vous êtes connecté(e) comme enseignant(e)</h1>
                 <hr>
                 <h2 class=" fw-normal"><?php echo $a ?></h2>
-                <a href=<?php echo "zone_prof.php?filiere=" . $filiere ?> class="btn btn-danger text-light mb-3 fw-bold" <?php echo "title= 'Voir vos modules cours, Filiere:$filiere'" ?>> <i class="bi bi-arrow-bar-left" ></i> Retour</a>
+                <a href=<?php echo "zone_prof.php?filiere=" . $filiere ?> class="btn btn-danger text-light mb-3 fw-bold" <?php echo "title= 'Voir vos modules cours, Filiere:$filiere'" ?>> <i class="bi bi-arrow-bar-left"></i> Retour</a>
                 <div class=" border rounded border-primary">
                     <h2 class=" fst-italic">Filiere: <?php echo $filiere ?></h2>
                     <h2 class=" text-decoration-underline">Module : <?php echo $code_mod ?></h2>
@@ -170,7 +170,7 @@ $a = $prof->nom;
                                             <input type="text" name="my-search" id="my-search" placeholder="Matricule" maxlength="7" size="10" class="form-control">
                                             <small class="form-text text-muted">Chercher Matricule</small>
                                         </td>
-                                        <td><button class="btn btn-outline-info rounded-3 rechercher fw-bolder ms-2">Rechercher <i class=" bi bi-search" ></i></button></td>
+                                        <td><button class="btn btn-outline-info rounded-3 rechercher fw-bolder ms-2">Rechercher <i class=" bi bi-search"></i></button></td>
                                     </tr>
                                 </table>
                             </form>
@@ -187,6 +187,7 @@ $a = $prof->nom;
                                             <th>CC</th>
                                             <th>TP</th>
                                             <th>EE</th>
+                                            <th>TOTAL</th>
                                             <!-- <th>Action</th> -->
                                         </tr>
                                     </thead>
@@ -209,8 +210,7 @@ $a = $prof->nom;
                                                             $val = -1;
                                                         } elseif ($val == "/" or $val == "-") {
                                                             $val = null;
-                                                        } 
-                                                        else {
+                                                        } else {
                                                             $val = floatval($val);
                                                             if ($val < 0) {
                                                                 $val = " ";
@@ -260,13 +260,31 @@ $a = $prof->nom;
                                                     <?php if ($matiere->module->istp != 0) : ?>
                                                         <input type="text" class="form-control larg text-center cel" id=<?php echo "modtp$i" ?> value=<?php echo Cellule::afficheNote($matiere->note_tp); ?> size="2" maxlength="5" name=<?php echo "{$matiere->etudiant->matricule}[]" ?>>
                                                     <?php else : ?>
-                                                        <span class=" fst-italic cel larg">not-Tp</span>
+                                                        <span class="larg"></span>
+                                                        <span class=" fst-italic cel">not-Tp</span>
                                                     <?php endif ?>
                                                 </td>
                                                 <td <?php echo "class='modee$i parent_larg p-0'" ?>>
                                                     <input type="text" class="form-control larg text-center cel" id=<?php echo "modee$i" ?> value=<?php echo Cellule::afficheNote($matiere->note_ee); ?> size="2" maxlength="5" name=<?php echo "{$matiere->etudiant->matricule}[]" ?>>
                                                 </td>
-                                                
+                                                <td>
+                                                    <span class=" total fw-bold">
+                                                        <?php
+                                                        $cc = (float) $matiere->note_cc;
+                                                        if ($matiere->module->istp != 0) {
+                                                            $tp = (float) $matiere->note_tp;
+                                                        } else {
+                                                            $tp = 0;
+                                                        };
+                                                        $ee = (float) $matiere->note_ee;
+                                                        if ($cc < 0 or $tp < 0 or $ee < 0) {
+                                                            echo 'EL';
+                                                        } else {
+                                                            echo round($cc + $tp + $ee, 2);
+                                                        }
+                                                        ?>
+                                                    </span>
+                                                </td>
                                             </tr>
                                         <?php endforeach ?>
                                     </tbody>
@@ -274,7 +292,7 @@ $a = $prof->nom;
                             </div>
                             <div class="pb-2 d-flex justify-content-around">
                                 <button type="submit" class="soumettre btn btn-success fw-bold">Enregistrer <i class="bi bi-save"></i> </button>
-                                <a href=<?php echo "zone_prof.php?filiere=$filiere&module=$code_mod" ?> class="btn btn-danger">Reset <i class=" bi bi-arrow-clockwise" ></i></a>
+                                <a href=<?php echo "zone_prof.php?filiere=$filiere&module=$code_mod" ?> class="btn btn-danger">Reset <i class=" bi bi-arrow-clockwise"></i></a>
                             </div>
                             <?php echo $prof->modifierNote() ?>
                         </form>

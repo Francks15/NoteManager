@@ -55,6 +55,7 @@ btn_search.addEventListener('submit', function (e) {
 
 let cel = document.querySelectorAll('.cel');
 let soumettre = document.querySelector('.soumettre');
+let total = document.querySelectorAll('.total');
 
 function preventDef(e) {
     e.preventDefault();
@@ -114,7 +115,7 @@ for (let i = 0; i < cel.length; i++) {
     let j = i / 3 >> 0;
     cel[i].addEventListener('blur', function (e) {
         cel[i].style.removeProperty('background-color');
-        let val_id = cel[3*j + 1].id;
+        let val_id = cel[3 * j + 1].id;
         if (val_id.indexOf('modtp') != -1) {
             if (i % 3 == 0) {
                 if ((cel[i].value >= 0 && cel[i].value <= 20) || cel[i].value == "el" || cel[i].value == "/" || cel[i].value == "EL") {} else {
@@ -139,6 +140,33 @@ for (let i = 0; i < cel.length; i++) {
                     cel[i].style.backgroundColor = "#ffabab";
                 }
             }
+        }
+        if (cel[3 * j].value == "el" || cel[3 * j].value == "EL" || cel[3 * j + 1].value == "el" || cel[3 * j + 1].value == "EL" || cel[3 * j + 2].value == "el" || cel[3 * j + 2].value == "EL") {
+            total[j].innerHTML == "EL";
+        } else {
+            let tab = [];
+            let T = 0;
+            let cc = parseFloat(cel[3 * j].value);
+            let tp;
+            let ee = parseFloat(cel[3 * j + 2].value);
+            if (val_id.indexOf('modtp') != -1) {
+                tp = parseFloat(cel[3 * j + 1].value);
+            } else {
+                tp = 0;
+            }
+            if (cc) {
+                tab.push(cc);
+            }
+            if (tp) {
+                tab.push(tp);
+            }
+            if (ee) {
+                tab.push(ee);
+            }
+            for (let y = 0; y < tab.length; y++) {
+                T += tab[y];
+            }
+            total[j].innerHTML = Math.round(T * 100) / 100;
         }
     })
 }

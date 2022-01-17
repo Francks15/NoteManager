@@ -37,7 +37,7 @@ $b = $etudiant->matricule;
                     <li class=" nav-item">
                         <form action="zone_etudiant.php" method="post">
                             <div>
-                                <button type="submit" name="deconnecter" class="btn btn-primary">Deconnexion <i class="bi bi-layer-backward"></i></button>
+                                <button type="submit" name="deconnecter" class="btn btn-primary fw-bold"><i class="bi bi-box-arrow-left"></i> Deconnexion</button>
                             </div>
                         </form>
                     </li>
@@ -63,6 +63,7 @@ $b = $etudiant->matricule;
                             <th>CC</th>
                             <th>TP</th>
                             <th>EE</th>
+                            <th>TOTAL</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -74,7 +75,7 @@ $b = $etudiant->matricule;
                         ?>
                             <tr class=" align-middle">
                                 <th><?php echo $i ?></th>
-                                <td><?php echo $donnes['module_code'] ?></td>
+                                <td class=" fw-bold" ><?php echo $donnes['module_code'] ?></td>
                                 <td><?php echo Cellule::afficheNote($donnes['note_cc']) ?></td>
                                 <td>
                                     <?php if ($donnes['tp'] != 0) : ?>
@@ -87,6 +88,22 @@ $b = $etudiant->matricule;
                                 </td>
                                 <td><?php echo Cellule::afficheNote($donnes['note_ee']) ?></td>
                                 <?php $i++; ?>
+                                <td class=" fw-bold" >
+                                    <?php
+                                     $cc = (float) $donnes['note_cc'];
+                                     if ($donnes['tp'] != 0) {
+                                         $tp = (float) $donnes['note_tp'];
+                                     } else {
+                                         $tp = 0;
+                                     };
+                                     $ee = (float) $donnes['note_ee'];
+                                     if ($cc < 0 or $tp < 0 or $ee < 0) {
+                                         echo 'EL';
+                                     } else {
+                                         echo round($cc + $tp + $ee, 2);
+                                     }
+                                    ?>
+                                </td>
                                 <td>
                                     <?php echo $etudiant->envoyerRequette($donnes['email']) ?>
                                 </td>
