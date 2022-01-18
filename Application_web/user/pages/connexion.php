@@ -1,6 +1,6 @@
 <?php
 session_start();
-require "class.php";
+require_once "../require/class.php";
 $connect = false;
 $etudiant = null;
 $prof = null;
@@ -32,15 +32,15 @@ if (!empty($_SESSION["prof"]) && $user == "professeur") {
     header('Location: zone_prof.php');
 }
 ?>
-<?php require "header.php" ?>
+<?php require_once "../require/header.php" ?>
 
 <nav class=" navbar sticky-top-md">
     <div class="container px-sm-5 px-3 d-flex">
-        <a href="index.php" class=" text-light fw-bold text-decoration-none logo" ><img src="logo2.png" alt="logo" width="30" height="35"> UNIVERSITE UY1</a>
+        <a href="../../index.php" class=" text-light fw-bold text-decoration-none logo" ><img src="../img/logo2.png" alt="logo" width="30" height="35"> UNIVERSITE UY1</a>
         <div>
             <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav_link" aria-current="page" href="index.php"><i class="bi bi-house-fill" ></i>ACCUEIL</a>
+                    <a class="nav_link" aria-current="page" href="../../index.php"><i class="bi bi-house-fill" ></i>ACCUEIL</a>
                 </li>
             </ul>
         </div>
@@ -120,4 +120,4 @@ if (!empty($_SESSION["prof"]) && $user == "professeur") {
     ?>
 <?php endif ?>
 
-<?php require "footer.php" ?>
+<?php require "../footer.php" ?>

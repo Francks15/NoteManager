@@ -1,0 +1,57 @@
+body{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+.sidebar{
+    background: #F5F5F5;
+    padding: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    border: 1px solid #646161;
+    font-weight: bold;
+}
+.sidebar ul li a:hover{
+    background: #1ab394;
+    color: #ffffff;
+}
+.admin-nav{
+  background: #3498db;
+  padding: 10px;
+  height: 70px;
+}
+.main-nav{    
+    background: #2ecc71;
+    padding: 5px;
+    height: 70px;
+    border-top: 5px solid #16a085;
+    border-bottom: 5px solid #16a085;
+}
+.li-nav{    
+    background: #2ecc71;
+    padding: 5px;
+    height: 40px;
+    color: #FFF;
+    font-style: bolder;
+    font-size: 16px;
+    border-top: 5px solid #16a085;
+    border-bottom: 5px solid #16a085;
+}
+#link{
+    color: #ffffff;
+    font-size: 20px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+.navbar-collapse{
+    background: #2ecc71;
+}
+#btn-search{
+    background: #2ecc71;
+    border-color: #2ecc71;;
+}
+.image img{
+    border: 1px solid #2ecc71;
+    border-radius: 2px;
+}
+.post{
+    background: #DBCFCF;
+    border-radius: 2px;
+}

@@ -1,5 +1,5 @@
 <?php
-require_once 'class.php';
+require_once '../require/class.php';
 if (!isset($_SESSION)) {
     session_start();
 }
@@ -15,24 +15,21 @@ $etudiant = $_SESSION['etudiant'];
 $a = $etudiant->nom;
 $b = $etudiant->matricule;
 
-
 ?>
 
-<?php require 'header.php' ?>
-
-
+<?php require_once '../require/header.php' ?>
 
 <?php if (!empty($_SESSION['etudiant'])) : ?>
     <nav class=" navbar navbar-dark navbar-expand-md sticky-md-top">
         <div class="container px-md-5 px-1 d-flex">
-            <a href="index.php" class=" text-light fw-bold text-decoration-none logo"><img src="logo2.png" alt="logo" width="30" height="35"> UNIVERSITE UY1</a>
+            <a href="../../index.php" class=" text-light fw-bold text-decoration-none logo"><img src="../img/logo2.png" alt="logo" width="30" height="35"> UNIVERSITE UY1</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse ml-auto" id="navbarToggleExternalContent">
                 <ul class="navbar-nav mb-2 mb-lg-0 align-items-center ms-auto">
                     <li class="nav-item me-2">
-                        <a class="nav_link" aria-current="page" href="index.php"><i class="bi bi-house-fill"></i>ACCUEIL</a>
+                        <a class="nav_link" aria-current="page" href="../../index.php"><i class="bi bi-house-fill"></i>ACCUEIL</a>
                     </li>
                     <li class=" nav-item">
                         <form action="zone_etudiant.php" method="post">
@@ -118,4 +115,4 @@ $b = $etudiant->matricule;
         </div>
     </div>
 <?php endif ?>
-<?php require 'footer.php' ?>
+<?php require '../require/footer.php' ?>

@@ -5,7 +5,7 @@
     <p class="lead text-center text-danger m-0 pt-5">NoteManager&copy; 2022 All rights reserved | CUTI UY1 |</p>
 </footer>
 </div>
-<script src="bootstrap.min.js"></script>
+<script src="../js/bootstrap.min.js"></script>
 <script>
     function height() {
         let h = window.innerHeight;
