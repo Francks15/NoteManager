@@ -16,31 +16,33 @@ window.onresize = function () {
 let tbody = document.querySelector(".body-rech");
 let ligne = document.querySelectorAll(".ligne");
 let matri = document.querySelectorAll(".ligne-matri");
-let btn_search = document.querySelector(".rechercher");
 let input_search = document.getElementById("my-search");
 
-btn_search.addEventListener('click', function (e) {
-    e.preventDefault();
-    if (btn_search.firstChild.nodeValue == "Rechercher ") {
-        btn_search.innerHTML = "Annuler";
-        input_search.parentNode.classList.add('d-none');
+input_search.addEventListener('keyup', function (e) {
+    if (input_search.value != "") {
         let trouve = false;
         for (let i = 0; i < matri.length; i++) {
             if (matri[i].innerHTML.indexOf(input_search.value) == -1) {
-                ligne[i].classList.toggle('d-none');
+                ligne[i].classList.add('d-none');
             } else {
                 trouve = true;
+                ligne[i].classList.remove('d-none');
+                let non_trouver = document.getElementById('non_trouver');
+                if (non_trouver) {
+                    non_trouver.parentNode.removeChild(non_trouver);
+                }
             }
         }
         if (trouve == false) {
-            let next_tr = document.createElement('tr');
-            next_tr.id = "non_trouver";
-            tbody.appendChild(next_tr);
-            next_tr.innerHTML = '<td class="fst-italic" colspan=7 >Matricule introuvable</td>';
+            let non_trouver = document.getElementById('non_trouver');
+            if (!non_trouver) {
+                let next_tr = document.createElement('tr');
+                next_tr.id = "non_trouver";
+                tbody.appendChild(next_tr);
+                next_tr.innerHTML = '<td class="fst-italic" colspan=7 >Matricule introuvable</td>';
+            }
         }
-    } else {
-        input_search.parentNode.classList.remove('d-none');
-        btn_search.innerHTML = 'Rechercher <i class=" bi bi-search" ></i>';
+    } else if (input_search.value == "") {
         let next_tr = document.getElementById('non_trouver');
         if (next_tr) {
             next_tr.parentNode.removeChild(next_tr);
@@ -51,9 +53,6 @@ btn_search.addEventListener('click', function (e) {
     }
 });
 
-btn_search.addEventListener('submit', function (e) {
-    e.preventDefault();
-});
 
 let cel = document.querySelectorAll('.cel');
 let soumettre = document.querySelector('.soumettre');
@@ -67,7 +66,7 @@ function preventDef(e) {
     return true;
 }
 
-function controle(i,j) {
+function controle(i, j) {
     cel[i].style.removeProperty('background-color');
     let val_id = cel[3 * j + 1].id;
     if (val_id.indexOf('modtp') != -1) {
@@ -173,5 +172,7 @@ soumettre.addEventListener('click', function (e) {
 
 for (let i = 0; i < cel.length; i++) {
     let j = i / 3 >> 0;
-    cel[i].addEventListener('keyup', function(){controle(i,j)});
+    cel[i].addEventListener('keyup', function () {
+        controle(i, j)
+    });
 }

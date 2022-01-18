@@ -14,7 +14,7 @@ if (empty($_SESSION["prof"])) {
 
 $prof = $_SESSION['prof'];
 $a = $prof->nom;
-$title_page="Professeur UY1";
+$title_page = "Professeur UY1";
 
 
 ?>
@@ -135,6 +135,7 @@ $title_page="Professeur UY1";
                 </div>
             </div>
         </div>
+
     <?php endif ?>
 <?php endif ?>
 
@@ -163,17 +164,13 @@ $title_page="Professeur UY1";
                     <hr>
                     <div>
                         <div class="d-flex justify-content-center">
-                            <form>
-                                <table>
-                                    <tr class=" align-top ">
-                                        <td class="text-start">
-                                            <input type="text" name="my-search" id="my-search" placeholder="Matricule" maxlength="7" size="10" class="form-control">
-                                            <small class="form-text text-muted">Chercher Matricule</small>
-                                        </td>
-                                        <td><button class="btn btn-outline-info rounded-3 rechercher fw-bolder ms-2">Rechercher <i class=" bi bi-search"></i></button></td>
-                                    </tr>
-                                </table>
-                            </form>
+                            <div>
+                                <div class=" input-group flex-nowrap">
+                                    <span class=" input-group-text" id="addon-wrapping"><i class=" bi bi-search"></i></span>
+                                    <input type="text" name="my-search" id="my-search" placeholder="Matricule" maxlength="7" size="10" class="form-control">
+                                </div>
+                                <small class="form-text text-muted">Chercher Matricule</small>
+                            </div>
                         </div>
                         <hr>
                         <form action=<?php echo "zone_prof.php?filiere=$filiere&module=$code_mod" ?> method="post">
@@ -252,7 +249,7 @@ $title_page="Professeur UY1";
                                             <tr class=" align-middle ligne">
                                                 <th><?php echo $i ?></th>
                                                 <th class="ligne-matri"><?php echo $matiere->etudiant->matricule ?></th>
-                                                <td><?php echo strtoupper($matiere->etudiant->nom) ?></td>
+                                                <td class=" text-md-start ps-md-5" ><?php echo strtoupper($matiere->etudiant->nom) ?></td>
                                                 <td <?php echo "class='modcc$i parent_larg p-0'" ?>>
                                                     <input type="text" class="form-control larg text-center cel" id=<?php echo "modcc$i" ?> value=<?php echo Cellule::afficheNote($matiere->note_cc); ?> size="2" maxlength="5" name=<?php echo "{$matiere->etudiant->matricule}[]" ?>>
                                                 </td>
