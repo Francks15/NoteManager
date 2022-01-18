@@ -2,16 +2,17 @@ function affiche() {
     var parent_larg = document.querySelectorAll('.parent_larg');
     var larg = document.querySelectorAll('.larg');
     for (let i = 0; i < parent_larg.length; i++) {
-        let h = parent_larg[i].clientHeight;
-        larg[i].style.height = h + "px";
+        larg[i].style.removeProperty('height');
+    }
+    for (let j = 0; j < parent_larg.length; j++) {
+        let h = parent_larg[j].clientHeight;
+        larg[j].style.height = h + "px";
     }
 }
 
 affiche();
 
-window.onresize = function () {
-    affiche();
-}
+// window.onresize = affiche;
 
 let tbody = document.querySelector(".body-rech");
 let ligne = document.querySelectorAll(".ligne");
@@ -20,9 +21,10 @@ let input_search = document.getElementById("my-search");
 
 input_search.addEventListener('keyup', function (e) {
     if (input_search.value != "") {
+        let chaine = input_search.value.toUpperCase()
         let trouve = false;
         for (let i = 0; i < matri.length; i++) {
-            if (matri[i].innerHTML.indexOf(input_search.value) == -1) {
+            if (matri[i].innerHTML.indexOf(chaine) == -1) {
                 ligne[i].classList.add('d-none');
             } else {
                 trouve = true;

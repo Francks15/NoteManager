@@ -167,7 +167,7 @@ $title_page = "Professeur UY1";
                             <div>
                                 <div class=" input-group flex-nowrap">
                                     <span class=" input-group-text" id="addon-wrapping"><i class=" bi bi-search"></i></span>
-                                    <input type="text" name="my-search" id="my-search" placeholder="Matricule" maxlength="7" size="10" class="form-control">
+                                    <input type="text" name="my-search" id="my-search" placeholder="Matricule" maxlength="7" size="10" class="form-control text-uppercase">
                                 </div>
                                 <small class="form-text text-muted">Chercher Matricule</small>
                             </div>

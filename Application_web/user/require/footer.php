@@ -21,6 +21,7 @@
         page.classList.remove('v-none');
     };
     window.onresize = function() {
+        if(affiche){affiche();};
         height();
     };
     let button = document.querySelectorAll('.btn');

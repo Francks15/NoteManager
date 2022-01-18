@@ -14,7 +14,7 @@
 <body class=" position-relative">
 
     <div class="chargement">
-        <div class="shapes-4"></div>
+        <!-- <div class="shapes-4"></div> -->
         <div class="classic-7"></div>
     </div>
     <div class="cover"></div>
