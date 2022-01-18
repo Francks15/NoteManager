@@ -34,6 +34,7 @@ if(isset($_POST['submit'])){
         $author =  $_SESSION['admin_name'];   //person qui l'enregistre 
         $created = date('Y-m-d H:s:m');//date d'eregistrement
         $query = "INSERT INTO professeurs (title,codep,body,image,cv,author,category_id,created,sexe,email) values('$title','$codep','$body','$image','$cv','$author','$categorie','$created','$sexe','$email')";
+
         if(mysqli_query($con,$query)){
             move_uploaded_file($_FILES["image"]["tmp_name"], $file);
             move_uploaded_file($_FILES["cv"]["tmp_name"], $filecv);
@@ -43,6 +44,18 @@ if(isset($_POST['submit'])){
         }else{
              echo '<div class="alert alert-danger">Something went wrong'.mysqli_error($con).'</div>';
         }
+
+        // ____ Recuperation de l'id du prof
+        $query1= "SELECT id, email FROM professeurs";
+        $result1 = mysqli_query($con,$query1);
+        while($row1 = $result1->fetch_assoc()){
+            if($row1['email']==$email){
+                $id1=$row1['id'];
+            }
+        }
+        $query2= "UPDATE notemanager.module SET professeur_id = $id1 WHERE (id = '$categorie');";
+        mysqli_query($con,$query2);
+        //fin ______
     }
 }
 ?>

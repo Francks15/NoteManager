@@ -23,6 +23,7 @@ btn_search.addEventListener('click', function (e) {
     e.preventDefault();
     if (btn_search.firstChild.nodeValue == "Rechercher ") {
         btn_search.innerHTML = "Annuler";
+        input_search.parentNode.classList.add('d-none');
         let trouve = false;
         for (let i = 0; i < matri.length; i++) {
             if (matri[i].innerHTML.indexOf(input_search.value) == -1) {
@@ -35,9 +36,10 @@ btn_search.addEventListener('click', function (e) {
             let next_tr = document.createElement('tr');
             next_tr.id = "non_trouver";
             tbody.appendChild(next_tr);
-            next_tr.innerHTML = '<td class="fst-italic" colspan=5 >Matricule introuvable</td>';
+            next_tr.innerHTML = '<td class="fst-italic" colspan=7 >Matricule introuvable</td>';
         }
     } else {
+        input_search.parentNode.classList.remove('d-none');
         btn_search.innerHTML = 'Rechercher <i class=" bi bi-search" ></i>';
         let next_tr = document.getElementById('non_trouver');
         if (next_tr) {
@@ -63,6 +65,64 @@ function preventDef(e) {
         event.preventDefault()
     });
     return true;
+}
+
+function controle(i,j) {
+    cel[i].style.removeProperty('background-color');
+    let val_id = cel[3 * j + 1].id;
+    if (val_id.indexOf('modtp') != -1) {
+        if (i % 3 == 0) {
+            if ((cel[i].value >= 0 && cel[i].value <= 20) || cel[i].value == "el" || cel[i].value == "/" || cel[i].value == "EL") {} else {
+                cel[i].style.backgroundColor = "#ffabab";
+            }
+        } else if (i % 3 == 1) {
+            if ((cel[i].value >= 0 && cel[i].value <= 30) || cel[i].value == "el" || cel[i].value == "/" || cel[i].value == "EL") {} else {
+                cel[i].style.backgroundColor = "#ffabab";
+            }
+        } else if (i % 3 == 2) {
+            if ((cel[i].value >= 0 && cel[i].value <= 50) || cel[i].value == "el" || cel[i].value == "/" || cel[i].value == "EL") {} else {
+                cel[i].style.backgroundColor = "#ffabab";
+            }
+        }
+    } else {
+        if (i % 3 == 0)
+            if ((cel[i].value >= 0 && cel[i].value <= 30) || cel[i].value == "el" || cel[i].value == "/" || cel[i].value == "EL") {} else {
+                cel[i].style.backgroundColor = "#ffabab";
+            }
+        else if (i % 3 == 2) {
+            if ((cel[i].value >= 0 && cel[i].value <= 70) || cel[i].value == "el" || cel[i].value == "/" || cel[i].value == "EL") {} else {
+                cel[i].style.backgroundColor = "#ffabab";
+            }
+        }
+    }
+    if (cel[3 * j].value == "el" || cel[3 * j].value == "EL" || cel[3 * j + 1].value == "el" || cel[3 * j + 1].value == "EL" || cel[3 * j + 2].value == "el" || cel[3 * j + 2].value == "EL") {
+        total[j].innerHTML == "EL";
+    } else {
+        let tab = [];
+        let T = 0;
+        let cc = parseFloat(cel[3 * j].value);
+        let tp;
+        let ee = parseFloat(cel[3 * j + 2].value);
+        if (val_id.indexOf('modtp') != -1) {
+            tp = parseFloat(cel[3 * j + 1].value);
+        } else {
+            tp = 0;
+        }
+        if (cc) {
+            tab.push(cc);
+        }
+        if (tp) {
+            tab.push(tp);
+        }
+        if (ee) {
+            tab.push(ee);
+        }
+        for (let y = 0; y < tab.length; y++) {
+            T += tab[y];
+        }
+        total[j].innerHTML = Math.round(T * 100) / 100;
+    }
+
 }
 
 
@@ -113,60 +173,5 @@ soumettre.addEventListener('click', function (e) {
 
 for (let i = 0; i < cel.length; i++) {
     let j = i / 3 >> 0;
-    cel[i].addEventListener('blur', function (e) {
-        cel[i].style.removeProperty('background-color');
-        let val_id = cel[3 * j + 1].id;
-        if (val_id.indexOf('modtp') != -1) {
-            if (i % 3 == 0) {
-                if ((cel[i].value >= 0 && cel[i].value <= 20) || cel[i].value == "el" || cel[i].value == "/" || cel[i].value == "EL") {} else {
-                    cel[i].style.backgroundColor = "#ffabab";
-                }
-            } else if (i % 3 == 1) {
-                if ((cel[i].value >= 0 && cel[i].value <= 30) || cel[i].value == "el" || cel[i].value == "/" || cel[i].value == "EL") {} else {
-                    cel[i].style.backgroundColor = "#ffabab";
-                }
-            } else if (i % 3 == 2) {
-                if ((cel[i].value >= 0 && cel[i].value <= 50) || cel[i].value == "el" || cel[i].value == "/" || cel[i].value == "EL") {} else {
-                    cel[i].style.backgroundColor = "#ffabab";
-                }
-            }
-        } else {
-            if (i % 3 == 0)
-                if ((cel[i].value >= 0 && cel[i].value <= 30) || cel[i].value == "el" || cel[i].value == "/" || cel[i].value == "EL") {} else {
-                    cel[i].style.backgroundColor = "#ffabab";
-                }
-            else if (i % 3 == 2) {
-                if ((cel[i].value >= 0 && cel[i].value <= 70) || cel[i].value == "el" || cel[i].value == "/" || cel[i].value == "EL") {} else {
-                    cel[i].style.backgroundColor = "#ffabab";
-                }
-            }
-        }
-        if (cel[3 * j].value == "el" || cel[3 * j].value == "EL" || cel[3 * j + 1].value == "el" || cel[3 * j + 1].value == "EL" || cel[3 * j + 2].value == "el" || cel[3 * j + 2].value == "EL") {
-            total[j].innerHTML == "EL";
-        } else {
-            let tab = [];
-            let T = 0;
-            let cc = parseFloat(cel[3 * j].value);
-            let tp;
-            let ee = parseFloat(cel[3 * j + 2].value);
-            if (val_id.indexOf('modtp') != -1) {
-                tp = parseFloat(cel[3 * j + 1].value);
-            } else {
-                tp = 0;
-            }
-            if (cc) {
-                tab.push(cc);
-            }
-            if (tp) {
-                tab.push(tp);
-            }
-            if (ee) {
-                tab.push(ee);
-            }
-            for (let y = 0; y < tab.length; y++) {
-                T += tab[y];
-            }
-            total[j].innerHTML = Math.round(T * 100) / 100;
-        }
-    })
+    cel[i].addEventListener('keyup', function(){controle(i,j)});
 }

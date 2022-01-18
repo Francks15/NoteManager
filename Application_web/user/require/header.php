@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/bootstrap-icons.css">
     <link rel="stylesheet" href="../css/style.css">
-    <title>Gestion des notes</title>
+    <title><?php echo $title_page ? $title_page : "Gestion des Notes";?></title>
 </head>
 
 <body class=" position-relative">

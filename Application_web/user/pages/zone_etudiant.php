@@ -14,7 +14,7 @@ if (empty($_SESSION["etudiant"])) {
 $etudiant = $_SESSION['etudiant'];
 $a = $etudiant->nom;
 $b = $etudiant->matricule;
-
+$title_page="Etudiant UY1"
 ?>
 
 <?php require_once '../require/header.php' ?>

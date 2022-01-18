@@ -31,6 +31,8 @@ if (!empty($_SESSION["etudiant"]) && $user == "etudiant") {
 if (!empty($_SESSION["prof"]) && $user == "professeur") {
     header('Location: zone_prof.php');
 }
+
+$title_page="Connexion";
 ?>
 <?php require_once "../require/header.php" ?>
 
@@ -120,4 +122,4 @@ if (!empty($_SESSION["prof"]) && $user == "professeur") {
     ?>
 <?php endif ?>
 
-<?php require "../footer.php" ?>
+<?php require "../require/footer.php" ?>

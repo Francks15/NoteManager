@@ -14,7 +14,7 @@ if (empty($_SESSION["prof"])) {
 
 $prof = $_SESSION['prof'];
 $a = $prof->nom;
-
+$title_page="Professeur UY1";
 
 
 ?>
@@ -23,7 +23,7 @@ $a = $prof->nom;
 
 <nav class=" navbar navbar-dark navbar-expand-md sticky-md-top">
     <div class="container px-md-5 px-1 d-flex">
-        <a href="../../index.php" class=" text-light fw-bold text-decoration-none logo"><img src="logo2.png" alt="logo" width="30" height="35"> UNIVERSITE UY1</a>
+        <a href="../../index.php" class=" text-light fw-bold text-decoration-none logo"><img src="../img/logo2.png" alt="logo" width="30" height="35"> UNIVERSITE UY1</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
