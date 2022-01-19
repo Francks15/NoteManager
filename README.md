@@ -1,6 +1,6 @@
 # NoteManager
 
-  TITRE: GESTION DES NOTES DE L'UNIVERSITE DE YAOUNDE 1
+  TITRE: GESTION DES NOTES DE L'UNIVERSITE DE YAOUNDE 1: FACULTE DE SCIENCES
 -----------------------------------------------------------------------------
 
 MEMBRES ET PSEUDO: 
