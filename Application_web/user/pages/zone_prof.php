@@ -56,19 +56,28 @@ $title_page = "Professeur UY1";
                     <hr>
                     <?php
                     $modules = $prof->module;
-                    foreach ($modules as $module) :
+                    if (!empty($modules)) :
+                        $tab_filiere = [];
+                        foreach ($modules as $module) :
+                            if (!in_array($module->filiere, $tab_filiere)) :
                     ?>
-                        <form action=<?php $val = $module->filiere;
-                                        echo 'zone_prof.php?filiere=' . $val; ?> method="get">
-                            <input type="text" name="filiere" class=" d-none" value="<?php echo $val ?>">
-                            <table class=" table align-baseline table-hover">
-                                <tr>
-                                    <td><?php echo $val ?></td>
-                                    <td><button type="submit" class=" btn btn-warning">Selectionner</button></td>
-                                </tr>
-                            </table>
-                        </form>
-                    <?php endforeach ?>
+                                <form action=<?php $val = $module->filiere;
+                                                echo 'zone_prof.php?filiere=' . $val; ?> method="get">
+                                    <input type="text" name="filiere" class=" d-none" value="<?php echo $val ?>">
+                                    <div class=" d-flex my-3 justify-content-between align-items-center">
+                                        <div><?php echo $val ?></div>
+                                        <div><button type="submit" class=" btn btn-warning">Selectionner</button></div>
+                                    </div>
+                                </form>
+                                <hr>
+                        <?php
+                                $tab_filiere[] = $module->filiere;
+                            endif;
+                        endforeach
+                        ?>
+                    <?php else : ?>
+                        <p class=" fst-italic">Vous ne disposez d'aucune filiere d'enseignement</p>
+                    <?php endif ?>
                 </div>
             </div>
         </div>
@@ -179,7 +188,7 @@ $title_page = "Professeur UY1";
                             <hr>
                             <form action=<?php echo "zone_prof.php?filiere=$filiere&module=$code_mod" ?> method="post">
                                 <div class=" table-responsive">
-                                    <table class=" table table-hover table-bordered">
+                                    <table class=" table table-hover table-bordered w-max">
                                         <thead class=" table-dark">
                                             <tr>
                                                 <th>#</th>
@@ -195,8 +204,8 @@ $title_page = "Professeur UY1";
                                         <tbody class="body-rech">
                                             <?php
                                             $i = 0;
-                                            if (isset($_POST)) :
-                                                $enregistrer = false;
+                                            if (!empty($_POST)) :
+                                                $enregistrement = false;
                                                 [$etudiant, $evaluer] = $prof->consulterNote($code_mod, $filiere);
                                                 foreach ($evaluer as $matiere) {
 
@@ -222,17 +231,20 @@ $title_page = "Professeur UY1";
                                                                 if ($matri == $key && $val != $notation_cc && $key_val == 0) {
                                                                     if (($val <= 30 && $istp == 0) || ($val <= 20 && $istp != 0)) {
                                                                         $enregistrer = true;
+                                                                        $enregistrement = true;
                                                                         $prof->enregistrerNote($matri, $code_mod, $filiere, $val, $key_val);
                                                                     }
                                                                 } elseif ($matri == $key && $val != $notation_tp && $key_val == 1 && $istp != 0) {
                                                                     if ($val <= 30) {
                                                                         $enregistrer = true;
+                                                                        $enregistrement = true;
                                                                         $prof->enregistrerNote($matri, $code_mod, $filiere, $val, $key_val);
                                                                     }
                                                                 } elseif ($matri == $key && $val != $notation_ee &&  ($key_val == 2 || ($key_val == 1 && $istp == 0))) {
                                                                     if (($val <= 70 && $istp == 0) || ($val <= 50 && $istp != 0)) {
                                                                         $key_val = 2;
                                                                         $enregistrer = true;
+                                                                        $enregistrement = true;
                                                                         $prof->enregistrerNote($matri, $code_mod, $filiere, $val, $key_val);
                                                                     }
                                                                 }
@@ -243,9 +255,13 @@ $title_page = "Professeur UY1";
                                                         }
                                                     }
                                                 }
-                                                if ($enregistrer && isset($_POST)) : ?>
+                                                if ($enregistrement && isset($_POST)) : ?>
                                                     <div class="alert alert-success enregistrement" role="alert">
                                                         Enregistrement réussi
+                                                    </div>
+                                                <?php else :?>
+                                                    <div class="alert alert-secondary enregistrement" role="alert">
+                                                        Aucun changement détecté
                                                     </div>
                                                 <?php endif ?>
                                             <?php endif ?>
@@ -260,7 +276,9 @@ $title_page = "Professeur UY1";
                                                 <tr class=" align-middle ligne">
                                                     <th><?php echo $i ?></th>
                                                     <th class="ligne-matri"><?php echo $matiere->etudiant->matricule ?></th>
-                                                    <td class=" text-md-start ps-md-5"><?php echo strtoupper($matiere->etudiant->nom) ?></td>
+                                                    <td class=" text-start ps-md-5 ps-2">
+                                                        <div class=" nom_etudiant d-inline-block"><?php echo strtoupper($matiere->etudiant->nom) ?></div>
+                                                    </td>
                                                     <td <?php echo "class='modcc$i parent_larg p-0'" ?>>
                                                         <input type="text" class="form-control larg text-center cel" id=<?php echo "modcc$i" ?> value=<?php echo Cellule::afficheNote($matiere->note_cc); ?> size="2" maxlength="5" name=<?php echo "{$matiere->etudiant->matricule}[]" ?>>
                                                     </td>
@@ -310,29 +328,15 @@ $title_page = "Professeur UY1";
             </div>
             <aside class=" col-md-3 d-lg-block d-none pe-3 pt-5">
                 <div class=" bg-secondary rounded-5 shadow-lg text-light p-3 position-relative">
-                    <h2><i class=" bi bi-journal-bookmark"></i> INFO</h2>
+                    <h2><i class=" bi bi-journal-bookmark"></i> NOTATIONS</h2>
                     <hr>
-                    <table>
-                        <tr>
-                            <th>/ </th>
-                            <td><b>:</b> L'etudiant ne possède pas de note</td>
-                        </tr>
-                        <tr>
-                            <th>el ou EL </th>
-                            <td><b>:</b> L'etudiant est éliminé</td>
-                        </tr>
-                        <tr>
-                            <th>Case vide </th>
-                            <td><b>:</b> Correspond à 0</td>
-                        </tr>
-                        <tr>
-                            <th>not-TP </th>
-                            <td><b>:</b> Matière non à TP</td>
-                        </tr>
-                        <tr>
-                            <td colspan="2" class=" fst-italic pt-3">Le système vous préviendras en cas de données invalides en collorant la cellule concernée en rouge</td>
-                        </tr>
-                    </table>
+                    <div>
+                        <p><b>/ :</b>&ensp; L'etudiant ne possède pas de note</p>
+                        <p><b>el ou EL :</b>&ensp; L'etudiant est éliminé</p>
+                        <p><b>Case vide :</b>&ensp; Correspond à 0</p>
+                        <p><b>not-TP :</b>&ensp; Matière non à TP</p>
+                        <p class=" fst-italic pt-3">Le système vous préviendras en cas de données invalides en collorant la cellule concernée en rouge</p>
+                    </div>
                 </div>
             </aside>
         </div>

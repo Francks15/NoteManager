@@ -160,8 +160,16 @@ aside{
     margin-right: 1rem;
 }
 
-aside th{
+aside th span{
     display: inline-block;
     width: max-content;
     text-align: justify;
+}
+
+.nom_etudiant{
+    min-width: max-content;
+}
+
+.w-max{
+    min-width: max-content;
 }

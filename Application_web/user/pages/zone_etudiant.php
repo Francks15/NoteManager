@@ -117,22 +117,13 @@ $title_page = "Etudiant UY1"
         </div>
         <aside class=" col-md-3 d-lg-block d-none pe-3 pt-5">
             <div class=" bg-secondary rounded-5 shadow-lg text-light p-3">
-                <h2><i class=" bi bi-journal-bookmark"></i> INFO</h2>
+                <h2><i class=" bi bi-journal-bookmark"></i> NOTATIONS</h2>
                 <hr>
-                <table>
-                    <tr>
-                        <th>/ </th>
-                        <td><b>:</b> L'etudiant ne possède pas de note</td>
-                    </tr>
-                    <tr>
-                        <th>el ou EL </th>
-                        <td><b>:</b> L'etudiant est éliminé</td>
-                    </tr>
-                    <tr>
-                        <th>not-TP </th>
-                        <td><b>:</b> Matière non à TP</td>
-                    </tr>
-                </table>
+                <div>
+                    <p><b>/ :</b>&ensp; L'etudiant ne possède pas de note</p>
+                    <p><b>el ou EL :</b>&ensp; L'etudiant est éliminé</p>
+                    <p><b>not-TP :</b>&ensp; Matière non à TP</p>
+                </div>
             </div>
         </aside>
     </div>
