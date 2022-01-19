@@ -1,18 +1,4 @@
-function affiche() {
-    var parent_larg = document.querySelectorAll('.parent_larg');
-    var larg = document.querySelectorAll('.larg');
-    for (let i = 0; i < parent_larg.length; i++) {
-        larg[i].style.removeProperty('height');
-    }
-    for (let j = 0; j < parent_larg.length; j++) {
-        let h = parent_larg[j].clientHeight;
-        larg[j].style.height = h + "px";
-    }
-}
 
-affiche();
-
-// window.onresize = affiche;
 
 let tbody = document.querySelector(".body-rech");
 let ligne = document.querySelectorAll(".ligne");
@@ -126,6 +112,14 @@ function controle(i, j) {
 
 }
 
+function alert_soumission(i) {
+    let enregistrement2 = document.querySelector('.enregistrement2')
+    cel[i].style.backgroundColor = "#ffabab";
+    enregistrement2.classList.remove('d-none');
+    window.setTimeout(function () {
+        enregistrement2.classList.add("d-none");
+    }, 7000);
+}
 
 soumettre.addEventListener('click', function (e) {
     let prevent = false;
@@ -140,32 +134,32 @@ soumettre.addEventListener('click', function (e) {
                 if (!prevent) {
                     prevent = preventDef(e);
                 };
-                cel[i].style.backgroundColor = "#ffabab";
+                alert_soumission(i)
             }
             if ((cel[i + 1].value >= 0 && cel[i + 1].value <= 30) || cel[i + 1].value == "el" || cel[i + 1].value == "/" || cel[i + 1].value == "EL") {} else {
                 if (!prevent) {
                     prevent = preventDef(e);
                 };
-                cel[i + 1].style.backgroundColor = "#ffabab";
+                alert_soumission(i + 1)
             }
             if ((cel[i + 2].value >= 0 && cel[i + 2].value <= 50) || cel[i + 2].value == "el" || cel[i + 2].value == "/" || cel[i + 2].value == "EL") {} else {
                 if (!prevent) {
                     prevent = preventDef(e);
                 };
-                cel[i + 2].style.backgroundColor = "#ffabab";
+                alert_soumission(i + 2);
             }
         } else {
             if ((cel[i].value >= 0 && cel[i].value <= 30) || cel[i].value == "el" || cel[i].value == "/" || cel[i].value == "EL") {} else {
                 if (!prevent) {
                     prevent = preventDef(e);
                 };
-                cel[i].style.backgroundColor = "#ffabab";
+                alert_soumission(i);
             }
             if ((cel[i + 2].value >= 0 && cel[i + 2].value <= 70) || cel[i + 2].value == "el" || cel[i + 2].value == "/" || cel[i + 2].value == "EL") {} else {
                 if (!prevent) {
                     prevent = preventDef(e);
                 };
-                cel[i + 2].style.backgroundColor = "#ffabab";
+                alert_soumission(i + 2);
             }
         }
     }
@@ -177,4 +171,12 @@ for (let i = 0; i < cel.length; i++) {
     cel[i].addEventListener('keyup', function () {
         controle(i, j)
     });
+}
+
+let enregistrement = document.querySelector(".enregistrement");
+
+if (enregistrement) {
+    window.setTimeout(function () {
+        enregistrement.classList.add('d-none');
+    }, 7000)
 }

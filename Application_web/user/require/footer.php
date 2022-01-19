@@ -11,6 +11,23 @@
         let h = window.innerHeight;
         document.body.style.minHeight = h + "px";
     }
+
+    function affiche() {
+        var parent_larg = document.querySelectorAll('.parent_larg');
+        var larg = document.querySelectorAll('.larg');
+        if (parent_larg) {
+            for (let i = 0; i < parent_larg.length; i++) {
+                larg[i].style.removeProperty('height');
+            }
+            for (let j = 0; j < parent_larg.length; j++) {
+                let h = parent_larg[j].clientHeight;
+                larg[j].style.height = h + "px";
+            }
+        }
+    }
+
+    affiche();
+
     window.onload = function() {
         height();
         let chargement = document.querySelector('.chargement');
@@ -21,17 +38,17 @@
         page.classList.remove('v-none');
     };
     window.onresize = function() {
-        if(affiche){affiche();};
         height();
+        affiche();
     };
     let button = document.querySelectorAll('.btn');
-    for(let i=0; i<button.length; i++){
+    for (let i = 0; i < button.length; i++) {
         let cover = document.querySelector('.cover');
         let chargement = document.querySelector('.chargement');
-        button[i].onclick=function(){
+        button[i].onclick = function() {
             chargement.classList.remove('v-none');
             cover.classList.remove('v-none');
-            window.setTimeout(function(){
+            window.setTimeout(function() {
                 chargement.classList.add('v-none');
                 cover.classList.add('v-none');
             }, 2000);

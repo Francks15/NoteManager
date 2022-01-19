@@ -172,6 +172,9 @@ $title_page = "Professeur UY1";
                                 <small class="form-text text-muted">Chercher Matricule</small>
                             </div>
                         </div>
+                        <div class="alert alert-danger enregistrement2 d-none" role="alert">
+                            Echec Enregistrement
+                        </div>
                         <hr>
                         <form action=<?php echo "zone_prof.php?filiere=$filiere&module=$code_mod" ?> method="post">
                             <div class=" table-responsive">
@@ -191,7 +194,8 @@ $title_page = "Professeur UY1";
                                     <tbody class="body-rech">
                                         <?php
                                         $i = 0;
-                                        if (isset($_POST)) {
+                                        if (isset($_POST)) :
+                                            $enregistrer = false;
                                             [$etudiant, $evaluer] = $prof->consulterNote($code_mod, $filiere);
                                             foreach ($evaluer as $matiere) {
 
@@ -238,7 +242,13 @@ $title_page = "Professeur UY1";
                                                     }
                                                 }
                                             }
-                                        }
+                                            if ($enregistrer && isset($_POST)) : ?>
+                                                <div class="alert alert-success enregistrement" role="alert">
+                                                    Enregistrement réussi
+                                                </div>
+                                            <?php endif ?>
+                                        <?php endif ?>
+                                        <?php
                                         [$etudiant, $evaluer] = $prof->consulterNote($code_mod, $filiere);
                                         foreach ($evaluer as $matiere) :
                                             $i++;
@@ -249,7 +259,7 @@ $title_page = "Professeur UY1";
                                             <tr class=" align-middle ligne">
                                                 <th><?php echo $i ?></th>
                                                 <th class="ligne-matri"><?php echo $matiere->etudiant->matricule ?></th>
-                                                <td class=" text-md-start ps-md-5" ><?php echo strtoupper($matiere->etudiant->nom) ?></td>
+                                                <td class=" text-md-start ps-md-5"><?php echo strtoupper($matiere->etudiant->nom) ?></td>
                                                 <td <?php echo "class='modcc$i parent_larg p-0'" ?>>
                                                     <input type="text" class="form-control larg text-center cel" id=<?php echo "modcc$i" ?> value=<?php echo Cellule::afficheNote($matiere->note_cc); ?> size="2" maxlength="5" name=<?php echo "{$matiere->etudiant->matricule}[]" ?>>
                                                 </td>
