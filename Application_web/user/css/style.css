@@ -37,7 +37,7 @@ nav{
 .mygrid {
     display: grid;
     grid-template-columns: repeat(auto-fit, 20rem);
-    grid-auto-rows: 16.3rem;
+    grid-auto-rows: 18rem;
     justify-content: center;
 }
 
@@ -153,4 +153,14 @@ nav{
     to {
         background-position: left
     }
+}
+
+aside{
+    margin-top: 2rem;
+    margin-right: 1rem;
+}
+
+aside th{
+    display: inline-block;
+    width: max-content;
 }

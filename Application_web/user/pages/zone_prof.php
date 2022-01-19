@@ -152,160 +152,189 @@ $title_page = "Professeur UY1";
     }
     if ($trouve) :
     ?>
-        <div class="container pb-4 my_container ">
-            <div class=" text-center">
-                <h1 class=" fst-italic">Vous êtes connecté(e) comme enseignant(e)</h1>
-                <hr>
-                <h2 class=" fw-normal"><?php echo $a ?></h2>
-                <a href=<?php echo "zone_prof.php?filiere=" . $filiere ?> class="btn btn-danger text-light mb-3 fw-bold" <?php echo "title= 'Voir vos modules cours, Filiere:$filiere'" ?>> <i class="bi bi-arrow-bar-left"></i> Retour</a>
-                <div class=" border rounded border-primary">
-                    <h2 class=" fst-italic">Filiere: <?php echo $filiere ?></h2>
-                    <h2 class=" text-decoration-underline">Module : <?php echo $code_mod ?></h2>
+        <div class="d-flex">
+            <div class="container my_container col-lg-8 col-12">
+                <div class=" text-center">
+                    <h1 class=" fst-italic">Vous êtes connecté(e) comme enseignant(e)</h1>
                     <hr>
-                    <div>
-                        <div class="d-flex justify-content-center">
-                            <div>
-                                <div class=" input-group flex-nowrap">
-                                    <span class=" input-group-text" id="addon-wrapping"><i class=" bi bi-search"></i></span>
-                                    <input type="text" name="my-search" id="my-search" placeholder="Matricule" maxlength="7" size="10" class="form-control text-uppercase">
-                                </div>
-                                <small class="form-text text-muted">Chercher Matricule</small>
-                            </div>
-                        </div>
-                        <div class="alert alert-danger enregistrement2 d-none" role="alert">
-                            Echec Enregistrement
-                        </div>
+                    <h2 class=" fw-normal"><?php echo $a ?></h2>
+                    <a href=<?php echo "zone_prof.php?filiere=" . $filiere ?> class="btn btn-danger text-light mb-3 fw-bold" <?php echo "title= 'Voir vos modules cours, Filiere:$filiere'" ?>> <i class="bi bi-arrow-bar-left"></i> Retour</a>
+                    <div class=" border rounded border-primary">
+                        <h2 class=" fst-italic">Filiere: <?php echo $filiere ?></h2>
+                        <h2 class=" text-decoration-underline">Module : <?php echo $code_mod ?></h2>
                         <hr>
-                        <form action=<?php echo "zone_prof.php?filiere=$filiere&module=$code_mod" ?> method="post">
-                            <div class=" table-responsive">
-                                <table class=" table table-hover table-bordered">
-                                    <thead class=" table-dark">
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Matricule</th>
-                                            <th>Nom Complet</th>
-                                            <th>CC</th>
-                                            <th>TP</th>
-                                            <th>EE</th>
-                                            <th>TOTAL</th>
-                                            <!-- <th>Action</th> -->
-                                        </tr>
-                                    </thead>
-                                    <tbody class="body-rech">
-                                        <?php
-                                        $i = 0;
-                                        if (isset($_POST)) :
-                                            $enregistrer = false;
-                                            [$etudiant, $evaluer] = $prof->consulterNote($code_mod, $filiere);
-                                            foreach ($evaluer as $matiere) {
+                        <div>
+                            <div class="d-flex justify-content-center">
+                                <div>
+                                    <div class=" input-group flex-nowrap">
+                                        <span class=" input-group-text" id="addon-wrapping"><i class=" bi bi-search"></i></span>
+                                        <input type="text" name="my-search" id="my-search" placeholder="Matricule" maxlength="7" size="10" class="form-control text-uppercase">
+                                    </div>
+                                    <small class="form-text text-muted">Chercher Matricule</small>
+                                </div>
+                            </div>
+                            <div class="alert alert-danger enregistrement2 d-none" role="alert">
+                                Echec Enregistrement
+                            </div>
+                            <hr>
+                            <form action=<?php echo "zone_prof.php?filiere=$filiere&module=$code_mod" ?> method="post">
+                                <div class=" table-responsive">
+                                    <table class=" table table-hover table-bordered">
+                                        <thead class=" table-dark">
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Matricule</th>
+                                                <th>Nom Complet</th>
+                                                <th>CC</th>
+                                                <th>TP</th>
+                                                <th>EE</th>
+                                                <th>TOTAL</th>
+                                                <!-- <th>Action</th> -->
+                                            </tr>
+                                        </thead>
+                                        <tbody class="body-rech">
+                                            <?php
+                                            $i = 0;
+                                            if (isset($_POST)) :
+                                                $enregistrer = false;
+                                                [$etudiant, $evaluer] = $prof->consulterNote($code_mod, $filiere);
+                                                foreach ($evaluer as $matiere) {
 
-                                                $matri = $matiere->etudiant->matricule;
-                                                $notation_cc = $matiere->note_cc;
-                                                $notation_tp = $matiere->note_tp;
-                                                $notation_ee = $matiere->note_ee;
-                                                $istp = (int) $matiere->module->istp;
-                                                foreach ($_POST as $key => $vals) {
-                                                    $enregistrer = false;
-                                                    foreach ($vals as $key_val => $val) {
-                                                        if ($val == "el" || $val == "EL" || $val == "elimi" || $val == "ELIMI") {
-                                                            $val = -1;
-                                                        } elseif ($val == "/" or $val == "-") {
-                                                            $val = null;
-                                                        } else {
-                                                            $val = floatval($val);
-                                                            if ($val < 0) {
-                                                                $val = " ";
-                                                            }
-                                                        }
-                                                        if (($val >= 0 && $val <= 70) || $val == -1 || $val == null) {
-                                                            if ($matri == $key && $val != $notation_cc && $key_val == 0) {
-                                                                if (($val <= 30 && $istp == 0) || ($val <= 20 && $istp != 0)) {
-                                                                    $enregistrer = true;
-                                                                    $prof->enregistrerNote($matri, $code_mod, $filiere, $val, $key_val);
-                                                                }
-                                                            } elseif ($matri == $key && $val != $notation_tp && $key_val == 1 && $istp != 0) {
-                                                                if ($val <= 30) {
-                                                                    $enregistrer = true;
-                                                                    $prof->enregistrerNote($matri, $code_mod, $filiere, $val, $key_val);
-                                                                }
-                                                            } elseif ($matri == $key && $val != $notation_ee &&  ($key_val == 2 || ($key_val == 1 && $istp == 0))) {
-                                                                if (($val <= 70 && $istp == 0) || ($val <= 50 && $istp != 0)) {
-                                                                    $key_val = 2;
-                                                                    $enregistrer = true;
-                                                                    $prof->enregistrerNote($matri, $code_mod, $filiere, $val, $key_val);
+                                                    $matri = $matiere->etudiant->matricule;
+                                                    $notation_cc = $matiere->note_cc;
+                                                    $notation_tp = $matiere->note_tp;
+                                                    $notation_ee = $matiere->note_ee;
+                                                    $istp = (int) $matiere->module->istp;
+                                                    foreach ($_POST as $key => $vals) {
+                                                        $enregistrer = false;
+                                                        foreach ($vals as $key_val => $val) {
+                                                            if ($val == "el" || $val == "EL" || $val == "elimi" || $val == "ELIMI") {
+                                                                $val = -1;
+                                                            } elseif ($val == "/" or $val == "-") {
+                                                                $val = null;
+                                                            } else {
+                                                                $val = floatval($val);
+                                                                if ($val < 0) {
+                                                                    $val = " ";
                                                                 }
                                                             }
+                                                            if (($val >= 0 && $val <= 70) || $val == -1 || $val == null) {
+                                                                if ($matri == $key && $val != $notation_cc && $key_val == 0) {
+                                                                    if (($val <= 30 && $istp == 0) || ($val <= 20 && $istp != 0)) {
+                                                                        $enregistrer = true;
+                                                                        $prof->enregistrerNote($matri, $code_mod, $filiere, $val, $key_val);
+                                                                    }
+                                                                } elseif ($matri == $key && $val != $notation_tp && $key_val == 1 && $istp != 0) {
+                                                                    if ($val <= 30) {
+                                                                        $enregistrer = true;
+                                                                        $prof->enregistrerNote($matri, $code_mod, $filiere, $val, $key_val);
+                                                                    }
+                                                                } elseif ($matri == $key && $val != $notation_ee &&  ($key_val == 2 || ($key_val == 1 && $istp == 0))) {
+                                                                    if (($val <= 70 && $istp == 0) || ($val <= 50 && $istp != 0)) {
+                                                                        $key_val = 2;
+                                                                        $enregistrer = true;
+                                                                        $prof->enregistrerNote($matri, $code_mod, $filiere, $val, $key_val);
+                                                                    }
+                                                                }
+                                                            }
                                                         }
-                                                    }
-                                                    if ($enregistrer) {
-                                                        break;
+                                                        if ($enregistrer) {
+                                                            break;
+                                                        }
                                                     }
                                                 }
-                                            }
-                                            if ($enregistrer && isset($_POST)) : ?>
-                                                <div class="alert alert-success enregistrement" role="alert">
-                                                    Enregistrement réussi
-                                                </div>
+                                                if ($enregistrer && isset($_POST)) : ?>
+                                                    <div class="alert alert-success enregistrement" role="alert">
+                                                        Enregistrement réussi
+                                                    </div>
+                                                <?php endif ?>
                                             <?php endif ?>
-                                        <?php endif ?>
-                                        <?php
-                                        [$etudiant, $evaluer] = $prof->consulterNote($code_mod, $filiere);
-                                        foreach ($evaluer as $matiere) :
-                                            $i++;
-                                            // echo '<pre>';
-                                            // print_r($matiere);
-                                            // echo '</pre>';
-                                        ?>
-                                            <tr class=" align-middle ligne">
-                                                <th><?php echo $i ?></th>
-                                                <th class="ligne-matri"><?php echo $matiere->etudiant->matricule ?></th>
-                                                <td class=" text-md-start ps-md-5"><?php echo strtoupper($matiere->etudiant->nom) ?></td>
-                                                <td <?php echo "class='modcc$i parent_larg p-0'" ?>>
-                                                    <input type="text" class="form-control larg text-center cel" id=<?php echo "modcc$i" ?> value=<?php echo Cellule::afficheNote($matiere->note_cc); ?> size="2" maxlength="5" name=<?php echo "{$matiere->etudiant->matricule}[]" ?>>
-                                                </td>
-                                                <td <?php echo "class='modtp$i parent_larg p-0'" ?>>
-                                                    <?php if ($matiere->module->istp != 0) : ?>
-                                                        <input type="text" class="form-control larg text-center cel" id=<?php echo "modtp$i" ?> value=<?php echo Cellule::afficheNote($matiere->note_tp); ?> size="2" maxlength="5" name=<?php echo "{$matiere->etudiant->matricule}[]" ?>>
-                                                    <?php else : ?>
-                                                        <span class="larg"></span>
-                                                        <span class=" fst-italic cel">not-Tp</span>
-                                                    <?php endif ?>
-                                                </td>
-                                                <td <?php echo "class='modee$i parent_larg p-0'" ?>>
-                                                    <input type="text" class="form-control larg text-center cel" id=<?php echo "modee$i" ?> value=<?php echo Cellule::afficheNote($matiere->note_ee); ?> size="2" maxlength="5" name=<?php echo "{$matiere->etudiant->matricule}[]" ?>>
-                                                </td>
-                                                <td>
-                                                    <span class=" total fw-bold">
-                                                        <?php
-                                                        $cc = (float) $matiere->note_cc;
-                                                        if ($matiere->module->istp != 0) {
-                                                            $tp = (float) $matiere->note_tp;
-                                                        } else {
-                                                            $tp = 0;
-                                                        };
-                                                        $ee = (float) $matiere->note_ee;
-                                                        if ($cc < 0 or $tp < 0 or $ee < 0) {
-                                                            echo 'EL';
-                                                        } else {
-                                                            echo round($cc + $tp + $ee, 2);
-                                                        }
-                                                        ?>
-                                                    </span>
-                                                </td>
-                                            </tr>
-                                        <?php endforeach ?>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="pb-2 d-flex justify-content-around">
-                                <button type="submit" class="soumettre btn btn-success fw-bold">Enregistrer <i class="bi bi-save"></i> </button>
-                                <a href=<?php echo "zone_prof.php?filiere=$filiere&module=$code_mod" ?> class="btn btn-danger">Reset <i class=" bi bi-arrow-clockwise"></i></a>
-                            </div>
-                            <?php echo $prof->modifierNote() ?>
-                        </form>
+                                            <?php
+                                            [$etudiant, $evaluer] = $prof->consulterNote($code_mod, $filiere);
+                                            foreach ($evaluer as $matiere) :
+                                                $i++;
+                                                // echo '<pre>';
+                                                // print_r($matiere);
+                                                // echo '</pre>';
+                                            ?>
+                                                <tr class=" align-middle ligne">
+                                                    <th><?php echo $i ?></th>
+                                                    <th class="ligne-matri"><?php echo $matiere->etudiant->matricule ?></th>
+                                                    <td class=" text-md-start ps-md-5"><?php echo strtoupper($matiere->etudiant->nom) ?></td>
+                                                    <td <?php echo "class='modcc$i parent_larg p-0'" ?>>
+                                                        <input type="text" class="form-control larg text-center cel" id=<?php echo "modcc$i" ?> value=<?php echo Cellule::afficheNote($matiere->note_cc); ?> size="2" maxlength="5" name=<?php echo "{$matiere->etudiant->matricule}[]" ?>>
+                                                    </td>
+                                                    <td <?php echo "class='modtp$i parent_larg p-0'" ?>>
+                                                        <?php if ($matiere->module->istp != 0) : ?>
+                                                            <input type="text" class="form-control larg text-center cel" id=<?php echo "modtp$i" ?> value=<?php echo Cellule::afficheNote($matiere->note_tp); ?> size="2" maxlength="5" name=<?php echo "{$matiere->etudiant->matricule}[]" ?>>
+                                                        <?php else : ?>
+                                                            <span class="larg"></span>
+                                                            <span class=" fst-italic cel">not-Tp</span>
+                                                        <?php endif ?>
+                                                    </td>
+                                                    <td <?php echo "class='modee$i parent_larg p-0'" ?>>
+                                                        <input type="text" class="form-control larg text-center cel" id=<?php echo "modee$i" ?> value=<?php echo Cellule::afficheNote($matiere->note_ee); ?> size="2" maxlength="5" name=<?php echo "{$matiere->etudiant->matricule}[]" ?>>
+                                                    </td>
+                                                    <td>
+                                                        <span class=" total fw-bold">
+                                                            <?php
+                                                            $cc = (float) $matiere->note_cc;
+                                                            if ($matiere->module->istp != 0) {
+                                                                $tp = (float) $matiere->note_tp;
+                                                            } else {
+                                                                $tp = 0;
+                                                            };
+                                                            $ee = (float) $matiere->note_ee;
+                                                            if ($cc < 0 or $tp < 0 or $ee < 0) {
+                                                                echo 'EL';
+                                                            } else {
+                                                                echo round($cc + $tp + $ee, 2);
+                                                            }
+                                                            ?>
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                            <?php endforeach ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="pb-2 d-flex justify-content-around">
+                                    <button type="submit" class="soumettre btn btn-success fw-bold">Enregistrer <i class="bi bi-save"></i> </button>
+                                    <a href=<?php echo "zone_prof.php?filiere=$filiere&module=$code_mod" ?> class="btn btn-danger">Reset <i class=" bi bi-arrow-clockwise"></i></a>
+                                </div>
+                                <?php echo $prof->modifierNote() ?>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
+            <aside class=" col-md-3 d-lg-block d-none pe-3 pt-5">
+                <div class=" bg-secondary rounded-5 shadow-lg text-light p-3">
+                    <h2 class=" text-center">INFO</h2>
+                    <hr>
+                    <table class=" table-responsive">
+                        <tr>
+                            <th>/ :</th>
+                            <td>L'etudiant ne possède pas de note</td>
+                        </tr>
+                        <tr>
+                            <th>el ou EL :</th>
+                            <td>L'etudiant est éliminé</td>
+                        </tr>
+                        <tr>
+                            <th> Case vide :</th>
+                            <td>Correspond à 0</td>
+                        </tr>
+                        <tr>
+                            <th>not-TP :</th>
+                            <td>Matière non à TP</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class=" fst-italic">Le système vous préviendras en cas de données invalides en collorant la cellule concernée en rouge</td>
+                        </tr>
+                    </table>
+                </div>
+            </aside>
         </div>
     <?php endif ?>
 <?php endif ?>

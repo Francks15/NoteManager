@@ -47,7 +47,7 @@
                         <div class=" border-2 border p-2 user position-relative h-100 shadow">
                             <h3>Etudiant</h3>
                             <hr>
-                            <p>Vous êtes evalué(e) par vos professeurs dans différents UE et vous decider de consulter vos notes</p>
+                            <p>Vous êtes evalué(e)s par vos professeurs dans différents UE et vous decidez de consulter vos notes</p>
                             <form action="user/pages/connexion.php" method="get">
                                 <input type="text" name="user" value="etudiant" class="d-none">
                                 <button class="btn btn-primary position-absolute bottom-0 start-50 translate-middle">Poursuivre <i class=" bi bi-box-arrow-in-right"></i></button>
@@ -58,7 +58,7 @@
                         <div class=" border-2 border p-2 user position-relative h-100 shadow">
                             <h3>Professeur</h3>
                             <hr>
-                            <p>Vous êtes charger de gerer la notes des etudiants suivant les matières que vous enseigner</p>
+                            <p>Vous êtes charger de gerer la notes des etudiants suivant les matières que vous enseignées</p>
                             <form action="user/pages/connexion.php" method="get">
                                 <input type="text" name="user" value="professeur" class="d-none">
                                 <button class="btn btn-primary position-absolute bottom-0 start-50 translate-middle">Poursuivre <i class=" bi bi-box-arrow-in-right"></i></button>
@@ -69,7 +69,7 @@
                         <div class=" border-2 border p-2 user position-relative h-100 shadow">
                             <h3>Adminitrateur</h3>
                             <hr>
-                            <p>Vous êtes charger de controler les etudiants et professeurs</p>
+                            <p>Vous êtes chargé(e)s de controler les professeurs et modules d'enseignement</p>
                             <form action="admin/login.php" method="post">
                                 <input type="text" name="user" value="professeur" class="d-none">
                                 <button class="btn btn-primary position-absolute bottom-0 start-50 translate-middle">Poursuivre <i class=" bi bi-box-arrow-in-right"></i></button>
