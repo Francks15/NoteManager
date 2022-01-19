@@ -309,28 +309,28 @@ $title_page = "Professeur UY1";
                 </div>
             </div>
             <aside class=" col-md-3 d-lg-block d-none pe-3 pt-5">
-                <div class=" bg-secondary rounded-5 shadow-lg text-light p-3">
-                    <h2 class=" text-center">INFO</h2>
+                <div class=" bg-secondary rounded-5 shadow-lg text-light p-3 position-relative">
+                    <h2><i class=" bi bi-journal-bookmark"></i> INFO</h2>
                     <hr>
-                    <table class=" table-responsive">
+                    <table>
                         <tr>
-                            <th>/ :</th>
-                            <td>L'etudiant ne possède pas de note</td>
+                            <th>/ </th>
+                            <td><b>:</b> L'etudiant ne possède pas de note</td>
                         </tr>
                         <tr>
-                            <th>el ou EL :</th>
-                            <td>L'etudiant est éliminé</td>
+                            <th>el ou EL </th>
+                            <td><b>:</b> L'etudiant est éliminé</td>
                         </tr>
                         <tr>
-                            <th> Case vide :</th>
-                            <td>Correspond à 0</td>
+                            <th>Case vide </th>
+                            <td><b>:</b> Correspond à 0</td>
                         </tr>
                         <tr>
-                            <th>not-TP :</th>
-                            <td>Matière non à TP</td>
+                            <th>not-TP </th>
+                            <td><b>:</b> Matière non à TP</td>
                         </tr>
                         <tr>
-                            <td colspan="2" class=" fst-italic">Le système vous préviendras en cas de données invalides en collorant la cellule concernée en rouge</td>
+                            <td colspan="2" class=" fst-italic pt-3">Le système vous préviendras en cas de données invalides en collorant la cellule concernée en rouge</td>
                         </tr>
                     </table>
                 </div>

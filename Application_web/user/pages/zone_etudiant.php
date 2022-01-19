@@ -14,7 +14,7 @@ if (empty($_SESSION["etudiant"])) {
 $etudiant = $_SESSION['etudiant'];
 $a = $etudiant->nom;
 $b = $etudiant->matricule;
-$title_page="Etudiant UY1"
+$title_page = "Etudiant UY1"
 ?>
 
 <?php require_once '../require/header.php' ?>
@@ -42,77 +42,99 @@ $title_page="Etudiant UY1"
             </div>
         </div>
     </nav>
-    <div class="container my_container pb-4">
+    <div class=" d-flex">
+        <div class="container my_container col-lg-8 col-12">
 
-        <div class="text-center">
-            <h1 class="fst-italic pt-2">Vous êtes connecté(e) comme étudiant(e)</h1>
-            <hr>
-            <h2 class=" fst-italic fw-normal"><?php echo strtoupper($a) ?></h2>
-            <h2 class=" fst-italic fw-normal">Filiere: <?php echo $etudiant->filiere ?></h2>
-            <h2 class=" fst-italic fw-normal fw-bold text-decoration-underline ">MATRICULE: <?php echo $b ?></h2>
-        </div>
-        <div class="border border-primary rounded">
-            <div class=" table-responsive">
-                <table class=" table text-center table-hover table-bordered">
-                    <thead class=" table-dark">
-                        <tr>
-                            <th>#</th>
-                            <th>Module</th>
-                            <th>CC</th>
-                            <th>TP</th>
-                            <th>EE</th>
-                            <th>TOTAL</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                        $reponse = $etudiant->consulterNote();
-                        $i = 1;
-                        while ($donnes = $reponse->fetch()) :
-                        ?>
-                            <tr class=" align-middle">
-                                <th><?php echo $i ?></th>
-                                <td class=" fw-bold"><?php echo $donnes['module_code'] ?></td>
-                                <td><?php echo Cellule::afficheNote($donnes['note_cc']) ?></td>
-                                <td>
-                                    <?php if ($donnes['tp'] != 0) : ?>
-                                        <?php echo Cellule::afficheNote($donnes['note_tp']) ?>
-                                    <?php else : ?>
-                                        <span class=" fst-italic">
-                                            not-Tp
-                                        </span>
-                                    <?php endif ?>
-                                </td>
-                                <td><?php echo Cellule::afficheNote($donnes['note_ee']) ?></td>
-                                <?php $i++; ?>
-                                <td class=" fw-bold">
-                                    <?php
-                                    $cc = (float) $donnes['note_cc'];
-                                    if ($donnes['tp'] != 0) {
-                                        $tp = (float) $donnes['note_tp'];
-                                    } else {
-                                        $tp = 0;
-                                    };
-                                    $ee = (float) $donnes['note_ee'];
-                                    if ($cc < 0 or $tp < 0 or $ee < 0) {
-                                        echo 'EL';
-                                    } else {
-                                        echo round($cc + $tp + $ee, 2);
-                                    }
-                                    ?>
-                                </td>
-                                <td>
-                                    <?php echo $etudiant->envoyerRequette($donnes['email']) ?>
-                                </td>
+            <div class="text-center">
+                <h1 class="fst-italic pt-2">Vous êtes connecté(e) comme étudiant(e)</h1>
+                <hr>
+                <h2 class=" fst-italic fw-normal"><?php echo strtoupper($a) ?></h2>
+                <h2 class=" fst-italic fw-normal">Filiere: <?php echo $etudiant->filiere ?></h2>
+                <h2 class=" fst-italic fw-normal fw-bold text-decoration-underline ">MATRICULE: <?php echo $b ?></h2>
+            </div>
+            <div class="border border-primary rounded">
+                <div class=" table-responsive">
+                    <table class=" table text-center table-hover table-bordered">
+                        <thead class=" table-dark">
+                            <tr>
+                                <th>#</th>
+                                <th>Module</th>
+                                <th>CC</th>
+                                <th>TP</th>
+                                <th>EE</th>
+                                <th>TOTAL</th>
+                                <th>Action</th>
                             </tr>
-                        <?php endwhile;
-                        $reponse->closeCursor();
-                        ?>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            <?php
+                            $reponse = $etudiant->consulterNote();
+                            $i = 1;
+                            while ($donnes = $reponse->fetch()) :
+                            ?>
+                                <tr class=" align-middle">
+                                    <th><?php echo $i ?></th>
+                                    <td class=" fw-bold"><?php echo $donnes['module_code'] ?></td>
+                                    <td><?php echo Cellule::afficheNote($donnes['note_cc']) ?></td>
+                                    <td>
+                                        <?php if ($donnes['tp'] != 0) : ?>
+                                            <?php echo Cellule::afficheNote($donnes['note_tp']) ?>
+                                        <?php else : ?>
+                                            <span class=" fst-italic">
+                                                not-Tp
+                                            </span>
+                                        <?php endif ?>
+                                    </td>
+                                    <td><?php echo Cellule::afficheNote($donnes['note_ee']) ?></td>
+                                    <?php $i++; ?>
+                                    <td class=" fw-bold">
+                                        <?php
+                                        $cc = (float) $donnes['note_cc'];
+                                        if ($donnes['tp'] != 0) {
+                                            $tp = (float) $donnes['note_tp'];
+                                        } else {
+                                            $tp = 0;
+                                        };
+                                        $ee = (float) $donnes['note_ee'];
+                                        if ($cc < 0 or $tp < 0 or $ee < 0) {
+                                            echo 'EL';
+                                        } else {
+                                            echo round($cc + $tp + $ee, 2);
+                                        }
+                                        ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $etudiant->envoyerRequette($donnes['email']) ?>
+                                    </td>
+                                </tr>
+                            <?php endwhile;
+                            $reponse->closeCursor();
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
+        <aside class=" col-md-3 d-lg-block d-none pe-3 pt-5">
+            <div class=" bg-secondary rounded-5 shadow-lg text-light p-3">
+                <h2><i class=" bi bi-journal-bookmark"></i> INFO</h2>
+                <hr>
+                <table>
+                    <tr>
+                        <th>/ </th>
+                        <td><b>:</b> L'etudiant ne possède pas de note</td>
+                    </tr>
+                    <tr>
+                        <th>el ou EL </th>
+                        <td><b>:</b> L'etudiant est éliminé</td>
+                    </tr>
+                    <tr>
+                        <th>not-TP </th>
+                        <td><b>:</b> Matière non à TP</td>
+                    </tr>
+                </table>
+            </div>
+        </aside>
     </div>
 <?php endif ?>
 <?php require '../require/footer.php' ?>

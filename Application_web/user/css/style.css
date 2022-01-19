@@ -163,4 +163,5 @@ aside{
 aside th{
     display: inline-block;
     width: max-content;
+    text-align: justify;
 }
