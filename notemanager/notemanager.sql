@@ -18,6 +18,7 @@
 --
 -- Table structure for table `admins`
 --
+
 CREATE SCHEMA IF NOT EXISTS `notemanager` DEFAULT CHARACTER SET utf8 ;
 USE `notemanager` ;
 
@@ -196,7 +197,7 @@ CREATE TABLE `professeurs` (
 
 LOCK TABLES `professeurs` WRITE;
 /*!40000 ALTER TABLE `professeurs` DISABLE KEYS */;
-INSERT INTO `professeurs` VALUES (1,5,'Merlin Fosto','merlin','Docteur, Cameroun','','','admin','2022-01-18 19:44:01','M','merlin@gmail.com','professeur'),(2,6,'Frank Teet','qwertyuiop','Docteur, camerounaise, female, ','','','admin','2022-01-12 11:22:01','F','tab@email.com','professeur'),(3,8,'Prof Huima Gile Gaston','jean','c\'est un professeur','','','admin','','M','ba@mail.com','professeur'),(4,9,'Pr Arthur Stephane','azerty','Professeur, Tchadiens','','','admin','2022-01-18 14:26:01','M','arthur@email.com',NULL),(5,10,'YAN JOAN','yan','Professeur, Gabonais','','','admin','2022-01-18 15:04:01','M','yan@gmail.com',NULL),(6,10,'justine Aureylienne','justine','Docteur, Camerounais','','','admin','2022-01-18 16:58:01','F','justine@gmail.com',NULL),(7,10,'jean Audrey','jean','Docteur, Canada','','','admin','2022-01-18 16:17:01','M','jean@yahoo.com',NULL),(8,NULL,'AEUMO DNAED','1',NULL,NULL,NULL,'admin',NULL,'M','a@gmail.com','professeur'),(9,NULL,'Dr AJDI JDIOE','1',NULL,NULL,NULL,'admin',NULL,'M','b@gmail.com','professeur'),(10,NULL,'Dr JEAN DINE','1',NULL,NULL,NULL,'admin',NULL,'F','c@gmail.com','professeur'),(11,NULL,'Dr JNDO RENIDEOT','1',NULL,NULL,NULL,'admin',NULL,'M','d@gmail.com','professeur'),(12,NULL,'Prof Mathieu Jean','1',NULL,NULL,NULL,'admin',NULL,'F','e@gmail.com','professeur');
+INSERT INTO `professeurs` VALUES (1,5,'Merlin Fosto','1','Docteur, Cameroun','','','admin','2022-01-18 19:44:01','M','merlin@gmail.com','professeur'),(2,6,'Frank Teet','1','Docteur, camerounaise, female, ','','','admin','2022-01-12 11:22:01','F','tab@email.com','professeur'),(3,8,'Prof Huima Gile Gaston','1','c\'est un professeur','','','admin','','M','ba@mail.com','professeur'),(4,9,'Pr Arthur Stephane','1','Professeur, Tchadiens','','','admin','2022-01-18 14:26:01','M','arthur@email.com',NULL),(5,10,'YAN JOAN','1','Professeur, Gabonais','','','admin','2022-01-18 15:04:01','M','yan@gmail.com',NULL),(6,10,'justine Aureylienne','1','Docteur, Camerounais','','','admin','2022-01-18 16:58:01','F','justine@gmail.com',NULL),(7,10,'jean Audrey','1','Docteur, Canada','','','admin','2022-01-18 16:17:01','M','jean@yahoo.com',NULL),(8,NULL,'AEUMO DNAED','1',NULL,NULL,NULL,'admin',NULL,'M','a@gmail.com','professeur'),(9,NULL,'Dr AJDI JDIOE','1',NULL,NULL,NULL,'admin',NULL,'M','b@gmail.com','professeur'),(10,NULL,'Dr JEAN DINE','1',NULL,NULL,NULL,'admin',NULL,'F','c@gmail.com','professeur'),(11,NULL,'Dr JNDO RENIDEOT','1',NULL,NULL,NULL,'admin',NULL,'M','d@gmail.com','professeur'),(12,NULL,'Prof Mathieu Jean','1',NULL,NULL,NULL,'admin',NULL,'F','e@gmail.com','professeur');
 /*!40000 ALTER TABLE `professeurs` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -209,4 +210,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-19 20:24:19
+-- Dump completed on 2022-01-19 21:03:07
