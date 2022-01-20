@@ -156,6 +156,7 @@ $title_page = "Professeur UY1";
     foreach ($prof->module as $module) {
         if ($module->filiere == $filiere && $module->code == $code_mod) {
             $trouve = true;
+            $istp = (int) $module->istp;
             break;
         }
     }
@@ -186,6 +187,13 @@ $title_page = "Professeur UY1";
                                 Echec Enregistrement
                             </div>
                             <hr>
+                            <div class=" d-flex flex-wrap justify-content-sm-around justify-content-center">
+                                <a class=" btn mb-2 btn-dark" href=<?php echo "pdf.php?filiere=$filiere&module=$code_mod&impression=cc&istp=$istp" ?> target="_blank"><i class=" bi bi-printer-fill"></i> Imprimer CC</a>
+                                <?php if ($istp) : ?>
+                                    <a class=" btn mb-2 btn-dark" href=<?php echo "pdf.php?filiere=$filiere&module=$code_mod&impression=tp&istp=$istp" ?> target="_blank"><i class=" bi bi-printer-fill"></i> Imprimer CC-TP</a>
+                                <?php endif ?>
+                                <a class=" btn mb-2 btn-dark" href=<?php echo "pdf.php?filiere=$filiere&module=$code_mod&impression=tout&istp=$istp" ?> target="_blank"><i class=" bi bi-printer-fill"></i> Imprimer Tout</a>
+                            </div>
                             <form action=<?php echo "zone_prof.php?filiere=$filiere&module=$code_mod" ?> method="post">
                                 <div class=" table-responsive">
                                     <table class=" table table-hover table-bordered w-max">
@@ -259,7 +267,7 @@ $title_page = "Professeur UY1";
                                                     <div class="alert alert-success enregistrement" role="alert">
                                                         Enregistrement réussi
                                                     </div>
-                                                <?php else :?>
+                                                <?php else : ?>
                                                     <div class="alert alert-secondary enregistrement" role="alert">
                                                         Aucun changement détecté
                                                     </div>
