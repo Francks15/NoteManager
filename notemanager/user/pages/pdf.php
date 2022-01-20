@@ -10,7 +10,6 @@ if (empty($_SESSION["prof"])) {
 
 $prof = $_SESSION['prof'];
 $a = $prof->nom;
-$title_page = "Impression Notes";
 
 ?>
 
@@ -22,6 +21,8 @@ $title_page = "Impression Notes";
     $code_mod = $_GET['module'];
     $impression = $_GET['impression'];
     $istp = $_GET['istp'];
+    $title_page = "Note_{$code_mod}_$filiere";
+
     foreach ($prof->module as $module) {
         if ($module->filiere == $filiere && $module->code == $code_mod) {
             $trouve = true;
@@ -52,13 +53,13 @@ $title_page = "Impression Notes";
                 </a>
             </div>
 
-            <div class=" container text-center">
+            <div class=" container text-center pt-4">
                 <h2 class=" fst-italic">Filiere: <?php echo $filiere ?></h2>
                 <h2 class=" text-decoration-underline">Module : <?php echo $code_mod ?></h2>
                 <hr>
                 <div class=" table-responsive">
                     <table class=" table table-bordered border-dark w-max" id="dow">
-                        <thead class=" table-secondary">
+                        <thead class=" table-info border-dark">
                             <tr>
                                 <th>#</th>
                                 <th>Matricule</th>
