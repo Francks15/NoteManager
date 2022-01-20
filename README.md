@@ -1,24 +1,24 @@
 # NoteManager
 
-  TITRE: GESTION DES NOTES DE L'UNIVERSITE DE YAOUNDE 1
+  TITRE: GESTION DES NOTES DE L'UNIVERSITE DE YAOUNDE 1: FACULTE DE SCIENCES
 -----------------------------------------------------------------------------
 
-MEMBRES: 
+MEMBRES ET PSEUDO: 
   
-  19M2493            KAMGA MOTADJE FRANCK DONALD
-  _______________________________________________________
+  19M2493            KAMGA MOTADJE FRANCK DONALD         pseudo:Francks15
+  _________________________________________________      ______
   
-  18T2726            TABUGUIA TABUGUIA FRANK JUNIOR
-  ______________________________________________________ 
+  18T2726            TABUGUIA TABUGUIA FRANK JUNIOR     pseudo:franktabs
+  _________________________________________________     _____ 
   
-  18T2571            ESSIMI MVONDO ODILE ROSITA
-  _______________________________________________________
+  18T2571            ESSIMI MVONDO ODILE ROSITA         pseudo: rositaE6mi
+  _______________________________________________       ________
    
-  17T2857            MEKOUO FOTSO NIVELLE SOLENNE
-  _______________________________________________________
+  17T2857            MEKOUO FOTSO NIVELLE SOLENNE       pseudo:nivellefotso
+  _______________________________________________       ________
    
-  18T2513            ABADA ZENE JOEL KEVIN
-  _______________________________________________________
+  18T2513            ABADA ZENE JOEL KEVIN              pseudo:zalaka18t
+  ______________________________________________        _________
   
  
  ------------------------------------------------------------------------------
