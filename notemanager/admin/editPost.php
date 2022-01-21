@@ -31,7 +31,7 @@ if(isset($_POST['submit'])){
     else if(empty($_POST['body'])){
         $errors = "The body field is required";
     }else{
-        $title = mysqli_escape_string($con,$_POST['title']);
+        $title = mysqli_escape_string($con,$_POST['title']);//update name
         $codep = mysqli_escape_string($con,$_POST['codep']);
         $body = mysqli_escape_string($con,$_POST['body']);
         $categorie = mysqli_escape_string($con,empty($_POST['categorie']) ? $category['id'] : $_POST['categorie']);
