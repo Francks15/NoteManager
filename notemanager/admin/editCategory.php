@@ -20,7 +20,7 @@ if(isset($_POST['submit'])){
         $level = mysqli_escape_string($con,$_POST['level']);
         $codeu = mysqli_escape_string($con,$_POST['codeu']);
         $filiere = mysqli_escape_string($con,$_POST['filiere']);
-        $query = "UPDATE module SET name = '$name', level='$level', codeu='$codeu' WHERE id = '$id'";
+        $query = "UPDATE module SET name = '$name', level='$level', codeu='$codeu' WHERE id = '$id'";//table Module
         if(mysqli_query($con,$query)){
             $message = '<div class="alert alert-success">
                        Category added
