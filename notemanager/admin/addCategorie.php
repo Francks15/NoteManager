@@ -17,7 +17,7 @@ if (isset($_POST['submit'])) {
     } else if (empty($_POST['codeu'])) {
         $errors = "The codeu field is required";
     } else {
-        $name = mysqli_escape_string($con, $_POST['name']);
+        $name = mysqli_escape_string($con, $_POST['name']);//nom module
         $level = mysqli_escape_string($con, $_POST['level']);
         $filiere = mysqli_escape_string($con, $_POST['filiere']);
         $codeu = mysqli_escape_string($con, $_POST['codeu']);
