@@ -15,7 +15,7 @@ $query = "SELECT * FROM module";
           <hr>
           <?php
               if(isset($_GET['deleted'])){
-                  echo '<div class="alert alert-success">Category deleted</div><br>';
+                  echo '<div class="alert alert-success">categorie supprimée</div><br>';
               }
           ?>
           <div class="table-responsive">
