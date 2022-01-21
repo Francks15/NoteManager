@@ -30,7 +30,7 @@ if(isset($_POST['submit'])){
         //upload image to images
         $directory = "images/";
         $file = $directory.basename($_FILES["image"]["name"]);//image
-        $filecv = $directory.basename($_FILES["cv"]["name"]);//image
+        $filecv = $directory.basename($_FILES["cv"]["name"]);
         $author =  $_SESSION['admin_name'];   //person qui l'enregistre 
         $created = date('Y-m-d H:s:m');//date d'eregistrement
         $query = "INSERT INTO professeurs (title,codep,body,image,cv,author,category_id,created,sexe,email) values('$title','$codep','$body','$image','$cv','$author','$categorie','$created','$sexe','$email')";
