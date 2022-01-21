@@ -3,15 +3,15 @@ include('includes/header.php');
 if(!isset($_SESSION['admin'])){
   header("location:login.php");
 }
-$query = "SELECT * FROM articles";
+$query = "SELECT * FROM professeurs";
 if(mysqli_query($con,$query)){
   $result = mysqli_query($con,$query);
-  $articles = $result->num_rows;
+  $module = $result->num_rows;
 }
-$query = "SELECT * FROM categories";
+$query = "SELECT * FROM module";
 if(mysqli_query($con,$query)){
   $result = mysqli_query($con,$query);
-  $categories = $result->num_rows;
+  $module = $result->num_rows;
 }
 $query = "SELECT * FROM admins";
 if(mysqli_query($con,$query)){
@@ -62,8 +62,8 @@ if(mysqli_query($con,$query)){
       data.addColumn('string', 'Topping');
       data.addColumn('number', 'Slices');
       data.addRows([
-        ['Posts', <?php echo $articles; ?>],
-        ['Categories',  <?php echo $categories; ?>],
+        ['Posts', <?php echo $professeurs; ?>],
+        ['Categories',  <?php echo $module; ?>],
         ['Comments',  <?php echo $comments; ?>],
         ['Admins', <?php echo $admins; ?>],
         ['users',  <?php echo $users; ?>],
