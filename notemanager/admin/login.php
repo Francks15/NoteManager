@@ -1,5 +1,5 @@
 <?php 
-include('includes/header.php');
+include('includes/header.php');//tete de page
 if(isset($_SESSION['admin']) && $_SESSION['admin'] == true){
     header("location:dashboard.php");
 }
