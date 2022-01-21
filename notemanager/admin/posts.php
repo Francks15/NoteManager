@@ -1,5 +1,6 @@
 <?php include('includes/header.php');?>
 <?php
+//gestion affichage info Professeur
 if(!isset($_SESSION['admin'])){
   header("location:login.php");
 }
