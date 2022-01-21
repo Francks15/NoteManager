@@ -1,5 +1,6 @@
 <?php include('includes/header.php');?>
 <?php
+//zone2 de requetes
 if(!isset($_SESSION['admin'])){
   header("location:login.php");
 }
